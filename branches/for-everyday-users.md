@@ -35,7 +35,7 @@ Tier 3：本地 LLM（隱私敏感、API 費用敏感、想 offline）
 ### Tier 0 — 網頁 / 手機 App ⭐ 入門
 
 #### [Claude.ai](https://claude.ai) ⭐⭐⭐⭐⭐
-Anthropic 官方介面。寫長文章、深度討論、複雜問題的首選——回答風格較收斂、不會瞎掰。
+Anthropic 官方介面。長文章、深度討論、複雜問題很適合用——回答風格較收斂、不太瞎掰。
 
 #### [ChatGPT](https://chatgpt.com) ⭐⭐⭐⭐⭐
 OpenAI 官方介面。生態最廣（GPTs、Custom Instructions、Voice mode）。一般用途的標準選擇。
@@ -61,6 +61,8 @@ ChatGPT 桌面版。可以對螢幕截圖問問題、語音對話、跟其他 Ap
 ### Tier 2 — CLI Agent（願意學命令列的進階使用者）
 
 > 這些工具雖然定位給開發者，但**日常使用者也能用**——例如批次重新命名檔案、整理下載資料夾、自動寫每週回顧、把 PDF 摘要存成 Markdown。
+>
+> 想看詳細比較？見 [`resources/cli-agents-guide.md`](../resources/cli-agents-guide.md)（6 個主流 CLI agent 並列、依 use case 推薦、常見坑、實用搭配）。
 
 #### [anthropics/claude-code](https://github.com/anthropics/claude-code) ⭐⭐⭐⭐⭐
 ★ 120k+ — Anthropic 官方的 CLI agent。能讀寫檔案、執行指令、做多步驟任務。**日常使用者最容易上手的 CLI 工具**。

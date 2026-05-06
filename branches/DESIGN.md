@@ -1,0 +1,163 @@
+# Branch 設計筆記
+
+> 這份是給 maintainer 看的內部文件，**不是讀者面向的內容**。
+>
+> 5 個 branch 怎麼分、entry 怎麼判斷該放哪、什麼時候要不要新開 branch——這些設計決定的記錄。新 maintainer 接手時看這份就懂為什麼是這樣分。
+
+---
+
+## 為什麼是 5 個 branch（不是 3 個或 10 個）
+
+### 太少（≤3）的問題
+3 個會強行把多個 audience 塞同一條，譬如「professional」涵蓋 dev + researcher + knowledge worker——但他們的 pain point 完全不同。研究者要 grounded citation，開發者要 git-native，知識工作者要 email triage——硬擠成一條 branch 會讓 entry 互相 dilute。
+
+### 太多（≥7）的問題
+audience 切太細會：
+- 每個 branch 都很薄（沒幾個 entry），讀者覺得不被照顧
+- 邊界開始模糊（資料科學家 vs 機器學習工程師？產品經理 vs 顧問？）
+- maintain cost 暴漲（每季 review N 個 branch）
+
+### 5 是 sweet spot
+4 個職業（research / dev / teach / knowledge work）覆蓋大部分專業場景；第 5 個 everyday users 收尾「不寫 code 的純使用者」這條沒被任何職業 branch 照顧到的 audience。
+
+**判準**：每個 branch 都應該對應到一個**讀者一秒就能自我認領**的身份標籤。如果 maintainer 自己都要想 30 秒才能決定一個 entry 該放哪，就是 branch 切得不夠清楚。
+
+---
+
+## 5 個 audience 的核心 pain point
+
+每個 branch 都是回應一個具體 pain，不是涵蓋一整個職業生涯：
+
+| Branch | 核心 pain | branch 主要回應 |
+|---|---|---|
+| 🔬 研究人員 | 「我要 review 100 篇 paper、寫 lit review，但時間不夠」 | 文獻 RAG、Outline-driven 寫作、Zotero 整合 |
+| 💻 開發者 | 「我有 10 個 PR 要 review、每個 codebase 都不同 convention」 | git-native CLI、IDE coding agent、code review skill |
+| 🎓 教師 | 「備課要花 4 小時、我手上的 prompt 都太通用」 | 學科特化 prompt、課程素材、評量自動化 |
+| 📊 知識工作者 | 「每天信箱 100 封、會議紀錄要轉成 action items、隔天還要寫 weekly report」 | Email triage、會議紀錄、自動化 workflow |
+| 👥 日常使用者 | 「我不寫 code，但想用 AI 改善生活，不知道從哪開始」 | Tier 0 入門到 Tier 2 進階 CLI 的階梯式路線 |
+
+每個 branch 的 entry 選入都應該回到「能不能解決核心 pain」這個問題。如果不能，就是 entry 該放別的地方。
+
+---
+
+## Branch 之間的邊界
+
+判斷一個 entry 該放哪個 branch，按這 3 條判準依序考慮：
+
+### 1. 主要 user persona
+看上面 pain table——這個 entry 解決的是哪一個 audience 的 pain？通常很清楚。
+
+### 2. 預期動手程度
+不寫 code 的工具 → 偏 everyday-users / knowledge-worker。CLI / SDK 工具 → 偏 developer。介於中間（譬如 ChatPaper 是命令列但對研究者友善）→ 看 #1 主要 persona。
+
+### 3. 應用場景
+同一個工具在不同場景下歸類不同。例如：
+- **Ollama**：給 everyday-users 是「隱私場景跑本地 LLM」（Tier 3），給 developer 是「開發 agent 的本地測試 backend」——但這份 catalog 把它放在 **Stage 1**（基礎設施層級），各 branch 從那裡引用。
+- **f/awesome-chatgpt-prompts**：放 for-teacher（給教師當教材參考）、也放 for-everyday-users（不寫 code 也能用的 prompt 庫）。
+
+### 灰色地帶處理（同一 repo 出現在多 branch）
+
+**規則**：同一 repo 可以在多 branch 出現，但每處要有不同的 **framing**（適合誰、教什麼）。**推薦星等預設一致**——同一個工具的客觀價值不會因 audience 改變；除非有明確的 audience-specific 理由（譬如「進階度差太多」），且寫進 Notes 解釋。詳見 [`resources/style-guide.md`](../resources/style-guide.md) §2。
+
+**範例**：
+- `obra/superpowers` 出現在 Stage 5、for-developer、for-knowledge-worker、for-teacher
+  - Stage 5：作為 SKILL.md collection 範例
+  - for-developer：作為 TDD / debug skill 來源
+  - for-knowledge-worker：作為腦力激盪 / 規劃 skill
+  - for-teacher：作為通用寫作 skill
+  - **4 處都是 ⭐⭐⭐⭐**（這是規則的正例：framing 不同、評等一致）
+
+**反例（不該這樣做）**：
+- `kaixindelele/ChatPaper` 只放 for-researcher，不放 for-everyday-users。原因：它是研究者專用流程（總結 / 翻譯 / 審稿回覆），everyday user 用不到也不該被推。
+
+---
+
+## 兩種 entry 結構：tier vs flat
+
+### Tier 結構（目前只用在 for-everyday-users）
+```
+Tier 0 → Tier 1 → Tier 2 → Tier 3
+（網頁→桌面→CLI→本地 LLM）
+```
+**用 tier 的條件**：audience 內部「動手程度差很多」。Everyday users 從「打開 Claude.ai」到「跑 Ollama 本地 LLM」差距太大，不分 tier 會混亂。
+
+### Flat 結構（其他 4 個 branch 都用這個）
+單一個 list，照子主題分類（Coding Agents / Code Review / Workflow Tools 等）。
+**用 flat 的條件**：audience 內部相對同質——研究者多半願意動手用 CLI、開發者一定會寫 code，沒必要分 tier。
+
+### 什麼時候從 flat 升級成 tier
+觀察 issue / PR 是否反覆出現「**這個 entry 太進階 / 太簡單**」抱怨。若 ≥3 個讀者反映該 branch 內 entry 落差太大，考慮分 tier。
+
+---
+
+## 自我引用排除原則
+
+`WenyuChiou/*` repo 一律不收（已從 catalog 移除 32 instances）。
+
+### 例外（什麼條件下作者自己的 repo 才能加回去）
+1. 該 repo 在某個 stage / branch 是**唯一夠用的選項**（沒其他社群替代）
+2. 至少 2 個 stage maintainer 簽字同意
+3. 在 entry notes 明確標註「作者維護的 repo，含利益關係」
+4. 加一個「替代品」連結，方便讀者比較
+
+**目前 0 個 entry 滿足這 4 條**——保持 0 個是健康狀態。
+
+---
+
+## 加新 branch 的決策樹
+
+```
+有人提議加新 branch
+    ↓
+1. 這個 audience 的 pain 已經被現有 5 個 branch 涵蓋了嗎？
+    ├─ 是 → 加 sub-section 到那個 branch，不開新 branch
+    └─ 否 → 繼續
+2. 這個 audience 在中文社群至少有 1 萬人嗎？（reachable scale）
+    ├─ 否 → 加 sub-section
+    └─ 是 → 繼續
+3. 至少有 2 個 maintainer 願意承諾每季 review 1 次？
+    ├─ 否 → 加 sub-section（沒人維護的 branch 會 rot）
+    └─ 是 → 繼續
+4. 至少能找到 5 個 quality entries？
+    ├─ 否 → 加 sub-section
+    └─ 是 → 開新 branch
+```
+
+### 範例：要不要加 `for-data-scientists`？
+- pain 已被 for-researcher 涵蓋（文獻 RAG、實驗設計）
+- audience scale 大，但跟 researcher 重疊高
+- 結論：不加 branch，但可以在 for-researcher 加「資料科學工具」 sub-section
+
+### 範例：要不要加 `for-product-managers`？
+- pain 已被 for-knowledge-worker 涵蓋（會議紀錄、report、跨 team 溝通）
+- audience scale 大但邊界跟 knowledge-worker 模糊
+- 結論：不加 branch，在 for-knowledge-worker 加「產品經理」use case
+
+---
+
+## 5 條 branch 的 maintenance 預期
+
+### Review 頻率
+- **每季**：每個 branch 至少 review 一次。Stage maintainer 跑 `python scripts/refresh-stars.py`，flag drift；跑 `python scripts/check-links.py --fast`，flag 死鏈。
+- **每半年**：審視整個 branch 的「**這個 audience 的 pain 還是這樣嗎？**」——市場移動快，半年前的 pain 可能已不重要。
+
+### Entry 加入 / 移除節奏
+- 加入：每季 0-3 個新 entry（不主動推增）。stale 進來的多會 dilute branch。
+- 移除：archived / pushed > 6 個月 / license 變奇怪 → 標 ⚠️ 並準備移除。給 1 個月窗口收意見。
+
+### 跟 main path stages 的同步義務
+- 如果 stage 1-7 改了某個 entry，branch 引用該 entry 的地方必須同步更新（star 數、license、framing）
+- 用 `scripts/refresh-stars.py` cross-stage 檢查可以捕到 star drift；但 framing drift 要人工
+
+### Maintainer 自薦 / 退場機制
+- 自薦：開 issue 標題 `[maintainer] for-X branch — your-handle`，註明承諾期（建議 ≥ 3 個月）
+- 退場：不需要 ceremony——維持沉默 2 個月，自動視為退場，新人接手
+- 詳見 [`CONTRIBUTORS.md`](../CONTRIBUTORS.md)
+
+---
+
+## 不在這份的內容
+
+- **個別 branch 的 entry 詳細**：見 `for-X.md` 本身
+- **stage 設計理由**：見 [`../stages/DESIGN.md`](../stages/DESIGN.md)
+- **entry schema / 用詞規範**：見 [`../resources/style-guide.md`](../resources/style-guide.md)

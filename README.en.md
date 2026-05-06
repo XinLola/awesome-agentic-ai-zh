@@ -64,8 +64,7 @@ cd awesome-agentic-ai-zh
 
 ![AI Agent Learning Map](resources/diagrams/learning-map.png)
 
-<details>
-<summary>Interactive version (Mermaid, screen-reader friendly)</summary>
+> Text version (screen-reader friendly / for mdBook):
 
 ```mermaid
 flowchart LR
@@ -91,8 +90,6 @@ flowchart LR
     style K fill:#f3e8ff,stroke:#6b21a8
     style E fill:#fef9c3,stroke:#854d0e
 ```
-
-</details>
 
 | Stage | Topic | Key Content | Time |
 |---|---|---|---|

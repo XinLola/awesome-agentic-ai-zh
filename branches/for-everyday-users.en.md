@@ -59,6 +59,8 @@ Desktop version of ChatGPT. Ask questions about screenshots, voice conversation,
 ### Tier 2 — CLI Agents (advanced users willing to learn the command line)
 
 > These tools are positioned for developers but **everyday users can use them too** — e.g. batch-rename files, organize the Downloads folder, auto-write weekly reviews, summarize PDFs into Markdown.
+>
+> Want a detailed comparison? See [`resources/cli-agents-guide.en.md`](../resources/cli-agents-guide.en.md) — six major CLI agents side by side, recommendations by use case, common pitfalls, real-world setups.
 
 #### [anthropics/claude-code](https://github.com/anthropics/claude-code) ⭐⭐⭐⭐⭐
 ★ 120k+ — Anthropic's official CLI agent. Reads/writes files, runs commands, handles multi-step tasks. **The most beginner-friendly CLI tool for everyday users.**

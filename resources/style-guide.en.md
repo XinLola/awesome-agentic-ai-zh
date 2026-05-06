@@ -281,6 +281,14 @@ Branch entries can be more concise than stage entries (full schema table optiona
 
 ---
 
+## Related Internal Design Docs
+
+This style guide covers "how to write an entry." For **design rationale** — why these 5 branches, why 7 stages — see:
+
+- [`branches/DESIGN.md`](../branches/DESIGN.md) — Branch design notes (why these audiences, where entries belong) (zh)
+- [`stages/DESIGN.md`](../stages/DESIGN.md) — Stage design notes (why this structure, how Hello-X is chosen) (zh)
+- [`cli-agents-guide.en.md`](cli-agents-guide.en.md) — Cross-cutting CLI agent comparison
+
 ## Modifying this guide
 
 PRs to this guide are welcome. Open an Issue first to discuss — terminology decisions affect 100+ entries.

@@ -77,8 +77,7 @@ cd awesome-agentic-ai-zh
 
 ![AI Agent 學習地圖](resources/diagrams/learning-map.png)
 
-<details>
-<summary>互動式版本（Mermaid，screen reader 友善）</summary>
+> 文字版（screen reader 友善 / mdBook 用）：
 
 ```mermaid
 flowchart LR
@@ -104,8 +103,6 @@ flowchart LR
     style K fill:#f3e8ff,stroke:#6b21a8
     style E fill:#fef9c3,stroke:#854d0e
 ```
-
-</details>
 
 | Stage | 主題 | 關鍵內容 | 時程 |
 |---|---|---|---|

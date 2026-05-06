@@ -14,6 +14,8 @@
 
 ## 精選 Projects
 
+> 6 個主流 CLI agent（Claude Code / Codex / OpenCode / Gemini CLI / goose / Aider）的並列比較見 [`resources/cli-agents-guide.md`](../resources/cli-agents-guide.md)。下面只列開發者該知道的關鍵 entry。
+
 ### Coding Agents
 
 #### [Cursor](https://www.cursor.com/) ⭐⭐⭐⭐⭐

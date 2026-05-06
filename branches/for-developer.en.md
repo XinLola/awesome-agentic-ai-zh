@@ -12,6 +12,8 @@
 
 ## Curated Projects
 
+> Six major CLI agents (Claude Code / Codex / OpenCode / Gemini CLI / goose / Aider) compared side-by-side in [`resources/cli-agents-guide.en.md`](../resources/cli-agents-guide.en.md). Below lists only the key entries developers should know.
+
 ### Coding Agents
 
 #### [Cursor](https://www.cursor.com/) ⭐⭐⭐⭐⭐
