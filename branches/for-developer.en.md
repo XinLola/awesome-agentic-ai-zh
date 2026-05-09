@@ -55,3 +55,85 @@ Open-source autonomous software development agent.
 - **AI checks in CI**: use Continue to wire AI checks into your PR pipeline
 - **Test generation**: write a skill / prompt that generates pytest tests from a function signature
 - **Code review automation**: GitHub Action calling Claude API on every PR
+
+### 3 Concrete Workflow Recipes
+
+**1. AI Pair Programming (daily cadence)**
+1. Start a feature → `git checkout -b feature/xxx`
+2. Hand the task to Claude Code / Cursor — **make it write a plan first** (don't dive into code)
+3. Review the plan, course-correct → only then approve coding
+4. After it's done: run tests + lint → review the diff yourself (**don't blind-accept**)
+5. Write the commit message yourself, or have AI draft and edit before committing
+
+**2. Aider Git-Native Flow (closest "pair with AI" experience)**
+```bash
+# Inside the repo
+aider --model anthropic/claude-sonnet-4-20250514
+
+# Natural-language ask
+> Add a timezone parameter to parse_date in utils.py, default UTC
+
+# Aider edits + commits automatically. To roll back:
+> /undo  # undoes the last AI commit
+```
+
+**3. PR-time Claude code review (GitHub Action)**
+
+`.github/workflows/claude-review.yml`:
+```yaml
+on:
+  pull_request:
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Run Claude review
+        env: { ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} }
+        run: |
+          # Use anthropics/claude-code-action or your own script
+          # Get git diff, run prompt, post results back to PR
+```
+Reference: official [`anthropics/claude-code-action`](https://github.com/anthropics/claude-code-action) GitHub Action.
+
+## Common Pitfalls (Anti-patterns)
+
+| ❌ Don't | ✅ Do instead |
+|---|---|
+| Let AI push directly to main | Always go through PR → review → merge |
+| Blind-accept large refactor diffs | Break into < 50 LOC chunks, review each |
+| Hand `.env` / API keys to the AI | Use `.aiignore` / `.cursorignore` to exclude secrets |
+| Let AI run shell freely against production code | Sandbox + permission whitelist |
+| Take AI-generated tests at face value | Run coverage + intentionally break a unit to see if tests catch it |
+| Discover wrong direction after many commits | **Plan-first** mode: review the plan before any coding |
+
+## Tier Upgrade Path
+
+- **Tier 0**: Cursor / Claude Desktop — IDE chat, no agents
+- **Tier 1**: Claude Code / Cline / OpenCode — CLI with file-system access and CLAUDE.md, still human-in-the-loop
+- **Tier 2**: Author your own Skills + MCP servers — package your dev workflow as shared team skills
+- **Tier 3**: Auto-running agents in CI + production observability — graduates to [Stage 7](../stages/07-multi-agent-production.en.md) territory
+
+> Tier 0-1 covers ~90% of developers. **Validate ROI before going Tier 2+**: only worth the investment if your team is large, flows are repetitive, and incidents are irreversible.
+
+## Other Branches Also Apply
+
+Branches that overlap heavily with developers:
+
+- **Doing ML research / writing papers** → [Researcher branch](./for-researcher.en.md)
+- **Wire Notion / Linear / Atlassian / Postgres / Figma into your CLI** → [`resources/mcp-skills-catalog.en.md`](../resources/mcp-skills-catalog.en.md)
+- **Author your own Skill / MCP server** → [Stage 5](../stages/05-claude-code-ecosystem.en.md) + [`resources/cookbook.en.md`](../resources/cookbook.en.md)
+- **Schema design details** → [`resources/schema-design-cheatsheet.en.md`](../resources/schema-design-cheatsheet.en.md)
+- **CLI from zero** → [Track A](../tracks/cli/A1-cli-intro.en.md) (A1 → A2 → A3)
+
+## Community Note
+
+Contributions especially welcome:
+
+- IDE-specific config templates (Cursor `.cursorrules`, Claude Code `CLAUDE.md` for Python / Go / Rust, etc.)
+- Language-specific Skills (Python / TypeScript / Rust / Go best-practice patterns)
+- CI / pre-commit hook integration case studies
+- **Multi-developer team governance** — sharing Skills across devs, permission design, cost tracking
+
+See [CONTRIBUTING.md](../CONTRIBUTING.md).

@@ -53,4 +53,86 @@ Open source 的自主软件开发 agent。
 - **Git-native AI 编辑**：用 Aider 跑一周，习惯「AI 编辑 → commit → review」这个节奏
 - **CI 上的 AI check**：用 Continue 把 AI 检查接到 PR pipeline
 - **测试生成**：写一个 skill / prompt，从 function signature 生成 pytest 测试
-- **Code review 自动化**：在每一个 PR 上呼叫 Claude API 的 GitHub Action
+- **Code review 自动化**：在每一个 PR 上调用 Claude API 的 GitHub Action
+
+### 3 个具体 workflow recipe
+
+**1. AI 结对编程（每日节奏）**
+1. 开新 feature → `git checkout -b feature/xxx`
+2. 把任务丢给 Claude Code / Cursor，**先让它写 plan**（不直接写 code）
+3. Review plan、修正方向 → 才 approve 写 code
+4. 写完跑 tests + lint → 自己 review diff（**不要 blind accept**）
+5. Commit message 自己写或 prompt 生草稿后改
+
+**2. Aider git-native 流程（最像「跟 AI pair」）**
+```bash
+# 进入 repo 后
+aider --model anthropic/claude-sonnet-4-20250514
+
+# 自然语言请求
+> 帮我把 utils.py 的 parse_date 加上时区参数，默认 UTC
+
+# Aider 会自动编辑 + commit。若不满意：
+> /undo  # 退掉最后一次 AI commit
+```
+
+**3. PR 上的 Claude code review（GitHub Action）**
+
+`.github/workflows/claude-review.yml`：
+```yaml
+on:
+  pull_request:
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Run Claude review
+        env: { ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} }
+        run: |
+          # 用 anthropics/claude-code-action 或自写 script
+          # 抓 git diff、跑 prompt、结果 post 回 PR
+```
+参考 [`anthropics/claude-code-action`](https://github.com/anthropics/claude-code-action) 官方 GitHub Action。
+
+## 常见踩坑（Anti-patterns）
+
+| ❌ 不要 | ✅ 改成 |
+|---|---|
+| 让 AI 直接 push 到 main | 永远 PR → review → merge |
+| Blind accept 大规模 refactor diff | 拆成 < 50 LOC 改动，逐个 review |
+| 把 .env / API key 丢给 AI 看 | 用 `.aiignore` / `.cursorignore` 排除 secrets |
+| 让 AI 在 production code 自由跑 shell | sandbox 限制、permission whitelist |
+| 用 AI 生 test 后不检查 assertion | 跑覆盖率 + 故意改一个 bug 看 test 抓不抓得到 |
+| 跨多个 commit 才发现方向错 | **plan-first** 模式：先 review plan 再写 code |
+
+## Tier 升级路径
+
+- **Tier 0**：Cursor / Claude Desktop——IDE 内 chat、不写 agent
+- **Tier 1**：Claude Code / Cline / OpenCode——CLI 接 file system、有 CLAUDE.md，但仍 human-in-the-loop
+- **Tier 2**：自写 Skills + MCP server——把你的 dev workflow 包成 skill team 共用
+- **Tier 3**：CI 自动跑 agent + production observability——进到 [Stage 7](../stages/07-multi-agent-production.zh-CN.md) 领域
+
+> Tier 0-1 应该满足 90% 开发者。**升级到 Tier 2+ 要先确认 ROI**——团队够大、流程够重复、事故不可逆，才值得 invest。
+
+## 也适用其他分支
+
+开发者重叠度高的分支：
+
+- **要做 ML 研究 / 写 paper** → [研究员分支](./for-researcher.zh-CN.md)
+- **接 Notion / Linear / Atlassian / Postgres / Figma** 等 dev tool → [`resources/mcp-skills-catalog.zh-CN.md`](../resources/mcp-skills-catalog.zh-CN.md)
+- **要写自己的 Skill / MCP server** → [Stage 5](../stages/05-claude-code-ecosystem.zh-CN.md) + [`resources/cookbook.zh-CN.md`](../resources/cookbook.zh-CN.md)
+- **想看 schema 设计细节** → [`resources/schema-design-cheatsheet.zh-CN.md`](../resources/schema-design-cheatsheet.zh-CN.md)
+- **CLI 从零开始** → [Track A](../tracks/cli/A1-cli-intro.zh-CN.md)（A1 → A2 → A3）
+
+## 社群备注
+
+特别欢迎以下贡献：
+
+- IDE-specific 设置范本（Cursor `.cursorrules`、Claude Code `CLAUDE.md` for Python / Go / Rust 等）
+- 编程语言特化 skill（Python / TypeScript / Rust / Go 各自的 best practice）
+- CI / pre-commit hook 集成 case study
+- **跨多人团队用 AI dev 的 governance pattern**——多 dev 共用 Skills、permission 设计、cost tracking
+
+请见 [CONTRIBUTING.md](../CONTRIBUTING.md)。
