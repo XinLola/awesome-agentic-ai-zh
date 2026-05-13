@@ -157,20 +157,141 @@ print(f"✅ Exercise 1 passed (Anthropic) — Claude picked get_weather with cit
 ### Exercise 2: Multi-Tool Selection
 Give Claude three tools (search, calculator, calendar) and a task. Watch Claude select the right tool. Notice when Claude makes the wrong choice.
 
+<details>
+<summary>📋 <b>Simplified core idea — Path A (Ollama)</b></summary>
+
+**NEW vs Exercise 1**: tools go from 1 to 3. The LLM relies on `description` boundaries to choose — the more your `description` reads like a "docstring for humans", the more often the LLM picks wrong.
+
+```python
+from openai import OpenAI
+import json
+
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+
+TOOLS = [
+    {"type": "function", "function": {"name": "web_search",
+        "description": "Search current or external info not in the prompt.",
+        "parameters": {"type": "object", "properties": {"query": {"type": "string"}}, "required": ["query"]}}},
+    {"type": "function", "function": {"name": "calculator",
+        "description": "Evaluate basic arithmetic with +, -, *, /, parentheses.",
+        "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}},
+    {"type": "function", "function": {"name": "calendar_lookup",
+        "description": "Look up events for a specific date.",
+        "parameters": {"type": "object", "properties": {"date": {"type": "string"}}, "required": ["date"]}}},
+]
+
+resp = client.chat.completions.create(model="qwen2.5:3b", tools=TOOLS,
+    messages=[{"role": "user", "content": "What is (19 * 42) - 8?"}])
+
+tc = resp.choices[0].message.tool_calls[0]
+print(f"LLM picked: {tc.function.name}, args: {json.loads(tc.function.arguments)}")
+# Expected: calculator, {"expression": "(19 * 42) - 8"}
+```
+
+**Punchline**: the three tools' `description` boundaries must be mutually exclusive. A `calendar` description that just says "calendar" is too vague — it'll collide with `web_search`. "Look up events for a specific date" is clear. Small models are more sensitive to description quality than Claude.
+
+**Path B (Anthropic) differs in 3 lines**: drop the `{"type": "function", "function": {...}}` wrapper; `tool_calls` becomes `[b for b in resp.content if b.type == "tool_use"]`; `tc.input` is already a dict — no `json.loads` needed. Full version in folder.
+
+</details>
+
 → **Full runnable version** → [`examples/stage-3/02-multi-tool-selection/`](../examples/stage-3/02-multi-tool-selection/)
 
 ### Exercise 3: ReAct from Scratch (no framework)
 Implement the Thought → Action → Observation loop in 50-80 lines of Python. No LangChain, no LangGraph. Just `while not done: thought; action; observation; ...`.
+
+<details>
+<summary>📋 <b>Simplified core idea — Path A (Ollama), the whole ReAct loop fits in 13 lines</b></summary>
+
+**NEW vs Exercise 2**: wrap the single call in a loop, watch `messages` grow each iteration, and stop when there are no more `tool_calls`.
+
+```python
+# Assume TOOLS + TOOL_IMPL (dict: name → callable) are defined as in Exercise 2
+messages = [{"role": "user", "content": "Taipei population divided by NYC population?"}]
+
+for step in range(5):  # max_iter safety net
+    r = client.chat.completions.create(model="qwen2.5:3b", tools=TOOLS, messages=messages)
+    msg = r.choices[0].message
+    # Append assistant response back to messages (critical! otherwise next round can't see what it just said)
+    messages.append({"role": "assistant", "content": msg.content, "tool_calls": msg.tool_calls})
+    if not msg.tool_calls:
+        print(f"✅ done: {msg.content}"); break
+    for tc in msg.tool_calls:
+        args = json.loads(tc.function.arguments)
+        obs = TOOL_IMPL[tc.function.name](args)  # local execution
+        # Append observation back (use role="tool" with matching tool_call_id)
+        messages.append({"role": "tool", "tool_call_id": tc.id, "content": obs})
+```
+
+**Three common pitfalls**:
+1. **Forgetting to append assistant response to messages** — the next round can't see what the LLM just said, leading to infinite loops
+2. **`tool` message missing `tool_call_id`** — the LLM can't pair which result goes with which call
+3. **No `max_iter`** — if a tool returns garbage, the LLM may call it forever. A safety net is mandatory.
+
+**Path B (Anthropic) differs in a few lines**: same loop structure; `msg.tool_calls` becomes `[b for b in resp.content if b.type == "tool_use"]`; use `stop_reason == "end_turn"` to break; tool results go in as `{"type": "tool_result", "tool_use_id": ..., "content": obs}` inside a user message. Full version in folder.
+
+</details>
 
 → **Full runnable version** → [`examples/stage-3/03-react-from-scratch/`](../examples/stage-3/03-react-from-scratch/) (includes mock-based test.py so you can validate the logic without spending API credits)
 
 ### Exercise 4: Multi-Step Reasoning Task
 A task that requires 3-5 tool calls in sequence. E.g., "Find the population of Taipei, then divide by the population of New York, and convert the ratio to percent." Each step uses a different tool.
 
+<details>
+<summary>📋 <b>Simplified core idea — same loop as Exercise 3, just runs longer</b></summary>
+
+**NEW vs Exercise 3**: **literally the same loop** — `TOOLS` swaps to 4 tools (`lookup_population` / `divide` / `to_percentage` / `round_int`), and the task naturally requires 4 tool-call rounds before the LLM closes.
+
+```python
+# No new code — just different TOOLS / TOOL_IMPL content
+TOOL_IMPL = {
+    "lookup_population": lambda i: lookup_population(i["city"]),
+    "divide":            lambda i: divide(i["a"], i["b"]),
+    "to_percentage":     lambda i: to_percentage(i["ratio"]),
+    "round_int":         lambda i: round_int(i["x"]),
+}
+# Loop is identical to Exercise 3, just with max_iter bumped to 8
+```
+
+**Punchline**: multi-step reasoning isn't a new pattern — it's **letting the same ReAct loop run a bit longer**. **The real challenge is "does the LLM skip a step?"** qwen2.5:3b may skip "convert to percentage"; Claude haiku is more stable. **This is exactly the experiment for "model scale vs multi-step stability"**. Try `MODEL=qwen2.5:7b python starter.py` to compare.
+
+</details>
+
 → **Full runnable version** → [`examples/stage-3/04-multi-step-reasoning/`](../examples/stage-3/04-multi-step-reasoning/)
 
 ### Exercise 5: Error Handling
 Make a tool fail (network error, invalid input). Watch how the agent recovers (or doesn't). Add retry logic.
+
+<details>
+<summary>📋 <b>Simplified core idea — tool errors are data, not exceptions</b></summary>
+
+**NEW vs Exercise 4**: tool errors return a **structured dict**, not `raise`. The loop hands the dict back to the LLM, and the model itself decides whether to retry, rephrase, or give up.
+
+```python
+def fetch_weather(city: str) -> dict:
+    if network_failed():
+        return {"error": "network timeout", "retry_hint": "try again in 1s"}
+    return {"city": city, "forecast": "rain", "temperature_c": 24}
+
+# Inside the loop:
+obs = fetch_weather(args["city"])
+messages.append({"role": "tool", "tool_call_id": tc.id,
+                 "content": json.dumps(obs, ensure_ascii=False)})  # error dict also stringified
+# Next round the LLM sees retry_hint — it may retry, give up, or rephrase
+```
+
+**Why not `raise`**: `raise` immediately breaks the loop, leaving the LLM no chance to recover. **In production, retry doesn't live in Python — it lives in the LLM.** This mental flip is the heart of Exercise 5.
+
+**Bad vs good error returns**:
+
+| Bad | Good |
+|---|---|
+| `raise Exception("failed")` | `return {"error": "network timeout", "retry_hint": "try again in 1s"}` |
+| `return "failed"` | `return {"error": "...", "category": "transient", "retry_hint": "..."}` |
+| Unbounded retry | `max_iter` safety + business-layer retry quota |
+
+**Small-model observation**: qwen2.5:3b follows `retry_hint` less reliably than Claude haiku — it may give up immediately. Full version (including a "repeated failure, graceful end" case) in folder.
+
+</details>
 
 → **Full runnable version** → [`examples/stage-3/05-error-handling/`](../examples/stage-3/05-error-handling/)
 
@@ -182,6 +303,34 @@ Make a tool fail (network error, invalid input). Watch how the agent recovers (o
 - Make errors recoverable: return `{"error": "...", "retry_hint": "..."}` so the LLM can retry intelligently
 
 > 💡 Detailed cheatsheet: [`resources/schema-design-cheatsheet.en.md`](../resources/schema-design-cheatsheet.en.md) — 5 golden rules + 5 common anti-patterns.
+
+<details>
+<summary>📋 <b>Simplified core idea — bad vs good schema A/B</b></summary>
+
+**NEW vs Exercise 5**: same tool (temperature conversion), two schema styles. Four key differences.
+
+```python
+# ❌ BAD — qwen2.5:3b almost always picks wrong (Claude haiku can still guess but accuracy drops sharply)
+{"name": "convert", "description": "Convert a value.",
+ "parameters": {"type": "object", "properties": {
+     "value": {"type": "string"}, "unit": {"type": "string"}}}}
+
+# ✅ GOOD — even qwen reliably picks the right tool
+{"name": "convert_temperature",
+ "description": "Use when user asks to convert temperatures between Fahrenheit and Celsius.",
+ "parameters": {"type": "object", "properties": {
+     "value": {"type": "number", "description": "Temperature value"},
+     "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}},
+     "required": ["value", "unit"]}}
+```
+
+**Four improvements**: (1) specific `name`; (2) `description` says **when to use** instead of **what it does**; (3) `value` typed as `number`; (4) added `required` + `enum`.
+
+**Punchline**: **Time spent writing good schemas saves you the cost of upgrading models.** Small models are more sensitive to schema quality than large ones — the same bad schema where Claude can still guess will reliably mislead qwen. Want to run a cheap production model? Your schemas must be production-grade.
+
+**Stuck designing a schema?** Install [`examples/stage-5/tool-calling-tutor/`](../examples/stage-5/tool-calling-tutor/) — when you hit "the LLM won't call my tool" or "what's wrong with this schema?" the skill auto-loads to help you debug.
+
+</details>
 
 → **Full runnable version** → [`examples/stage-3/06-schema-design/`](../examples/stage-3/06-schema-design/) (includes bad-schema vs good-schema side-by-side)
 

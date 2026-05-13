@@ -156,20 +156,141 @@ print(f"✅ 練習 1 通過（Anthropic）— Claude 選了 get_weather、city='
 ### 練習 2：多工具選擇
 給 Claude 三個工具（搜尋、計算機、行事曆）跟一個任務。看 Claude 怎麼挑工具，順便注意它什麼時候會挑錯。
 
+<details>
+<summary>📋 <b>簡化版核心觀念 — Path A (Ollama)</b></summary>
+
+**NEW vs 練習 1**：tools 從 1 個變 3 個。LLM 看 `description` 邊界決定挑哪個——`description` 寫得越像「給人讀的 docstring」、越容易挑錯。
+
+```python
+from openai import OpenAI
+import json
+
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+
+TOOLS = [
+    {"type": "function", "function": {"name": "web_search",
+        "description": "Search current or external info not in the prompt.",
+        "parameters": {"type": "object", "properties": {"query": {"type": "string"}}, "required": ["query"]}}},
+    {"type": "function", "function": {"name": "calculator",
+        "description": "Evaluate basic arithmetic with +, -, *, /, parentheses.",
+        "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}},
+    {"type": "function", "function": {"name": "calendar_lookup",
+        "description": "Look up events for a specific date.",
+        "parameters": {"type": "object", "properties": {"date": {"type": "string"}}, "required": ["date"]}}},
+]
+
+resp = client.chat.completions.create(model="qwen2.5:3b", tools=TOOLS,
+    messages=[{"role": "user", "content": "What is (19 * 42) - 8?"}])
+
+tc = resp.choices[0].message.tool_calls[0]
+print(f"LLM 挑了: {tc.function.name}, args: {json.loads(tc.function.arguments)}")
+# 預期：calculator, {"expression": "(19 * 42) - 8"}
+```
+
+**punchline**：3 個 tool 的 `description` 邊界要互斥——`calendar` 寫「行事曆」太籠統、會跟 `web_search` 撞；寫「特定日期事件」就清楚。小 model 對 description 質量比 Claude 更敏感。
+
+**Path B (Anthropic) 改 3 行**：schema 拿掉 `{"type": "function", "function": {...}}` 外包、`tool_calls` 變 `[b for b in resp.content if b.type == "tool_use"]`、`tc.input` 已經是 dict 不用 `json.loads`。完整版見 folder。
+
+</details>
+
 → **完整可跑版** → [`examples/stage-3/02-multi-tool-selection/`](../examples/stage-3/02-multi-tool-selection/)
 
 ### 練習 3：從零實作 ReAct（不用 framework）
 用 50-80 行 Python 把 Thought → Action → Observation 迴圈寫出來。不要 LangChain、不要 LangGraph，就是純 `while not done: thought; action; observation; ...`。
+
+<details>
+<summary>📋 <b>簡化版核心觀念 — Path A (Ollama)、ReAct loop 的全部就在這 13 行</b></summary>
+
+**NEW vs 練習 2**：把單次 call 包進迴圈、`messages` 一直長、看 `tool_calls` 在不在來決定收尾。
+
+```python
+# 假設 TOOLS + TOOL_IMPL（dict: name → callable）已經像練習 2 一樣定義好
+messages = [{"role": "user", "content": "台北人口除以紐約人口？"}]
+
+for step in range(5):  # max_iter safety net
+    r = client.chat.completions.create(model="qwen2.5:3b", tools=TOOLS, messages=messages)
+    msg = r.choices[0].message
+    # 把 assistant response 接回 messages（重要！下輪 LLM 才看得到自己上輪講什麼）
+    messages.append({"role": "assistant", "content": msg.content, "tool_calls": msg.tool_calls})
+    if not msg.tool_calls:
+        print(f"✅ 收尾：{msg.content}"); break
+    for tc in msg.tool_calls:
+        args = json.loads(tc.function.arguments)
+        obs = TOOL_IMPL[tc.function.name](args)  # 本地執行
+        # observation 接回 messages（用 role="tool"、配 tool_call_id）
+        messages.append({"role": "tool", "tool_call_id": tc.id, "content": obs})
+```
+
+**3 個容易踩坑**：
+1. **忘記把 assistant response 加回 messages**——下輪 LLM 看不到自己上輪講什麼、會 loop forever
+2. **`tool` message 沒帶 `tool_call_id`**——LLM 無法配對哪個 result 對應哪個 call
+3. **沒 `max_iter`**——tool 結果寫不好時、LLM 會無限呼叫，safety net 必須設
+
+**Path B (Anthropic) 差幾行**：迴圈架構一模一樣、`msg.tool_calls` 變 `[b for b in resp.content if b.type == "tool_use"]`、用 `stop_reason == "end_turn"` 判停、tool result 包成 `{"type": "tool_result", "tool_use_id": ..., "content": obs}` 放進 user message。完整版見 folder。
+
+</details>
 
 → **完整可跑版** → [`examples/stage-3/03-react-from-scratch/`](../examples/stage-3/03-react-from-scratch/)（含 mock-based test.py、不花 API 錢也能驗）
 
 ### 練習 4：多步驟推理任務
 一個需要連續呼叫 3-5 次 tool 的任務。例如：「找出台北人口，除以紐約人口，再把比例換成百分比。」每一步用不同的工具。
 
+<details>
+<summary>📋 <b>簡化版核心觀念 — 跟練習 3 同一個 loop、跑久一點而已</b></summary>
+
+**NEW vs 練習 3**：**完全同一個 loop**——只是 `TOOLS` 換成 4 個（`lookup_population` / `divide` / `to_percentage` / `round_int`）、題目自然走完 4 輪 tool call 才收尾。
+
+```python
+# 沒有新 code、純粹是 TOOLS / TOOL_IMPL 換內容
+TOOL_IMPL = {
+    "lookup_population": lambda i: lookup_population(i["city"]),
+    "divide":            lambda i: divide(i["a"], i["b"]),
+    "to_percentage":     lambda i: to_percentage(i["ratio"]),
+    "round_int":         lambda i: round_int(i["x"]),
+}
+# loop 完全照 練習 3，只是 max_iter 拉大到 8
+```
+
+**punchline**：多步推理不是新 pattern、是**讓 ReAct loop 跑久一點**。**真正的挑戰是「LLM 會不會中間漏一步」**——qwen2.5:3b 可能漏「轉百分比」、Claude haiku 較穩。**這恰好是觀察「model 規模 vs 多步穩定度」的好實驗**。試試 `MODEL=qwen2.5:7b python starter.py` 對照。
+
+</details>
+
 → **完整可跑版** → [`examples/stage-3/04-multi-step-reasoning/`](../examples/stage-3/04-multi-step-reasoning/)
 
 ### 練習 5：錯誤處理
 讓某個工具失敗（網路錯誤、輸入無效）。看看 agent 會怎麼處理錯誤、能不能恢復，再加上 retry 機制。
+
+<details>
+<summary>📋 <b>簡化版核心觀念 — tool error 是 data、不是 exception</b></summary>
+
+**NEW vs 練習 4**：tool error 回傳**結構化 dict**、不要 `raise`。loop 把 dict 接回 LLM、模型自己決定 retry / 改 query / 放棄。
+
+```python
+def fetch_weather(city: str) -> dict:
+    if network_failed():
+        return {"error": "network timeout", "retry_hint": "try again in 1s"}
+    return {"city": city, "forecast": "rain", "temperature_c": 24}
+
+# loop 裡：
+obs = fetch_weather(args["city"])
+messages.append({"role": "tool", "tool_call_id": tc.id,
+                 "content": json.dumps(obs, ensure_ascii=False)})  # error dict 也是 string 化接回去
+# 下一輪 LLM 看到 retry_hint、可能會 retry、可能會放棄、可能會改 query
+```
+
+**為什麼不 `raise`**：`raise` 直接中斷 loop、LLM 沒機會 recover。**Production 的 retry 不在 Python 層、而在 LLM 層**——這個 mental flip 是 Stage 3 練習 5 的核心。
+
+**Bad vs Good error 回傳**：
+
+| Bad | Good |
+|---|---|
+| `raise Exception("failed")` | `return {"error": "network timeout", "retry_hint": "try again in 1s"}` |
+| `return "failed"` | `return {"error": "...", "category": "transient", "retry_hint": "..."}` |
+| 無限 retry | `max_iter` safety + 業務層 retry quota |
+
+**小 model 觀察**：qwen2.5:3b 對 `retry_hint` follow-up 較弱、可能直接放棄；Claude haiku 較穩。完整版（含連續失敗 graceful end 範例）見 folder。
+
+</details>
 
 → **完整可跑版** → [`examples/stage-3/05-error-handling/`](../examples/stage-3/05-error-handling/)
 
@@ -181,6 +302,34 @@ print(f"✅ 練習 1 通過（Anthropic）— Claude 選了 get_weather、city='
 - error 回傳要包 `{"error": "...", "retry_hint": "..."}` 讓 LLM 能恢復
 
 > 💡 詳細 cheatsheet 看 [`resources/schema-design-cheatsheet.md`](../resources/schema-design-cheatsheet.md)——5 條黃金規則 + 5 個常見 anti-pattern。
+
+<details>
+<summary>📋 <b>簡化版核心觀念 — bad vs good schema 對照</b></summary>
+
+**NEW vs 練習 5**：同一個工具（溫度轉換）、兩種 schema 寫法。看 4 個差別。
+
+```python
+# ❌ BAD — qwen2.5:3b 幾乎必錯（Claude haiku 還能猜對、但機率明顯下降）
+{"name": "convert", "description": "Convert a value.",
+ "parameters": {"type": "object", "properties": {
+     "value": {"type": "string"}, "unit": {"type": "string"}}}}
+
+# ✅ GOOD — qwen 也能穩定挑對
+{"name": "convert_temperature",
+ "description": "Use when user asks to convert temperatures between Fahrenheit and Celsius.",
+ "parameters": {"type": "object", "properties": {
+     "value": {"type": "number", "description": "Temperature value"},
+     "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}},
+     "required": ["value", "unit"]}}
+```
+
+**4 個改進**：(1) `name` 改具體、(2) `description` 寫「**何時**用」而非「**做什麼**」、(3) `type` 改 `number`、(4) 加 `required` + `enum`。
+
+**punchline**：**寫 schema 的功夫能省下換大 model 的成本**——小 model 對 schema 質量比大 model 敏感，相同 bad schema 在 Claude 上可能還能猜對、在 qwen 上幾乎必錯。Production 想用便宜 model？schema 必須寫到 production-grade。
+
+**搞不定 schema 怎麼辦**：裝 [`examples/stage-5/tool-calling-tutor/`](../examples/stage-5/tool-calling-tutor/) skill，遇到「LLM 不呼叫我的 tool」、「我這 schema 哪裡寫壞」會自動跳出來幫你 debug。
+
+</details>
 
 → **完整可跑版** → [`examples/stage-3/06-schema-design/`](../examples/stage-3/06-schema-design/)（含 bad schema vs good schema 兩個版本對照）
 

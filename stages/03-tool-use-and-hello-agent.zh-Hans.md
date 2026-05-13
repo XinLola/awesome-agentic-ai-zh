@@ -41,10 +41,10 @@
 > 完整 3 路 trade-off 见 [`examples/README.zh-Hans.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
 
 ### 练习 1：Function Calling（一个工具、一次调用）
-给 Claude 一个工具（假的天气 API）跟一个問题（「台北现在有下雨吗？」）。看 Claude 怎么调用工具、拿到结果、再回答你。
+给 Claude 一个工具（假的天气 API）跟一个问题（「台北现在有下雨吗？」）。看 Claude 怎么调用工具、拿到结果、再回答你。
 
 <details open>
-<summary>📋 <b>起手码 — Path A（本机 Ollama qwen2.5:3b、默认）</b>（複制到 <code>practice_1.py</code>）</summary>
+<summary>📋 <b>起手码 — Path A（本机 Ollama qwen2.5:3b、默认）</b>（复制到 <code>practice_1.py</code>）</summary>
 
 ```python
 # 需要：pip install openai
@@ -74,7 +74,7 @@ weather_tool = {
     },
 }
 
-# Step 2: 問問题、让 LLM 自己決定要不要调用 tool
+# Step 2: 问问题、让 LLM 自己决定要不要调用 tool
 resp = client.chat.completions.create(
     model="qwen2.5:3b",
     max_tokens=512,
@@ -107,7 +107,7 @@ tool_calls: [ChatCompletionMessageToolCall(id='call_xxx', function=Function(name
 </details>
 
 <details>
-<summary>📋 <b>起手码 — Path B（Anthropic API、选择性）</b>（複制到 <code>practice_1_anthropic.py</code>）</summary>
+<summary>📋 <b>起手码 — Path B（Anthropic API、选择性）</b>（复制到 <code>practice_1_anthropic.py</code>）</summary>
 
 ```python
 # 需要：pip install anthropic
@@ -149,27 +149,148 @@ print(f"✅ 练习 1 通过（Anthropic）— Claude 选了 get_weather、city='
 - **Response 路徑**：Anthropic 从 `resp.content[i].type=="tool_use"` 抓；OpenAI/Ollama 从 `resp.choices[0].message.tool_calls[i]`
 - **Args 格式**：Anthropic `.input` 是 dict（自動 parse）；OpenAI/Ollama `.function.arguments` 是 JSON string，要 `json.loads(...)`
 
-**成本**：1 次 ≈ $0.001。**Claude 的 tool-use 比 qwen2.5:3b 更稳**——複杂場景（5+ tools、模糊問题）gap 会明显。
+**成本**：1 次 ≈ $0.001。**Claude 的 tool-use 比 qwen2.5:3b 更稳**——复杂场景（5+ tools、模糊问题）gap 会明显。
 
 </details>
 
 ### 练习 2：多工具选择
 给 Claude 三个工具（搜索、计算机、行事历）跟一个任务。看 Claude 怎么挑工具，顺便注意它什么时候会挑错。
 
+<details>
+<summary>📋 <b>简化版核心观念 — Path A (Ollama)</b></summary>
+
+**NEW vs 练习 1**：tools 从 1 个变 3 个。LLM 看 `description` 边界决定挑哪个——`description` 写得越像「给人读的 docstring」、越容易挑错。
+
+```python
+from openai import OpenAI
+import json
+
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+
+TOOLS = [
+    {"type": "function", "function": {"name": "web_search",
+        "description": "Search current or external info not in the prompt.",
+        "parameters": {"type": "object", "properties": {"query": {"type": "string"}}, "required": ["query"]}}},
+    {"type": "function", "function": {"name": "calculator",
+        "description": "Evaluate basic arithmetic with +, -, *, /, parentheses.",
+        "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}},
+    {"type": "function", "function": {"name": "calendar_lookup",
+        "description": "Look up events for a specific date.",
+        "parameters": {"type": "object", "properties": {"date": {"type": "string"}}, "required": ["date"]}}},
+]
+
+resp = client.chat.completions.create(model="qwen2.5:3b", tools=TOOLS,
+    messages=[{"role": "user", "content": "What is (19 * 42) - 8?"}])
+
+tc = resp.choices[0].message.tool_calls[0]
+print(f"LLM 挑了: {tc.function.name}, args: {json.loads(tc.function.arguments)}")
+# 预期：calculator, {"expression": "(19 * 42) - 8"}
+```
+
+**punchline**：3 个 tool 的 `description` 边界要互斥——`calendar` 写「行事历」太笼统、会跟 `web_search` 撞；写「特定日期事件」就清楚。小 model 对 description 质量比 Claude 更敏感。
+
+**Path B (Anthropic) 改 3 行**：schema 拿掉 `{"type": "function", "function": {...}}` 外包、`tool_calls` 变 `[b for b in resp.content if b.type == "tool_use"]`、`tc.input` 已经是 dict 不用 `json.loads`。完整版见 folder。
+
+</details>
+
 → **完整可跑版** → [`examples/stage-3/02-multi-tool-selection/`](../examples/stage-3/02-multi-tool-selection/)
 
 ### 练习 3：从零实现 ReAct（不用 framework）
 用 50-80 行 Python 把 Thought → Action → Observation 循环写出来。不要 LangChain、不要 LangGraph，就是纯 `while not done: thought; action; observation; ...`。
+
+<details>
+<summary>📋 <b>简化版核心观念 — Path A (Ollama)、ReAct loop 的全部就在这 13 行</b></summary>
+
+**NEW vs 练习 2**：把单次 call 包进循环、`messages` 一直长、看 `tool_calls` 在不在来决定收尾。
+
+```python
+# 假设 TOOLS + TOOL_IMPL（dict: name → callable）已经像练习 2 一样定义好
+messages = [{"role": "user", "content": "台北人口除以纽约人口？"}]
+
+for step in range(5):  # max_iter safety net
+    r = client.chat.completions.create(model="qwen2.5:3b", tools=TOOLS, messages=messages)
+    msg = r.choices[0].message
+    # 把 assistant response 接回 messages（重要！下轮 LLM 才看得到自己上轮讲什么）
+    messages.append({"role": "assistant", "content": msg.content, "tool_calls": msg.tool_calls})
+    if not msg.tool_calls:
+        print(f"✅ 收尾：{msg.content}"); break
+    for tc in msg.tool_calls:
+        args = json.loads(tc.function.arguments)
+        obs = TOOL_IMPL[tc.function.name](args)  # 本地执行
+        # observation 接回 messages（用 role="tool"、配 tool_call_id）
+        messages.append({"role": "tool", "tool_call_id": tc.id, "content": obs})
+```
+
+**3 个容易踩坑**：
+1. **忘记把 assistant response 加回 messages**——下轮 LLM 看不到自己上轮讲什么、会 loop forever
+2. **`tool` message 没带 `tool_call_id`**——LLM 无法配对哪个 result 对应哪个 call
+3. **没 `max_iter`**——tool 结果写不好时、LLM 会无限调用，safety net 必须设
+
+**Path B (Anthropic) 差几行**：循环架构一模一样、`msg.tool_calls` 变 `[b for b in resp.content if b.type == "tool_use"]`、用 `stop_reason == "end_turn"` 判停、tool result 包成 `{"type": "tool_result", "tool_use_id": ..., "content": obs}` 放进 user message。完整版见 folder。
+
+</details>
 
 → **完整可跑版** → [`examples/stage-3/03-react-from-scratch/`](../examples/stage-3/03-react-from-scratch/)（含 mock-based test.py、不花 API 钱也能验）
 
 ### 练习 4：多步骤推理任务
 一个需要连续调用 3-5 次 tool 的任务。例如：「找出台北人口，除以纽约人口，再把比例换成百分比。」每一步用不同的工具。
 
+<details>
+<summary>📋 <b>简化版核心观念 — 跟练习 3 同一个 loop、跑久一点而已</b></summary>
+
+**NEW vs 练习 3**：**完全同一个 loop**——只是 `TOOLS` 换成 4 个（`lookup_population` / `divide` / `to_percentage` / `round_int`）、题目自然走完 4 轮 tool call 才收尾。
+
+```python
+# 没有新 code、纯粹是 TOOLS / TOOL_IMPL 换内容
+TOOL_IMPL = {
+    "lookup_population": lambda i: lookup_population(i["city"]),
+    "divide":            lambda i: divide(i["a"], i["b"]),
+    "to_percentage":     lambda i: to_percentage(i["ratio"]),
+    "round_int":         lambda i: round_int(i["x"]),
+}
+# loop 完全照 练习 3，只是 max_iter 拉大到 8
+```
+
+**punchline**：多步推理不是新 pattern、是**让 ReAct loop 跑久一点**。**真正的挑战是「LLM 会不会中间漏一步」**——qwen2.5:3b 可能漏「转百分比」、Claude haiku 较稳。**这恰好是观察「model 规模 vs 多步稳定度」的好实验**。试试 `MODEL=qwen2.5:7b python starter.py` 对照。
+
+</details>
+
 → **完整可跑版** → [`examples/stage-3/04-multi-step-reasoning/`](../examples/stage-3/04-multi-step-reasoning/)
 
 ### 练习 5：错误处理
 让某个工具失败（网络错误、输入无效）。看看 agent 会怎么处理错误、能不能恢复，再加上 retry 机制。
+
+<details>
+<summary>📋 <b>简化版核心观念 — tool error 是 data、不是 exception</b></summary>
+
+**NEW vs 练习 4**：tool error 回传**结构化 dict**、不要 `raise`。loop 把 dict 接回 LLM、模型自己决定 retry / 改 query / 放弃。
+
+```python
+def fetch_weather(city: str) -> dict:
+    if network_failed():
+        return {"error": "network timeout", "retry_hint": "try again in 1s"}
+    return {"city": city, "forecast": "rain", "temperature_c": 24}
+
+# loop 里：
+obs = fetch_weather(args["city"])
+messages.append({"role": "tool", "tool_call_id": tc.id,
+                 "content": json.dumps(obs, ensure_ascii=False)})  # error dict 也是 string 化接回去
+# 下一轮 LLM 看到 retry_hint、可能会 retry、可能会放弃、可能会改 query
+```
+
+**为什么不 `raise`**：`raise` 直接中断 loop、LLM 没机会 recover。**Production 的 retry 不在 Python 层、而在 LLM 层**——这个 mental flip 是 Stage 3 练习 5 的核心。
+
+**Bad vs Good error 回传**：
+
+| Bad | Good |
+|---|---|
+| `raise Exception("failed")` | `return {"error": "network timeout", "retry_hint": "try again in 1s"}` |
+| `return "failed"` | `return {"error": "...", "category": "transient", "retry_hint": "..."}` |
+| 无限 retry | `max_iter` safety + 业务层 retry quota |
+
+**小 model 观察**：qwen2.5:3b 对 `retry_hint` follow-up 较弱、可能直接放弃；Claude haiku 较稳。完整版（含连续失败 graceful end 范例）见 folder。
+
+</details>
 
 → **完整可跑版** → [`examples/stage-3/05-error-handling/`](../examples/stage-3/05-error-handling/)
 
@@ -181,6 +302,34 @@ print(f"✅ 练习 1 通过（Anthropic）— Claude 选了 get_weather、city='
 - error 回传要包 `{"error": "...", "retry_hint": "..."}` 让 LLM 能恢复
 
 > 💡 详细 cheatsheet 看 [`resources/schema-design-cheatsheet.zh-Hans.md`](../resources/schema-design-cheatsheet.zh-Hans.md)——5 条黄金规则 + 5 个常见 anti-pattern。
+
+<details>
+<summary>📋 <b>简化版核心观念 — bad vs good schema 对照</b></summary>
+
+**NEW vs 练习 5**：同一个工具（温度转换）、两种 schema 写法。看 4 个差别。
+
+```python
+# ❌ BAD — qwen2.5:3b 几乎必错（Claude haiku 还能猜对、但机率明显下降）
+{"name": "convert", "description": "Convert a value.",
+ "parameters": {"type": "object", "properties": {
+     "value": {"type": "string"}, "unit": {"type": "string"}}}}
+
+# ✅ GOOD — qwen 也能稳定挑对
+{"name": "convert_temperature",
+ "description": "Use when user asks to convert temperatures between Fahrenheit and Celsius.",
+ "parameters": {"type": "object", "properties": {
+     "value": {"type": "number", "description": "Temperature value"},
+     "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}},
+     "required": ["value", "unit"]}}
+```
+
+**4 个改进**：(1) `name` 改具体、(2) `description` 写「**何时**用」而非「**做什么**」、(3) `type` 改 `number`、(4) 加 `required` + `enum`。
+
+**punchline**：**写 schema 的功夫能省下换大 model 的成本**——小 model 对 schema 质量比大 model 敏感，相同 bad schema 在 Claude 上可能还能猜对、在 qwen 上几乎必错。Production 想用便宜 model？schema 必须写到 production-grade。
+
+**搞不定 schema 怎么办**：装 [`examples/stage-5/tool-calling-tutor/`](../examples/stage-5/tool-calling-tutor/) skill，遇到「LLM 不调用我的 tool」、「我这 schema 哪里写坏」会自动跳出来帮你 debug。
+
+</details>
 
 → **完整可跑版** → [`examples/stage-3/06-schema-design/`](../examples/stage-3/06-schema-design/)（含 bad schema vs good schema 两个版本对照）
 
