@@ -272,17 +272,17 @@ LLM 知道你的私有 / 領域資料、有 3 種主要做法。**本 stage 教 
 | **Multi-Vector Retrieval** | 一個 chunk 多個 embedding（摘要 / 原文 / 假想問題）| LangChain `MultiVectorRetriever` |
 | **ColBERT / 後互動 retrieval** | token-level 比對而非 pooled embedding | [Khattab & Zaharia 2020](https://arxiv.org/abs/2004.12832)、[RAGatouille](https://github.com/AnswerDotAI/RAGatouille) |
 | **LongRAG** | 大 chunk（4k）+ long-context reader、減少 retrieval 次數 | [Jiang et al. 2024](https://arxiv.org/abs/2406.15319) |
-| **HippoRAG 2** | 海馬迴啟發、KG + PageRank、跨文件 multi-hop 聯想 | [Gutiérrez et al. 2025](https://arxiv.org/abs/2502.14802) ⭐ **2025** |
+| **HippoRAG 2**（正式題名：*From RAG to Memory: Non-Parametric Continual Learning for LLMs*）| 海馬迴啟發、KG + PageRank、跨文件 multi-hop 聯想 | [Gutiérrez et al. ICML 2025](https://arxiv.org/abs/2502.14802) ⭐ **2025** |
 | **MemoRAG** | memory model 把 KB 壓成 latent memory、retrieve 用線索觸發 | [Qian et al. 2024](https://arxiv.org/abs/2409.05591) |
 | **KAG**（Knowledge-Augmented Generation） | 嚴格 schema KG + 邏輯推理、金融 / 醫療 / 法律場景 | [Liang et al. 2024 (Ant Group)](https://arxiv.org/abs/2409.13731) |
 | **ColPali** | 直接對 PDF 頁面圖像 embed、繞過 OCR | [Faysse et al. 2024](https://arxiv.org/abs/2407.01449) |
-| **MiA-RAG**（Mindscape-Aware）| 先建文件高層摘要 mindscape、用它引導 retrieval 跟回答 | [Turing Post 2026 12 types](https://www.turingpost.com/p/12ragtypes) ⭐ **2026** |
-| **QuCo-RAG**（Quality-Controlled） | 用 pretraining 統計判斷該不該 retrieve、罕見 entity 觸發查、減 hallucination | 同上 ⭐ **2026** |
-| **MegaRAG** | 多模態 KG、長文件抽 entity + relation + 視覺、建層級圖 | 同上 ⭐ **2026** |
-| **TV-RAG** | training-free 時間感知 RAG、長影片 + 字幕 + 視覺對齊 | 同上 ⭐ **2026** |
+| **MiA-RAG**（Mindscape-Aware）| 先建文件高層摘要 mindscape、用它引導 retrieval 跟回答 | [arXiv:2512.17220](https://arxiv.org/abs/2512.17220)、[Turing Post 12 types](https://www.turingpost.com/p/12ragtypes) ⭐ **2025-12** |
+| **QuCo-RAG**（Quality-Controlled） | 用 pretraining 統計判斷該不該 retrieve、罕見 entity 觸發查、減 hallucination | [arXiv:2512.19134](https://arxiv.org/abs/2512.19134) ⭐ **2025-12** |
+| **MegaRAG** | 多模態 KG、長文件抽 entity + relation + 視覺、建層級圖 | [arXiv:2512.20626](https://arxiv.org/abs/2512.20626) ⭐ **2025-12** |
+| **TV-RAG** | training-free 時間感知 RAG、長影片 + 字幕 + 視覺對齊 | [arXiv:2512.23483](https://arxiv.org/abs/2512.23483) ⭐ **2025-12** |
 | **A-RAG**（Agentic RAG）| hierarchical retrieval interfaces、keyword + semantic + chunk read 三 tool | [Ayanami0730/arag](https://github.com/Ayanami0730/arag)、[arXiv:2602.03442](https://arxiv.org/abs/2602.03442) ⭐ **2026** |
 | **SoK: Agentic RAG**（survey）| 2026 系統 taxonomy：cardinality / control / autonomy / knowledge repr | [arXiv:2603.07379](https://arxiv.org/abs/2603.07379) ⭐ **2026** |
-| **RAGPart / RAGMask** | 對 RAG corpus poisoning 攻擊的輕量防禦 | [Turing Post 2026](https://www.turingpost.com/p/12ragtypes) ⭐ **2026** |
+| **RAGPart / RAGMask** | 對 RAG corpus poisoning 攻擊的輕量防禦 | [arXiv:2512.24268](https://arxiv.org/abs/2512.24268) ⭐ **2025-12** |
 | **Agentic RAG**（一般概念）| retrieval 當 tool、agent 自己決定查幾次 / 怎麼查 | LlamaIndex / LangGraph、[Stage 7](07-multi-agent-production.md) 主場 |
 | **DSPy + RAG** | 不寫 prompt、用 program + signature、auto-optimize | [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) |
 
@@ -521,15 +521,14 @@ Reflexion 是 **prompt-based reflection**——LLM 在 inference 時自己改自
 
 ### Path 2：Trained-in reasoning / reflection（2024-2026 大轉折）
 
-OpenAI **o1**（2024-09）開啟、DeepSeek **R1**（2025-01）開源化、**DeepSeek-R2**（2026-03 AIME 2025 達 **79.7%**）+ Claude Opus 4.7（2026-04）+ GPT-5.5（2026-04）+ Gemini 3.1 Pro（2026-02）為當前 frontier——把「step-by-step thinking + 自我糾錯」**訓練進 model 權重**、inference 時自動展開長 reasoning chain（thinking tokens）。**這是 2024-2026 LLM 最大典範轉移**、目前所有 frontier model 都走這路。下表只列**當前（2026-05）frontier**——歷史前身（o1 / R1 / Sonnet 4.5 / Gemini 2.5）省略、想看 lineage 看每家發布日列。
+OpenAI **o1**（2024-09）開啟、DeepSeek **R1**（2025-01）開源化、**DeepSeek-V4-Pro**（2026-04 preview、agent-focused 開源 reasoning）+ Claude Opus 4.7（2026-04）+ GPT-5.5（2026-04）+ Gemini 3.1 Pro（2026-02）為當前 frontier——把「step-by-step thinking + 自我糾錯」**訓練進 model 權重**、inference 時自動展開長 reasoning chain（thinking tokens）。**這是 2024-2026 LLM 最大典範轉移**、目前所有 frontier model 都走這路。下表只列**當前（2026-05）frontier**——歷史前身（o1 / R1 / Sonnet 4.5 / Gemini 2.5）省略、想看 lineage 看每家發布日列。
 
 | Model | 來源 / 發布 | 特色 | 連結 |
 |---|---|---|---|
 | **GPT-5.5** | OpenAI 2026-04（前身：o1 2024-09 → o3 → GPT-5 2025-08 → 5.4 2026-03）| 閉源、reasoning + chat 合併、Thinking budget API、agent 能力強化 | [OpenAI](https://openai.com/) |
 | **Claude Opus 4.7** | Anthropic 2026（前身：Sonnet 4.5 / Opus 4.5）| 閉源、可控 thinking budget（API 參數）、**SWE-bench / Terminal-bench 領先** | [Anthropic extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) |
 | **Gemini 3.1 Pro** | Google 2026-02（前身：Gemini 2.5 Thinking 2025、Gemini 3 2025-11）| 閉源、可看 thinking trace、**GPQA Diamond 94.3%**、價格 / 速度 / multimodal 領先 | [Gemini API](https://ai.google.dev/gemini-api/docs/thinking) |
-| **DeepSeek-R2** | DeepSeek 2026-03（前身：R1 2025-01）| 開源 RL+CoT、**MIT license**、AIME 2025 **79.7%**（R1 為 39.4%）、GPQA Diamond 72.0% | [DeepSeek guide 2026](https://deepseek.ai/blog/deepseek-guide-2026)、[R1 paper（方法 baseline）](https://arxiv.org/abs/2501.12948) |
-| **DeepSeek-V4 / V4-Pro / V4-Flash** | DeepSeek 2026-04 preview | 開源、agent-focused 訓練、推理 + 工具使用 + 知識處理整合 | [HF DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)、[CNBC report](https://www.cnbc.com/2026/04/24/deepseek-v4-llm-preview-open-source-ai-competition-china.html) |
+| **DeepSeek-V4 / V4-Pro / V4-Flash** | DeepSeek 2026-04 preview（前身：R1 2025-01 → V3.1）| 開源 **MIT license**、agent-focused 訓練、推理 + 工具使用 + 知識處理整合、R 系列 reasoning 已併入主線 | [HF DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro)、[R1 paper（方法 baseline）](https://arxiv.org/abs/2501.12948)、[CNBC report](https://www.cnbc.com/2026/04/24/deepseek-v4-llm-preview-open-source-ai-competition-china.html) |
 | **QwQ-32B / QvQ-72B** | Alibaba Qwen 2024-11 ~ 2026 | 開源 **Apache 2.0**、32B 在小尺寸 reasoning 仍是首選、QvQ 是視覺版本 | [QwQ blog](https://qwenlm.github.io/blog/qwq-32b-preview/) |
 
 ### 兩條路怎麼選
@@ -537,14 +536,14 @@ OpenAI **o1**（2024-09）開啟、DeepSeek **R1**（2025-01）開源化、**Dee
 | 你的情況 | 建議 |
 |---|---|
 | 用一般 chat model base、想加 reasoning | Path 1（prompt-based）—— ToT / Self-Consistency / CoVe |
-| 預算 / latency 允許、要最強 reasoning | Path 2 —— **GPT-5.5 / Opus 4.7 / Gemini 3.1 Pro / R2** 任挑一個 |
-| 想自己 fine-tune reasoning model | Path 2 —— 讀 R1 + R2 paper、從 R1-Distill 系列起步 |
+| 預算 / latency 允許、要最強 reasoning | Path 2 —— **GPT-5.5 / Opus 4.7 / Gemini 3.1 Pro / V4-Pro** 任挑一個 |
+| 想自己 fine-tune reasoning model | Path 2 —— 讀 R1 paper（方法 baseline）、從 R1-Distill / V4 開源權重起步 |
 | 想 on-device / 預算極緊 | **QwQ-32B**（Apache 2.0）或 R 系列 distill |
 | Multi-agent debate / critic 場景 | Path 1（CRITIC / debate）+ [Stage 7 §multi-agent](07-multi-agent-production.md) |
 
 > 💡 **2025-2026 觀察**：
 > - reasoning model 把 Reflexion 那套吞進權重——但 **prompt-based reflection 沒被取代**：agent loop（控制反思時機 / 內容）+ multi-agent debate 還是必須的
-> - **2026 開源已追上閉源**——R2 的 AIME 2025 達 79.7%、跟 GPT-5.5 / Gemini 3.1 Pro 同檔次、且 MIT license
+> - **2026 開源逼近閉源**——DeepSeek-V4-Pro（2026-04 preview、MIT license）把 R1 reasoning 併入主線、agent-focused 訓練、跟 GPT-5.5 / Gemini 3.1 Pro 差距持續縮小
 > - **agent capability 變主訴求**——V4 / Opus 4.7 都把 agent-as-product（SWE-bench / Terminal-bench / tool use）當 headline benchmark、單純 reasoning 已經不夠賣
 > - 兩條路會長期共存、production agent 兩個都用
 

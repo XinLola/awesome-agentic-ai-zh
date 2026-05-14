@@ -20,7 +20,6 @@ current_frontier_models:
     - "GPT-5.4"
     - "GPT-5"
   deepseek:
-    - "DeepSeek-R2"
     - "DeepSeek-V4"
     - "DeepSeek-V4-Pro"
     - "DeepSeek-V4-Flash"

@@ -43,7 +43,7 @@
 - **Before Oct 2024**: Agents could only interact with the API-driven world (calling OpenAI/GitHub/Slack APIs, returning text).
 - **Oct 2024**: Anthropic's Computer Use beta is released → **Agents can operate a real screen for the first time.**
 - **2025-2026**: OpenAI (Atlas + Codex desktop) and Google (Gemini in Chrome) enter the field → Mainstream adoption.
-- **May 2026**: The OSWorld benchmark reaches **76.26%** (superhuman, vs. a 72% human baseline) → It transitions from a research curiosity to a production reality.
+- **May 2026**: The OSWorld benchmark reaches **76.26%** (superhuman, vs. a 72.36% human baseline) → It transitions from a research curiosity to a production reality.
 
 **The curriculum gap without this stage**: After completing Stage 7, you might think you're done. In reality, your agent can only talk to APIs. **It can't operate software without APIs, interact with real webpages, or run code.** You also wouldn't have been warned about safety issues like the Comet injection or the Amazon injunction (see [§Safety](#-2026-safety--security-highlights)).
 
@@ -124,7 +124,7 @@ Agent receives a task
 
 | Vendor | Product | 2026 Status | OSWorld | Strengths |
 |---|---|---|---|---|
-| **Anthropic** | [Claude Opus 4.7 / Sonnet 4.6 Computer Use](https://www.anthropic.com/news/3-5-models-and-computer-use) | GA, cross-platform on macOS/Linux/Windows (Docker) | **72.7%** (Opus 4.6 baseline, near human-level 72%; Opus 4.7 numbers from April 2026 release not yet public) | Reasoning + code agent, home turf for Stages 5/7 |
+| **Anthropic** | [Claude Opus 4.7 / Sonnet 4.6 Computer Use](https://www.anthropic.com/news/3-5-models-and-computer-use) | GA, cross-platform on macOS/Linux/Windows (Docker) | **72.7%** (Opus 4.6 baseline, near human-level 72.36%; Opus 4.7 numbers from April 2026 release not yet public) | Reasoning + code agent, home turf for Stages 5/7 |
 | **OpenAI** | [Codex desktop](https://openai.com/index/codex-for-almost-everything/) (April 2026)| GA, **background mode** doesn't hog the cursor, in-app browser, 90+ plugins | CUA 38.1% | Merged with ChatGPT + Atlas to become a **Desktop Superapp** |
 | **OpenAI** | [Computer-Using Agent (CUA)](https://openai.com/index/computer-using-agent/) | API | 38.1% / WebArena 58.1% | API-first, can be integrated into your own stack |
 | **Google** | [Gemini in Chrome](https://gemini.google/overview/gemini-in-chrome/) (Gemini 3) | GA + Android | — | **Auto Browse** + **Chrome Skills**, Chrome Enterprise Premium $6/user/month |
@@ -138,7 +138,7 @@ Agent receives a task
 
 | Model | OSWorld | Distance from Human Baseline |
 |---|---|---|
-| Human baseline | **72%** | — |
+| Human baseline | **72.36%** | — |
 | Claude Opus 4.6 (Anthropic)| **72.7%** | On par |
 | May 2026 SOTA (Strongest Model)| **76.26%** | **Superhuman** |
 | OpenAI CUA | 38.1% | -34% |
@@ -208,7 +208,7 @@ Agent receives a task
 | Framework | Status | Strengths |
 |---|---|---|
 | [**browser-use**](https://github.com/browser-use/browser-use) ⭐ | **86k+ stars, MIT** | Hottest OSS in 2026, Python, 5-line setup, supports OpenAI/Claude/Gemini/Ollama. |
-| [**Microsoft OmniParser v2**](https://github.com/microsoft/OmniParser) | Updated 2026, Apache 2.0 | Vision-based GUI parsing, 60% latency improvement, 39.6% accuracy with ScreenSpot Pro. The same repo includes **OmniTool** (Windows 11 VM control, can be used with GPT-5.5 / Claude Opus 4.7 / DeepSeek-R2 / Qwen 2.5VL / Claude Computer Use). |
+| [**Microsoft OmniParser v2**](https://github.com/microsoft/OmniParser) | Updated 2026, Apache 2.0 | Vision-based GUI parsing, 60% latency improvement, 39.6% accuracy with ScreenSpot Pro. The same repo includes **OmniTool** (Windows 11 VM control, can be used with GPT-5.5 / Claude Opus 4.7 / DeepSeek-V4-Pro / Qwen 2.5VL / Claude Computer Use). |
 | **Playwright + LLM** (DIY)| — | Not a dedicated framework, but Playwright is the standard for web automation. Just add an LLM wrapper to use it. |
 
 **Why is `browser-use` so popular (86k stars)?**:
@@ -337,7 +337,7 @@ from langchain_openai import ChatOpenAI
 
 agent = Agent(
     task="Search Hacker News for top AI agent posts this week and summarize",
-    llm=ChatOpenAI(model="gpt-5.5"),  # Can also swap for Claude Opus 4.7 / Gemini 3.1 Pro / DeepSeek-R2
+    llm=ChatOpenAI(model="gpt-5.5"),  # Can also swap for Claude Opus 4.7 / Gemini 3.1 Pro / DeepSeek-V4-Pro
 )
 result = await agent.run()
 ```

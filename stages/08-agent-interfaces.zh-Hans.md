@@ -43,7 +43,7 @@
 - **2024-10 之前**：智能体只能与有 API 的世界互动（调用 OpenAI / GitHub / Slack API，返回文本）
 - **2024-10**：Anthropic Computer Use beta → **智能体第一次能操作真实屏幕**
 - **2025-2026**：OpenAI（Atlas + Codex desktop）/ Google（Gemini in Chrome）全线入场 → 主流化
-- **2026-05**：OSWorld benchmark 达到 **76.26%**（超越人类基线 72%）→ 从研究好奇心变为生产现实
+- **2026-05**：OSWorld benchmark 达到 **76.26%**（超越人类基线 72.36%）→ 从研究好奇心变为生产现实
 
 **没有本阶段的课程缺陷**：学完 Stage 7 你以为就结束了，实际上智能体只能与 API 对话，**不能操作没有 API 的软件 / 真实网页 / 运行代码**——遇到安全问题（如 Comet 注入 / 亚马逊禁令，见[§安全](#-2026-安全性--风险重点)）也得不到预警。
 
@@ -138,7 +138,7 @@
 
 | 模型 | OSWorld | 与人类基线差距 |
 |---|---|---|
-| Human baseline | **72%** | — |
+| Human baseline | **72.36%** | — |
 | Claude Opus 4.6（Anthropic）| **72.7%** | 持平 |
 | 2026-05 SOTA（最强模型）| **76.26%** | **超越人类** |
 | OpenAI CUA | 38.1% | -34% |
@@ -208,7 +208,7 @@
 | 框架 | 状态 | 强项 |
 |---|---|---|
 | [**browser-use**](https://github.com/browser-use/browser-use) ⭐ | **86k+ 星，MIT** | 2026 年最火的开源软件，Python，5 行上手，支持 OpenAI / Claude / Gemini / Ollama。 |
-| [**Microsoft OmniParser v2**](https://github.com/microsoft/OmniParser) | 2026 年更新，Apache 2.0 | 基于视觉的 GUI 解析，延迟改善 60%，使用 ScreenSpot Pro 准确率达 39.6%。同一仓库包含 **OmniTool**（Windows 11 VM 控制，可搭配 GPT-5.5 / Claude Opus 4.7 / DeepSeek-R2 / Qwen 2.5VL / Claude Computer Use）。 |
+| [**Microsoft OmniParser v2**](https://github.com/microsoft/OmniParser) | 2026 年更新，Apache 2.0 | 基于视觉的 GUI 解析，延迟改善 60%，使用 ScreenSpot Pro 准确率达 39.6%。同一仓库包含 **OmniTool**（Windows 11 VM 控制，可搭配 GPT-5.5 / Claude Opus 4.7 / DeepSeek-V4-Pro / Qwen 2.5VL / Claude Computer Use）。 |
 | **Playwright + LLM**（DIY）| — | 不是专门的框架，但 Playwright 是 web 自动化的标准，加上 LLM 包装器即可使用。 |
 
 **为什么 browser-use 这么火（86k 星）**：
@@ -337,7 +337,7 @@ from langchain_openai import ChatOpenAI
 
 agent = Agent(
     task="Search Hacker News for top AI agent posts this week and summarize",
-    llm=ChatOpenAI(model="gpt-5.5"),  # 也可换成 Claude Opus 4.7 / Gemini 3.1 Pro / DeepSeek-R2
+    llm=ChatOpenAI(model="gpt-5.5"),  # 也可换成 Claude Opus 4.7 / Gemini 3.1 Pro / DeepSeek-V4-Pro
 )
 result = await agent.run()
 ```
