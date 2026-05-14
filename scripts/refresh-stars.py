@@ -120,6 +120,8 @@ def main():
                         help="若有任何 entry 過時則退出 code 1")
     parser.add_argument("--show-missing", action="store_true",
                         help="列出所有有 URL 但沒附 stars 的 entry（用來盤點哪些該補 stars）")
+    parser.add_argument("--apply", action="store_true",
+                        help="把 drift 的 entry 直接寫回 .md（exit 0 if applied, 2 if nothing to apply）")
     args = parser.parse_args()
 
     # 找所有 GitHub repo + 它在每個檔案中的標註 stars
@@ -247,6 +249,29 @@ def main():
                 print(f"    {rel}:{ln}")
             if len(occs) > 3:
                 print(f"    ... +{len(occs) - 3} more")
+
+    if args.apply:
+        # Write-back mode: replace `declared_text` with `★ {new}` in-place.
+        # Group drift by file so we only do one read/write per file.
+        by_file: dict[Path, list[tuple[int, str, str]]] = {}
+        for repo, fp, line_no, declared, latest, pct, text in drift:
+            new_text = f"★ {fmt_stars(latest)}"
+            by_file.setdefault(fp, []).append((line_no, text, new_text))
+
+        files_changed = 0
+        for fp, replacements in by_file.items():
+            content = fp.read_text(encoding="utf-8")
+            lines = content.splitlines(keepends=True)
+            for line_no, old_text, new_text in replacements:
+                idx = line_no - 1
+                if 0 <= idx < len(lines) and old_text in lines[idx]:
+                    lines[idx] = lines[idx].replace(old_text, new_text, 1)
+            fp.write_text("".join(lines), encoding="utf-8")
+            files_changed += 1
+
+        print()
+        print(f"=== Applied {len(drift)} drift fixes across {files_changed} files ===")
+        sys.exit(0 if drift else 2)
 
     if args.check and (drift or not_found):
         # CI 模式：只有 drift 或 404 算失敗。
