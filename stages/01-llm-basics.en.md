@@ -127,7 +127,7 @@ If not — go back to Stage 0 first.
 
 > 🦙 **This stage defaults to Ollama** (cost-driven; `gemma4:e4b` runs locally for $0/run). Every exercise has Path A (Ollama, default) + Path B (Anthropic, optional — use it when you want to see cloud-quality answers). Full three-path trade-off in [`examples/README.en.md`](../examples/README.en.md#three-paths--default-is-ollama-cost-driven).
 >
-> 💰 **Stage 1 budget estimate** (all 6 exercises, 3-5 runs each): **all local = $0**, **all haiku ≈ $0.30**, **all sonnet ≈ $0.90**. Full model list + Stage 1-7 total budget: [`examples/README.en.md#recommended-llm-list`](../examples/README.en.md#recommended-llm-list-local--cloud-user-perspective).
+> 💰 **Stage 1 budget estimate** (all 6 exercises, 3-5 runs each): **all local = $0**, **all haiku ≈ $0.30**, **all sonnet ≈ $0.90**. Full model list + Stage 1-7 total budget: [`examples/README.en.md#recommended-llm-list`](../examples/README.en.md#recommended-llm-list).
 >
 > 💡 **No Ollama yet?** Each exercise also ships a Path B Anthropic version — pick one. To enable Path A in one step: [`pip install openai && ollama pull gemma4:e4b`](https://ollama.com).
 

@@ -20,7 +20,7 @@ The table below splits a knowledge worker's day into 7 common scenarios. Most of
 | **Notion / knowledge-base cleanup** | Notes are messy, unstructured, and hard to find | Retag + classify + auto-summarize | Claude Desktop + Notion MCP |
 | **Documents / proposal drafts** | Specs and proposals get stuck | Outline → sections → polish | Claude.ai |
 
-> 💡 **MCP is central for knowledge workers**: new to MCP? Read [Stage 5.2 — MCP Foundation](../stages/05-claude-code-ecosystem.en.md#52--mcpmodel-context-protocol--foundation). Looking for available MCP servers? See [`resources/mcp-skills-catalog.en.md`](../resources/mcp-skills-catalog.en.md).
+> 💡 **MCP is central for knowledge workers**: new to MCP? Read [Stage 5.2 — MCP Foundation](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation). Looking for available MCP servers? See [`resources/mcp-skills-catalog.en.md`](../resources/mcp-skills-catalog.en.md).
 
 ## Curated Projects
 

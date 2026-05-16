@@ -138,7 +138,7 @@ from mypackage import foo",
 
 ### 进一步
 
-- 看 [Stage 5.3](../stages/05-claude-code-ecosystem.zh-Hans.md#53--skillsclaude-code-的行为层) 的 Skill anatomy 详解
+- 看 [Stage 5.3](../stages/05-claude-code-ecosystem.zh-Hans.md#53--skillsclaude-code-的行为层-claude-code-生态最关键的一层) 的 Skill anatomy 详解
 - 看 [`anthropics/skills`](https://github.com/anthropics/skills) 官方 skill 模板（docx / xlsx / pptx 等）的写法
 - 多个 skill 打包成 plugin → [Stage 5.4](../stages/05-claude-code-ecosystem.zh-Hans.md#54--plugins-与-marketplaces)
 

@@ -193,7 +193,7 @@ Common quick links, grouped by **scenario**:
 | Your situation | Where | What's there |
 |---|---|---|
 | Never written code, first time with AI agents | [`resources/setup-guide.en.md`](resources/setup-guide.en.md) | 30-45 min from zero (API key, Python, first hello-world) |
-| Not sure which LLM provider to pick | [`resources/setup-guide.en.md` A](resources/setup-guide.en.md#a--apply-for-your-first-api-key-about-10-minutes) | Anthropic / OpenAI / DeepSeek / Kimi / NVIDIA NIM comparison |
+| Not sure which LLM provider to pick | [`resources/setup-guide.en.md` A](resources/setup-guide.en.md#a--get-your-first-api-key-about-10-minutes) | Anthropic / OpenAI / DeepSeek / Kimi / NVIDIA NIM comparison |
 | Topic-based awesome lists / Chinese community | [`RESOURCES.en.md` topic-based](RESOURCES.en.md#topic-based-awesome-lists) | 5-10 min skim |
 
 ### 📖 Concepts / Terminology

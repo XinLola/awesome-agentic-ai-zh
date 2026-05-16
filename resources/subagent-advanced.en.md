@@ -303,4 +303,4 @@ This is fully self-contained. The subagent can run from this prompt without any 
 - **More dispatch recipes** → [`subagent-cookbook.en.md`](./subagent-cookbook.en.md) (15 copy-paste dispatch prompts)
 - **Understand how subagents relate to skills / MCP** → [Stage 5.5](../stages/05-claude-code-ecosystem.en.md#55--subagents-claude-codes-native-multi-agent-mechanism--2025-new-feature)
 - **Run multi-agent coordination** (Pattern B) → the [agent-collab-skills](https://github.com/WenyuChiou/agent-collab-skills) plugin
-- **Vocabulary quick lookup** → [`glossary.en.md` § 5. Claude Code ecosystem](./glossary.en.md#subagent-child-agent)
+- **Vocabulary quick lookup** → [`glossary.en.md` § 5. Claude Code ecosystem](./glossary.en.md#5-claude-code-ecosystem)

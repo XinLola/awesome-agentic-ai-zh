@@ -149,7 +149,7 @@ Agent receives a task
 - **Cross-OS**: Covers Ubuntu, Windows, and macOS.
 - **Cross-application chains**: Often requires opening 3-4 apps (e.g., Excel → Chrome → Slack).
 
-**Why real ability ≠ the numbers** (echoing the [reward-hacking warning in Stage 7](07-multi-agent-production.md#-agent-benchmark-landscape2026-05--reward-hacking-warnings)):
+**Why real ability ≠ the numbers** (echoing the [reward-hacking warning in Stage 7](07-multi-agent-production.en.md#-agent-benchmark-landscape-how-to-read-it-not-just-the-leaderboard---reward-hacking-warning)):
 - OSWorld was also on the list in the [UC Berkeley April 2026 reward-hacking report](https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/), which proved it could be hacked to 100%.
 - **Discipline when looking at numbers**: Don't just look at the top of the leaderboard. The ground truth is the hold-out test for your own use case.
 
@@ -438,7 +438,7 @@ In March 2026, a US federal judge issued a preliminary injunction against Comet,
 | **③ Human-in-the-loop**| A mid-task checkpoint for long-horizon tasks. | For tasks > 10 steps or > 5 minutes. |
 | **④ Output filter** | Restrict destinations to a whitelist (e.g., only post to internal Slack, only write to `/tmp`).| Agents that operate across systems. |
 
-→ **Echoing the [reward-hacking warning in Stage 7](07-multi-agent-production.md#-agent-benchmark-landscape2026-05--reward-hacking-warnings)**: This curriculum consistently teaches the discipline of "**don't blindly trust the agent**." Stage 7 talked about evaluation discipline, Stage 8 talks about runtime discipline.
+→ **Echoing the [reward-hacking warning in Stage 7](07-multi-agent-production.en.md#-agent-benchmark-landscape-how-to-read-it-not-just-the-leaderboard---reward-hacking-warning)**: This curriculum consistently teaches the discipline of "**don't blindly trust the agent**." Stage 7 talked about evaluation discipline, Stage 8 talks about runtime discipline.
 
 ## 🛠 Hands-on Exercises (One for Each Track)
 
@@ -513,7 +513,7 @@ Can you:
 - [ ] Explain why prompt injection through web content is a new attack surface and what the 4 defensive patterns each block?
 - [ ] Explain the discipline behind the OSWorld 76.26% SOTA number (why you can't blindly trust it)?
 
-If you can do all of this → you've completed the main curriculum. Pick a [specialized branch](../README.md#-learning-map-and-two-tracks), or see below for the next frontier.
+If you can do all of this → you've completed the main curriculum. Pick a [specialized branch](../README.en.md#-learning-map-two-tracks), or see below for the next frontier.
 
 ## 💡 The Next Frontier — Voice agents · VLA robots
 

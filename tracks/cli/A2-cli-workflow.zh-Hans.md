@@ -80,7 +80,7 @@ official — Claude Code memory / CLAUDE.md 编写的官方说明，含 best pra
 ★ 178k+ — 不只是 skill collection，也是 production CLAUDE.md 范本。看 `.claude/` whole directory structure。
 
 #### [mattpocock/skills](https://github.com/mattpocock/skills) ⭐⭐⭐⭐
-工程师日常用的 skill 库。`.claude/` structure 是好参考。**更多 skill 范例见 [Stage 5.3 — Skills](../../stages/05-claude-code-ecosystem.zh-Hans.md#53--skillsclaude-code-的行为层)。**
+工程师日常用的 skill 库。`.claude/` structure 是好参考。**更多 skill 范例见 [Stage 5.3 — Skills](../../stages/05-claude-code-ecosystem.zh-Hans.md#53--skillsclaude-code-的行为层-claude-code-生态最关键的一层)。**
 
 ---
 

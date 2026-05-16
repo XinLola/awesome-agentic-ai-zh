@@ -250,7 +250,7 @@ Anthropic's open protocol, introduced in 2024, that lets any LLM host (Claude Co
 
 **Architecture**: server / client pattern — the tool server runs locally or remotely, and the LLM host connects as the client. The server exposes those primitives over one of three transports: stdio / SSE / HTTP.
 
-📍 Detail: [Stage 5.2](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol-foundation)
+📍 Detail: [Stage 5.2](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation)
 
 ### Skills / SKILL.md
 
@@ -258,7 +258,7 @@ Claude Code's "behavior bundles". A Skill = a folder containing `SKILL.md` (desc
 
 **Trigger mechanism** (many people do not know this, but it matters): before Claude Code handles each message, it scans the **frontmatter `description` field** of every available skill — if it matches the current situation, the corresponding SKILL.md is auto-loaded. **So the quality of the description directly determines whether the skill gets triggered.** In practice, starting with "Use when ..." works best.
 
-📍 Detail: [Stage 5.3](../stages/05-claude-code-ecosystem.en.md#53--skills-claude-code-behavior-layer)
+📍 Detail: [Stage 5.3](../stages/05-claude-code-ecosystem.en.md#53--skills-claude-codes-behavior-layer--the-most-critical-layer-of-the-claude-code-ecosystem)
 
 ### Plugin / Marketplace
 
@@ -423,6 +423,6 @@ Google's "user-space kernel" — intercepts syscalls and emulates them itself, n
 
 ## Term not here?
 
-- Read the actual stage content: [Stage 5.2 MCP](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol-foundation) / [5.3 Skills](../stages/05-claude-code-ecosystem.en.md#53--skills-claude-code-behavior-layer) / [5.4 Plugins](../stages/05-claude-code-ecosystem.en.md#54--plugins--marketplaces)
+- Read the actual stage content: [Stage 5.2 MCP](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation) / [5.3 Skills](../stages/05-claude-code-ecosystem.en.md#53--skills-claude-codes-behavior-layer--the-most-critical-layer-of-the-claude-code-ecosystem) / [5.4 Plugins](../stages/05-claude-code-ecosystem.en.md#54--plugins--marketplaces)
 - Required reading lists in [Stage 1](../stages/01-llm-basics.en.md) / [Stage 6](../stages/06-memory-rag.en.md) / [Stage 7](../stages/07-multi-agent-production.en.md) / [Stage 8](../stages/08-agent-interfaces.en.md)
 - Missing? Open an issue or PR a new entry.

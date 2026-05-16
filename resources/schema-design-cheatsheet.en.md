@@ -156,4 +156,4 @@ Tool fails and returns `null` or `{}` — LLM thinks it succeeded, continues rea
 - [Anthropic — Tool Use Guide](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/overview) — official schema spec
 - [OpenAI — Function Calling](https://platform.openai.com/docs/guides/function-calling) — OpenAI's schema spec (slight differences from Anthropic)
 - [Stage 3 — Tool Use & Agent Intro](../stages/03-tool-use-and-hello-agent.en.md) — main exercises
-- [Stage 5.2 — MCP foundation](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol-foundation) — MCP server tool schemas (nearly identical structure to function-calling schema)
+- [Stage 5.2 — MCP foundation](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation) — MCP server tool schemas (nearly identical structure to function-calling schema)

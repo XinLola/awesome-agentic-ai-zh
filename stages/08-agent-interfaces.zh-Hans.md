@@ -149,7 +149,7 @@
 - **跨多个 OS**：覆盖 Ubuntu / Windows / macOS。
 - **跨应用链**：常需要打开 3-4 个应用（Excel → Chrome → Slack）。
 
-**为什么真实能力 ≠ 数据**（呼应 [Stage 7 reward-hacking 警告](07-multi-agent-production.zh-Hans.md#-agent-benchmark-landscape2026-05-最新--reward-hacking-警告)）：
+**为什么真实能力 ≠ 数据**（呼应 [Stage 7 reward-hacking 警告](07-multi-agent-production.zh-Hans.md#-agent-benchmark-landscape怎么看不要只看排行榜---reward-hacking-警告)）：
 - OSWorld 也在 [UC Berkeley 2026-04 reward-hacking 报告](https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/) 名单上，被证明可被 hack 到 100%。
 - **看数据的规范**：不要只看排行榜顶部，你自己的用例的 hold-out 测试才是基准真相。
 
@@ -438,7 +438,7 @@ agent = Agent(
 | **③ 人工介入** | 长时间任务的中段检查点。 | 任务 > 10 步或 > 5 分钟 |
 | **④ 输出过滤器** | 目标限定白名单（仅发布到内部 Slack，仅写入 /tmp）。| 跨系统操作的智能体 |
 
-→ **呼应 [Stage 7 reward-hacking 警告](07-multi-agent-production.zh-Hans.md#-agent-benchmark-landscape2026-05-最新--reward-hacking-警告)**：课程始终强调“**不要盲目相信智能体**”的规范——Stage 7 讲评估规范，Stage 8 讲运行时规范。
+→ **呼应 [Stage 7 reward-hacking 警告](07-multi-agent-production.zh-Hans.md#-agent-benchmark-landscape怎么看不要只看排行榜---reward-hacking-警告)**：课程始终强调“**不要盲目相信智能体**”的规范——Stage 7 讲评估规范，Stage 8 讲运行时规范。
 
 ## 🛠 动手练习（两 track 各有）
 
@@ -513,7 +513,7 @@ agent = Agent(
 - [ ] 解释为何通过 web 内容的 prompt injection 是新的攻击面，以及 4 个防护模式各防御什么
 - [ ] 解释 OSWorld 76.26% SOTA 数据背后的 reward-hacking 规范（为何不能盲目相信）
 
-如果都可以 → 你已完成课程主干。选择一个[特化分支](../README.zh-Hans.md#️-学习地图与两条学习路径)，或继续看下一节 下一个前沿。
+如果都可以 → 你已完成课程主干。选择一个[特化分支](../README.zh-Hans.md#-学习地图两条学习路径)，或继续看下一节 下一个前沿。
 
 ## 💡 下一个前沿 — Voice agents · VLA 机器人
 

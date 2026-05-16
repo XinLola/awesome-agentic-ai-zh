@@ -80,7 +80,7 @@ official — Claude Code memory / CLAUDE.md authoring docs, including best pract
 ★ 178k+ — Not just a skill collection but also a production CLAUDE.md template. Read the full `.claude/` structure.
 
 #### [mattpocock/skills](https://github.com/mattpocock/skills) ⭐⭐⭐⭐
-A practitioner's daily skill library. The `.claude/` structure is a great reference. **More skill examples in [Stage 5.3 — Skills](../../stages/05-claude-code-ecosystem.en.md#53--skills-claude-code-behavior-layer).**
+A practitioner's daily skill library. The `.claude/` structure is a great reference. **More skill examples in [Stage 5.3 — Skills](../../stages/05-claude-code-ecosystem.en.md#53--skills-claude-codes-behavior-layer--the-most-critical-layer-of-the-claude-code-ecosystem).**
 
 ---
 

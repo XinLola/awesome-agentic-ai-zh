@@ -126,7 +126,7 @@
 
 > 🦙 **本 stage 默认用 Ollama**（成本考量、本机 `gemma4:e4b` 跑得动、$0/run）。每个练习都有 Path A（Ollama、默认）+ Path B（Anthropic、选择性、想看 cloud 高品质时用）。完整 3 路 trade-off 见 [`examples/README.zh-Hans.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
 >
-> 💰 **Stage 1 预算估算**（全 6 练习各跑 3-5 次）：**全本机 = $0**、**全 haiku ≈ $0.30**、**全 sonnet ≈ $0.90**。完整 model 清单 + Stage 1-7 全程预算估算见 [`examples/README.zh-Hans.md#推荐-llm-清单`](../examples/README.zh-Hans.md#推荐-llm-清单本机--clouduser-视角)。
+> 💰 **Stage 1 预算估算**（全 6 练习各跑 3-5 次）：**全本机 = $0**、**全 haiku ≈ $0.30**、**全 sonnet ≈ $0.90**。完整 model 清单 + Stage 1-7 全程预算估算见 [`examples/README.zh-Hans.md#推荐-llm-清单`](../examples/README.zh-Hans.md#推荐-llm-清单)。
 >
 > 💡 **不装 Ollama 也能读** — 每个练习的 Path B 区块就是 Anthropic 版、选一个跑就行。先 [`pip install openai && ollama pull gemma4:e4b`](https://ollama.com) 就装好 Path A 环境。
 

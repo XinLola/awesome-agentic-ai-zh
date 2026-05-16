@@ -132,13 +132,13 @@ AI (Artificial Intelligence、人工智能)
 
 > 🦙 **本 stage 默认用 Ollama qwen2.5:3b**（成本考量、tool-use 支持稳定）。Stage 3 进到 tool calling / ReAct loop、`gemma4:e4b` 不够、改用 `qwen2.5:3b`（1.9 GB、`ollama pull qwen2.5:3b` 即装）。每个练习都有 Path A（Ollama、默认）+ Path B（Anthropic、选择性、想看 cloud 高质量 tool-use 时用）。
 >
-> 💰 **Stage 3 预算估算**（全 6 练习、tool use 较重）：**全本机 = $0**、**全 haiku ≈ $0.50**、**全 sonnet ≈ $1.50**。ReAct loop 练习单次 4-6 tool calls × 5 练习 × 5 reps ≈ $0.80 haiku。完整预算见 [`examples/README.md#推荐-llm-清单`](../examples/README.md#推荐-llm-清单)。
+> 💰 **Stage 3 预算估算**（全 6 练习、tool use 较重）：**全本机 = $0**、**全 haiku ≈ $0.50**、**全 sonnet ≈ $1.50**。ReAct loop 练习单次 4-6 tool calls × 5 练习 × 5 reps ≈ $0.80 haiku。完整预算见 [`examples/README.md#推荐-llm-清单`](../examples/README.zh-Hans.md#推荐-llm-清单)。
 >
-> 完整 3 路 trade-off 见 [`examples/README.md`](../examples/README.md#三条路径--默认用-ollama成本考量)。
+> 完整 3 路 trade-off 见 [`examples/README.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
 >
 > 🆘 **卡住了？** Tool calling 是整个 curriculum 最陡的学习曲线。装 [`examples/stage-5/tool-calling-tutor/`](../examples/stage-5/tool-calling-tutor/) skill——当你 prompt Claude Code「为什么 LLM 不调用我的 tool」、「我这 schema 哪里写坏」会自动加载、走 4-symptom 诊断流程。
 >
-> 🪜 **本 stage 是 single-agent 起点**：一个 LLM + ReAct loop。**Multi-agent 概念**（多个 agent 协作）入门看 [Stage 4 什么是 multi-agent framework](04-agent-frameworks.md#-什么是-multi-agent-framework)、**Claude 原生 subagent 机制**（`.claude/agents/` + Task tool、不需 framework）看 [Stage 5.5](05-claude-code-ecosystem.md#55--subagentsclaude-code-原生-multi-agent-机制-2025-新功能)。
+> 🪜 **本 stage 是 single-agent 起点**：一个 LLM + ReAct loop。**Multi-agent 概念**（多个 agent 协作）入门看 [Stage 4 什么是 multi-agent framework](04-agent-frameworks.zh-Hans.md#-什么是-multi-agent-framework)、**Claude 原生 subagent 机制**（`.claude/agents/` + Task tool、不需 framework）看 [Stage 5.5](05-claude-code-ecosystem.zh-Hans.md#55--subagentsclaude-code-原生-multi-agent-机制-2025-新功能)。
 
 ### 练习 1：Function Calling（一个工具、一次调用）
 给 Claude 一个工具（假的天气 API）跟一个问题（「台北现在有下雨吗？」）。看 Claude 怎么调用工具、拿到结果、再回答你。

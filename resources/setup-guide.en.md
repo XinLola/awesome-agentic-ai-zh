@@ -289,7 +289,7 @@ When the user asks you to greet them, return three things:
 
 Run `claude`, then type `say hi`. If Claude returns the three items, the Skill loaded.
 
-> For deeper Skill design, see [Stage 5.3 — Skills](../stages/05-claude-code-ecosystem.en.md#53--skills-claude-code-behavior-layer).
+> For deeper Skill design, see [Stage 5.3 — Skills](../stages/05-claude-code-ecosystem.en.md#53--skills-claude-codes-behavior-layer--the-most-critical-layer-of-the-claude-code-ecosystem).
 > For copy-and-run examples, see the [Cookbook](cookbook.en.md).
 
 ---

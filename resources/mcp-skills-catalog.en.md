@@ -9,8 +9,8 @@
 ## How to use this catalog
 
 - **Looking for a specific tool's MCP**: jump to the relevant section below
-- **Want to know what MCP / Skills / Plugins are**: see [README "Three core terms"](../README.en.md#three-core-terms-mcp--skills--plugins) first, then [Stage 5 — Claude Code Ecosystem](../stages/05-claude-code-ecosystem.en.md)
-- **Want hands-on exercises (install + test)**: see [Stage 5.2 (MCP)](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol-foundation) and [Stage 5.3 (Skills)](../stages/05-claude-code-ecosystem.en.md#53--skills-claude-code-behavior-layer)
+- **Want to know what MCP / Skills / Plugins are**: see [RESOURCES.en.md "Three core terms"](../RESOURCES.en.md#three-core-terms-mcp--skills--plugins) first, then [Stage 5 — Claude Code Ecosystem](../stages/05-claude-code-ecosystem.en.md)
+- **Want hands-on exercises (install + test)**: see [Stage 5.2 (MCP)](../stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation) and [Stage 5.3 (Skills)](../stages/05-claude-code-ecosystem.en.md#53--skills-claude-codes-behavior-layer--the-most-critical-layer-of-the-claude-code-ecosystem)
 
 ### Inclusion direction (not strict rules)
 

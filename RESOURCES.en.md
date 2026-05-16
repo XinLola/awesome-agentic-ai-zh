@@ -14,8 +14,8 @@ This file collects: term definitions, daily-tool MCP/Skill highlights, topic-bas
 
 The README and stages reference these three Claude Code ecosystem terms a lot. Quick definitions:
 
-- **MCP (Model Context Protocol)** — Anthropic's open protocol that lets any LLM host (Claude Code, other IDEs, your own agent) talk to any external tool server (filesystem, DB, API, your service) through one interface. Think "USB for LLMs". See [Stage 5.2](stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol-foundation).
-- **Skills** — Claude Code's "behavior bundles". A Skill is a `SKILL.md` describing "in what context, do what, can call which MCP tools". Claude Code auto-discovers them. See [Stage 5.3](stages/05-claude-code-ecosystem.en.md#53--skills-claude-code-behavior-layer).
+- **MCP (Model Context Protocol)** — Anthropic's open protocol that lets any LLM host (Claude Code, other IDEs, your own agent) talk to any external tool server (filesystem, DB, API, your service) through one interface. Think "USB for LLMs". See [Stage 5.2](stages/05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation).
+- **Skills** — Claude Code's "behavior bundles". A Skill is a `SKILL.md` describing "in what context, do what, can call which MCP tools". Claude Code auto-discovers them. See [Stage 5.3](stages/05-claude-code-ecosystem.en.md#53--skills-claude-codes-behavior-layer--the-most-critical-layer-of-the-claude-code-ecosystem).
 - **Plugins / Marketplaces** — package Skills, slash commands, hooks, and MCP configs into a distribution unit installable by your team or community. A marketplace is a catalog of plugins. See [Stage 5.4](stages/05-claude-code-ecosystem.en.md#54--plugins--marketplaces).
 
 Hands-on exercises live in [Stage 5](stages/05-claude-code-ecosystem.en.md), with Track A's [A3](tracks/cli/A3-cli-production.en.md) covering production integration.

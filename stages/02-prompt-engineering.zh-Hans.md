@@ -36,7 +36,7 @@
 
 > 🦙 **本 stage 默认用 Ollama gemma4:e4b**（成本考量、$0/run）。Prompt engineering 对小 model 更有教学价值——小 model 对 prompt 质量敏感、能让你看清楚 system prompt / few-shot / CoT / refinement 各自带来多少改善。每个练习都有 Path A（Ollama、默认）+ Path B（Anthropic、选择性）。
 >
-> 💰 **Stage 2 预算估算**（全 4 练习各跑 3-5 次）：**全本机 = $0**、**全 haiku ≈ $0.20**、**全 sonnet ≈ $0.60**。Few-shot 分类任务的 12 calls × 5 reps ≈ $0.30 haiku / $0.90 sonnet。完整预算见 [`examples/README.zh-Hans.md#推荐-llm-清单`](../examples/README.zh-Hans.md#推荐-llm-清单本机--clouduser-视角)。
+> 💰 **Stage 2 预算估算**（全 4 练习各跑 3-5 次）：**全本机 = $0**、**全 haiku ≈ $0.20**、**全 sonnet ≈ $0.60**。Few-shot 分类任务的 12 calls × 5 reps ≈ $0.30 haiku / $0.90 sonnet。完整预算见 [`examples/README.zh-Hans.md#推荐-llm-清单`](../examples/README.zh-Hans.md#推荐-llm-清单)。
 >
 > 完整 3 路 trade-off 见 [`examples/README.zh-Hans.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
 
