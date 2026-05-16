@@ -10,7 +10,7 @@
 
 把练习 3 的 ReAct loop 延伸成 **3-5 步任务**：查台北人口 → 查纽约人口 → 相除 → 转百分比。LLM 负责规划下一步、工具负责可靠地执行小动作；两者合起来才像能完成 workflow 的 agent。
 
-这题也是观察「**model 规模 vs 多步推理稳定度**」的好实验。同样 loop、claude-haiku 通常 4 步走完；qwen2.5:3b 可能中间漏一步（譬如忘了转百分比），或停太早。
+这题也是观察“**model 规模 vs 多步推理稳定度**”的好实验。同样 loop、claude-haiku 通常 4 步走完；qwen2.5:3b 可能中间漏一步（譬如忘了转百分比），或停太早。
 
 ## 怎么跑 — 两条路径
 
@@ -25,7 +25,7 @@ python starter.py
 
 预算：**$0**。多步 loop ≈ 30-120 秒（CPU、4-5 轮累积）。
 
-### Path B（Anthropic、想看 cloud 高品质）
+### Path B（Anthropic、想看 cloud 高质量）
 
 ```bash
 pip install -r requirements.txt
@@ -50,7 +50,7 @@ python starter_anthropic.py
 ✅ 练习 4 通过 — 你已用本机 qwen2.5:3b 跑通多步 ReAct loop、$0/run
 ```
 
-## 不花钱验证程式逻辑（mock-based）
+## 不花钱验证程序逻辑（mock-based）
 
 ```bash
 python test.py            # 验 Path A (Ollama) starter.py 逻辑
@@ -61,7 +61,7 @@ python test_anthropic.py  # 验 Path B (Anthropic) starter_anthropic.py 逻辑
 
 ## 观念提醒
 
-多步任务的核心不是「模型很会算」、而是把复杂任务拆成可靠的小步：
+多步任务的核心不是“模型很会算”、而是把复杂任务拆成可靠的小步：
 
 - **工具要窄而稳**：`divide(a, b)` 只做一件事、`b=0` 也不 crash 而是回 0
 - **LLM 负责规划**：决定下一步要调用哪个工具、何时停
@@ -72,7 +72,7 @@ python test_anthropic.py  # 验 Path B (Anthropic) starter_anthropic.py 逻辑
 
 | 观察项 | Anthropic Claude haiku | Ollama qwen2.5:3b |
 |---|---|---|
-| 走完 4 步机率 | 高 | 中（可能漏「转百分比」） |
+| 走完 4 步机率 | 高 | 中（可能漏“转百分比”） |
 | 中间步骤顺序 | 稳定 | 可能跳序 |
 | 收尾判断 | 稳定 `end_turn` | 可能多跑一轮冗余 tool call |
 | 单次成本 | $0.005 | $0 |

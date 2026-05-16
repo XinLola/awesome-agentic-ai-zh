@@ -18,7 +18,7 @@ Turn 3: user: "Recommend a language for me."
         → recall 拿到「prefer Python」、塞进 system prompt → LLM 知道推荐 Python
 ```
 
-这是 **RAG 的另一面**——retrieve 对象从外部文档变成「对话历史」。
+这是 **RAG 的另一面**——retrieve 对象从外部文档变成“对话历史”。
 
 ## 怎么跑
 
@@ -43,7 +43,7 @@ python starter_anthropic.py
 
 预算：每次 ≈ **$0.001**。
 
-## 不花钱验证程式逻辑
+## 不花钱验证程序逻辑
 
 ```bash
 python test.py             # 5 个 test、mock LLM
@@ -63,7 +63,7 @@ def chat(user_msg, memory):
     return llm.invoke(system + user_msg)           # 3. LLM 看 memory 回答
 ```
 
-**核心**：memory 不是当「context window history」存（会爆），而是当「semantic search index」存——LLM 只看到相关的几条。
+**核心**：memory 不是当“context window history”存（会爆），而是当“semantic search index”存——LLM 只看到相关的几条。
 
 ## 跟普通 chat history 的差别
 
@@ -77,21 +77,21 @@ def chat(user_msg, memory):
 
 **Production 用法**：两个都用——recent N 轮当 in-context、超过 N 轮 + 跨 session 用 vector memory。
 
-## 什么是「memory-worthy fact」
+## 什么是“memory-worthy fact”
 
-这份用 heuristic：user 说「I + verb...」就存。Production 通常更复杂：
+这份用 heuristic：user 说“I + verb...”就存。Production 通常更复杂：
 
-1. **Explicit trigger**：user 说「remember that...」
+1. **Explicit trigger**：user 说“remember that...”
 2. **Profile facts**：location / language / role / preferences
 3. **Past decisions**：上次 agent 怎么处理某情境
-4. **Negative feedback**：「don't suggest X」要存
+4. **Negative feedback**：“don't suggest X”要存
 5. **LLM-extracted**：每轮结束、用 LLM 自己抓 facts（mem0 / Letta / MemGPT 都这么做）
 
 ## 常见坑
 
-- **每轮都 add to memory**：vector store 会爆。要有「fact extraction」过滤、只存值得记的
-- **没 dedup**：使用者多轮重复讲「I live in Taipei」、会存 5 条一样的。要加 dedup 逻辑（similarity > 0.95 视为重复）
-- **Forget / update 机制缺失**：使用者搬家了「I now live in Tokyo」、旧 memory「Taipei」要怎么处理？production 要支持「supersede」概念
+- **每轮都 add to memory**：vector store 会爆。要有“fact extraction”过滤、只存值得记的
+- **没 dedup**：使用者多轮重复讲“I live in Taipei”、会存 5 条一样的。要加 dedup 逻辑（similarity > 0.95 视为重复）
+- **Forget / update 机制缺失**：使用者搬家了“I now live in Tokyo”、旧 memory“Taipei”要怎么处理？production 要支持“supersede”概念
 - **没 context size 控制**：recall top-k 太大、context 爆，LLM 也分心
 - **隐私 / GDPR**：使用者要求删除个人信息、要有 `forget(user_id)` API
 

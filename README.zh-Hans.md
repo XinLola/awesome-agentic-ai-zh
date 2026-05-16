@@ -10,7 +10,7 @@
 
 ### 🤖 AI Agent 学习地图 — 从基础 LLM 概念到自己构建多 agent 系统
 
-<p><em><b>学习路线图 + 145+ 资源 curation + 简单 illustrative 案例</b><br/>结构化 8 阶段、从「LLM 是什么、token 怎么算」走到 multi-agent 编排、Computer Use / Browser Use / Sandbox</em></p>
+<p><em><b>学习路线图 + 145+ 资源 curation + 简单 illustrative 案例</b><br/>结构化 8 阶段、从“LLM 是什么、token 怎么算”走到 multi-agent 编排、Computer Use / Browser Use / Sandbox</em></p>
 
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat)](LICENSE)
 [![繁中](https://img.shields.io/badge/語言-繁體中文-red?style=flat)](README.md)
@@ -25,7 +25,7 @@
 
 ## 🎯 项目介绍
 
-**本 repo 角色定位**：**学习路线图 + 145+ 资源 curation + 简单 illustrative 案例**——三件事为核心、帮想学 AI / AI agent 的人从「不知道从哪开始」走到「能设计多 agent 系统」。
+**本 repo 角色定位**：**学习路线图 + 145+ 资源 curation + 简单 illustrative 案例**——三件事为核心、帮想学 AI / AI agent 的人从“不知道从哪开始”走到“能设计多 agent 系统”。
 
 具体做法：
 
@@ -35,7 +35,7 @@
 | **资源 curation** | 每阶段精选 **145+** 个 project（含星等、适合谁、教什么、怎么跑），加上中文社群 MCP / Skill 完整 catalog | 145+ projects、62 MCP/Skill |
 | **简单 illustrative 案例** | 每阶段附 1-5 个**基础练习**（70-150 行 starter + dual-path Ollama/Anthropic SDK 对照 + mock-based test） | 27 个练习 folder |
 
-走完这条路线，你会从「**LLM 用户**」进阶到「**agent 系统构建者**」——能看懂 framework 在做什么、能设计多 agent 协作、能写自己的 MCP server。
+走完这条路线，你会从“**LLM 用户**”进阶到“**agent 系统构建者**”——能看懂 framework 在做什么、能设计多 agent 协作、能写自己的 MCP server。
 
 ---
 
@@ -63,7 +63,7 @@ cd awesome-agentic-ai-zh
 - 🛠️ **基础动手练习** — 每阶段附 1-5 个 illustrative 练习（题目 + dual-path SDK 对照 + success criteria）。定位是**基础入门 + 路线确认**——chapter-length 深度练习见对应 stage 的 hello-agents / Anthropic Cookbook callout
 - 🎯 **精选 145+ 个 projects** — 每个都附星等推荐、适合谁、教什么、怎么跑（含本地 LLM 执行：Ollama、llama.cpp、LocalAI、MLX）
 - 🌏 **中文 / 英文双语** — 简体中文为主、英文版完整对照
-- 🎓 **不只「框架」、还有「Claude Code 生态」** — MCP / Skills / Plugins 完整堆叠
+- 🎓 **不只“框架”、还有“Claude Code 生态”** — MCP / Skills / Plugins 完整堆叠
 - 🔬 **5 条依用户分流的延伸路线** — 研究员 / 开发者 / 老师 / 知识工作者 / 日常用户
 - ⏱️ **预估时程写清楚** — Track A 8-10 周 / Track B 主干最少 16-22 周、现实 5-7 个月（每周 5-8 hr）
 
@@ -116,7 +116,7 @@ cd awesome-agentic-ai-zh
 
 > **两个共用 hub（Track A + Track B 都会用到）**：
 > - **Stage 5** = Claude Code 生态（MCP / Skills / Plugins / Subagents）—— Track A 学 MCP 接 CLI、Track B 学 agent runtime 结构
-> - **Stage 8** = Agent Interfaces（Computer Use / Browser / Sandbox、2024-2026 frontier）—— Track A 学「**怎么用**」委派任务、Track B 学「**怎么 build**」embed 进 agent
+> - **Stage 8** = Agent Interfaces（Computer Use / Browser / Sandbox、2024-2026 frontier）—— Track A 学“**怎么用**”委派任务、Track B 学“**怎么 build**”embed 进 agent
 
 > 💡 **想看跨 stage 的完整示例？** [7 步构建你的第一个 AI Agent](walkthroughs/build-first-agent-in-7-steps.zh-Hans.md) — 同一个 Paper Summary Bot 从 Stage 1 一路写到 Stage 7，~350 行真实代码（**Track B 适用**）
 
@@ -160,7 +160,7 @@ cd awesome-agentic-ai-zh
 
 最重要的说一句话：**不要跳过 動手練習**。每个 stage 的 動手練習都是“不动手就学不会”的东西，光读过去后面会卡住。
 
-> 🎓 **动手练习怎么用才对**：每个练习 folder 里的 `starter.py` 是**完整解答**、不是 TODO skeleton。如果你 clone 下来直接 `cat starter.py` + `python test.py` pass、会误以为「我学会了」、其实没写一行 code。**正确学习法**：`mv starter.py starter_reference.py`、看 signature 不看 body、自己重写、卡住才回去对照。完整方法论 + 每个 stage 的时间预算 + 卡住处理流程看 [`docs/HOW_TO_USE.md`](docs/HOW_TO_USE.md)。
+> 🎓 **动手练习怎么用才对**：每个练习 folder 里的 `starter.py` 是**完整解答**、不是 TODO skeleton。如果你 clone 下来直接 `cat starter.py` + `python test.py` pass、会误以为“我学会了”、其实没写一行 code。**正确学习法**：`mv starter.py starter_reference.py`、看 signature 不看 body、自己重写、卡住才回去对照。完整方法论 + 每个 stage 的时间预算 + 卡住处理流程看 [`docs/HOW_TO_USE.md`](docs/HOW_TO_USE.md)。
 
 准备好了吗？[从 Stage 0 开始](stages/00-foundations.zh-Hans.md)。
 
@@ -196,8 +196,8 @@ cd awesome-agentic-ai-zh
 
 README 跟各 stage 会频繁提到这三个 Claude Code 生态的关键词，先快速说明：
 
-- **MCP（Model Context Protocol）** — Anthropic 推的开放协议，让任何 LLM host（Claude Code、其他 IDE、自写 agent）都能用同一套接口去呼叫外部 tool server（文件、DB、API、自家服务）。把它想成“LLM 的 USB 接口”。详见 [Stage 5.2](stages/05-claude-code-ecosystem.zh-Hans.md#52--mcpmodel-context-protocol-基础)。
-- **Skills** — Claude Code 的“行为包”。一个 Skill 就是一份 `SKILL.md`，描述“在什么情境要做什么、可以呼叫哪些 MCP tool”。写好之后 Claude Code 会自动 discover。详见 [Stage 5.3](stages/05-claude-code-ecosystem.zh-Hans.md#53--skillsclaude-code-的行为层-claude-code-生态最关键的一层)。
+- **MCP（Model Context Protocol）** — Anthropic 推的开放协议，让任何 LLM host（Claude Code、其他 IDE、自写 agent）都能用同一套接口去调用外部 tool server（文件、DB、API、自家服务）。把它想成“LLM 的 USB 接口”。详见 [Stage 5.2](stages/05-claude-code-ecosystem.zh-Hans.md#52--mcpmodel-context-protocol-基础)。
+- **Skills** — Claude Code 的“行为包”。一个 Skill 就是一份 `SKILL.md`，描述“在什么情境要做什么、可以调用哪些 MCP tool”。写好之后 Claude Code 会自动 discover。详见 [Stage 5.3](stages/05-claude-code-ecosystem.zh-Hans.md#53--skillsclaude-code-的行为层-claude-code-生态最关键的一层)。
 - **Plugins / Marketplaces** — 把 Skills、slash commands、hooks、MCP 设置打包成一个发布单位给 team 或社群安装。Marketplace 就是 plugin 的 catalog。详见 [Stage 5.4](stages/05-claude-code-ecosystem.zh-Hans.md#54--plugins-与-marketplaces)。
 
 对, 应的 動手練習 练习都在 [Stage 5](stages/05-claude-code-ecosystem.zh-Hans.md)，Track A 的 [A3](tracks/cli/A3-cli-production.zh-Hans.md) 也会用到。

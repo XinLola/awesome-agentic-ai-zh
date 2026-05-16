@@ -8,12 +8,12 @@
 
 ## 为什么这题重要
 
-Schema 是 **prompt 的一部分**、而且是模型做工具选择时**最依赖**的 prompt。这题用 `starter_bad` 与 `starter_good` 对照同一题：「把摄氏 32 度换成华氏」。
+Schema 是 **prompt 的一部分**、而且是模型做工具选择时**最依赖**的 prompt。这题用 `starter_bad` 与 `starter_good` 对照同一题：“把摄氏 32 度换成华氏”。
 
 - **Bad schema**：description 太短、参数都 string、没 required、没 enum → LLM 容易把温度转换丢给 `process_data`
 - **Good schema**：用途明确、`value: number`、`unit: enum["celsius", "fahrenheit"]`、required 都列好 → 稳定选到 `convert_temperature`
 
-写 schema 不要只想「人看得懂」、要想「模型能不能用它排除错误工具」。
+写 schema 不要只想“人看得懂”、要想“模型能不能用它排除错误工具”。
 
 ## 怎么跑 — 两条路径
 
@@ -30,7 +30,7 @@ python starter_good.py   # 观察好 schema 怎么让 qwen 挑对
 
 预算：**$0**。
 
-### Path B（Anthropic、想看 cloud 高品质）
+### Path B（Anthropic、想看 cloud 高质量）
 
 ```bash
 pip install -r requirements.txt
@@ -42,7 +42,7 @@ python starter_good_anthropic.py
 
 预算：每次 ≈ **$0.0005**（claude-haiku-4-5、单轮 call）。
 
-## 不花钱验证程式逻辑（mock-based）
+## 不花钱验证程序逻辑（mock-based）
 
 ```bash
 python test.py            # 验 Path A (Ollama) starter_bad + starter_good
@@ -59,7 +59,7 @@ python test_anthropic.py  # 验 Path B (Anthropic) starter_*_anthropic
 | 参数类型 | 全部 `string` | `number` / `array` / 对应实际类型 |
 | Required | 无 | `["value", "unit"]` |
 | Enum 收敛 | 无 | `["celsius", "fahrenheit"]` |
-| 失败回传 | 简单字串 | 结构化 dict + retry_hint |
+| 失败回传 | 简单字符串 | 结构化 dict + retry_hint |
 
 ## 两个 path 的观察重点（教学重点）
 

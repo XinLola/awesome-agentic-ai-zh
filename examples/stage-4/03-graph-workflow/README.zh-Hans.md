@@ -63,7 +63,7 @@ graph.update_state(config, {"approved": True})
 state_after = graph.invoke(None, config=config)
 ```
 
-**关键**：`interrupt_before=["final"]` 告诉 graph「跑到 final 之前停」。Production 把它接到 webhook / Slack / 前端 button、等使用者按 approve 才继续。
+**关键**：`interrupt_before=["final"]` 告诉 graph“跑到 final 之前停”。Production 把它接到 webhook / Slack / 前端 button、等使用者按 approve 才继续。
 
 ## 为什么这个 pattern 重要
 

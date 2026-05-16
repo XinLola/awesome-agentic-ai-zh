@@ -4,12 +4,12 @@
 
 > [← 回主路线 README](../README.zh-Hans.md)
 
-> 📌 **这份是 mental model reference**。看完之后你会知道：「同样叫 agent、为什么 Claude Code、Hermes Agent、OpenClaw 用起来完全不同感受？」
+> 📌 **这份是 mental model reference**。看完之后你会知道：“同样叫 agent、为什么 Claude Code、Hermes Agent、OpenClaw 用起来完全不同感受？”
 > 已经知道想用哪个 → [`resources/cli-agents-guide.zh-Hans.md`](cli-agents-guide.zh-Hans.md)（7 CLI 并排比较）或 [`resources/cookbook.zh-Hans.md`](cookbook.zh-Hans.md)（step-by-step 部署）。
 
-「Agent」一词被用得很泛。Cursor 是 agent、Claude Code 是 agent、Telegram 上跟你聊天的 Hermes 也是 agent、家里 Jetson 板子跑的 OpenClaw 也是 agent。但这 4 个东西用起来完全不同感受 —— 因为它们属于**不同 paradigm**。差别不在 LLM 是哪家、而在 **agent 跑在哪、你用什么界面跟它互动、需不需要联网**。
+“Agent”一词被用得很泛。Cursor 是 agent、Claude Code 是 agent、Telegram 上跟你聊天的 Hermes 也是 agent、家里 Jetson 板子跑的 OpenClaw 也是 agent。但这 4 个东西用起来完全不同感受 —— 因为它们属于**不同 paradigm**。差别不在 LLM 是哪家、而在 **agent 跑在哪、你用什么界面跟它互动、需不需要联网**。
 
-理解 paradigm 之后你才知道:搬一个 use case 从 Type 2 到 Type 4 不是「换工具」、是**换思考方式**。
+理解 paradigm 之后你才知道:搬一个 use case 从 Type 2 到 Type 4 不是“换工具”、是**换思考方式**。
 
 ---
 
@@ -23,11 +23,11 @@
 | **4. Cloud-deployed** | **Hermes Agent** | $5 VPS / Modal | **Telegram / Slack / 任一 chat app** | 200+ provider routing | ❌ | $5 server + API |
 | **5. Edge-deployed** | **OpenClaw / ClawBox** | Jetson 板子 / Raspberry Pi | local chat / SSH | **本机 Ollama**（Qwen / Llama / Mistral）| **✅** | 一次硬件 €549、之后 0 |
 
-→ 4 跟 5 都是「**deployed autonomous agent**」（agent **不在你 laptop 前**、跑在外面 24×7 serve 你）。4 在 cloud、5 在 edge。剩下的 1-3 是「**co-located agent**」（agent 跟你一起在 laptop 上、你走它停）。
+→ 4 跟 5 都是“**deployed autonomous agent**”（agent **不在你 laptop 前**、跑在外面 24×7 serve 你）。4 在 cloud、5 在 edge。剩下的 1-3 是“**co-located agent**”（agent 跟你一起在 laptop 上、你走它停）。
 
 ---
 
-## Type 1: IDE-coupled — 「sidebar pair-programmer」
+## Type 1: IDE-coupled — “sidebar pair-programmer”
 
 **代表**:[Cursor](https://cursor.com) / [Windsurf](https://codeium.com/windsurf) / [Cline](https://cline.bot) / [Continue](https://continue.dev) / [Zed](https://zed.dev)
 
@@ -41,12 +41,12 @@
 
 ---
 
-## Type 2: Terminal pair-programmer — 「Claude Code paradigm」
+## Type 2: Terminal pair-programmer — “Claude Code paradigm”
 
 **代表**:[Claude Code](https://github.com/anthropics/claude-code) / [Codex](https://github.com/openai/codex) / [Gemini CLI](https://github.com/google-gemini/gemini-cli)
 
 **Hero example**:
-你在 terminal 开 Claude Code、输入「refactor 整个 auth module、把 callback 改成 async/await、跑 tests」。Claude Code 自己读档、改档、跑 pytest、报告结果。整个过程 5-10 分钟、你看 streaming output。
+你在 terminal 开 Claude Code、输入“refactor 整个 auth module、把 callback 改成 async/await、跑 tests”。Claude Code 自己读档、改档、跑 pytest、报告结果。整个过程 5-10 分钟、你看 streaming output。
 
 **为什么这型存在**:Claude Code / Codex 把整个 terminal 变成 agent 的 workspace。agent 有 file system / shell / git 完整 access、可以自主完成多步骤 task。比 Type 1 更 autonomous。
 
@@ -57,7 +57,7 @@
 
 ---
 
-## Type 3: BYO-LLM CLI — 「multi-provider 同 mental model」
+## Type 3: BYO-LLM CLI — “multi-provider 同 mental model”
 
 **代表**:[Aider](https://aider.chat) / [OpenCode](https://github.com/sst/opencode) / [goose](https://block.github.io/goose) / [Hermes Agent](https://github.com/NousResearch/hermes-agent)*
 
@@ -80,17 +80,17 @@
 **代表**:[Hermes Agent](https://github.com/NousResearch/hermes-agent)（Nous Research、★142k+、MIT）
 
 **Hero example**:
-你坐在地铁、手机开 Telegram、对 Hermes bot 说「整理今天 arXiv ML 新 paper、给我 3 个 highlights、传回 Telegram」。Hermes agent 在你 $5 DigitalOcean VPS 上跑、收讯息、决定该用 GPT-5（找 paper）+ Claude Opus（写 summary）+ Gemini Flash（压缩成 3 条）、执行完传结果回 Telegram。整个过程你没碰 laptop。
+你坐在地铁、手机开 Telegram、对 Hermes bot 说“整理今天 arXiv ML 新 paper、给我 3 个 highlights、传回 Telegram”。Hermes agent 在你 $5 DigitalOcean VPS 上跑、收讯息、决定该用 GPT-5（找 paper）+ Claude Opus（写 summary）+ Gemini Flash（压缩成 3 条）、执行完传结果回 Telegram。整个过程你没碰 laptop。
 
 **5 个 distinctive feature**:
 
 1. **Multi-platform chat interface**:Telegram / Discord / Slack / WhatsApp / Signal 都能当入口。你在哪个平台 ping、agent 就在哪回。
 2. **Multi-LLM routing（200+ model neutral）**:OpenRouter + NVIDIA NIM + 智谱 GLM + Kimi + 小米 MiMo + MiniMax + HF + OpenAI + Anthropic + Google。**同一 conversation 内可跨 LLM**。
 3. **24/7 在线**:agent 不依赖你 laptop、cloud VPS host、任何时刻可用。
-4. **Built-in cron**:「每天 9am 抓 X 给我 Y」这种 routine 直接内建。
+4. **Built-in cron**:“每天 9am 抓 X 给我 Y”这种 routine 直接内建。
 5. **Self-improving skill loop**（frontier feature）:agent 跟你互动久了会 generalize 出 skill、跨 session 演化。
 
-**为什么这型存在**:当 agent 是「**个人助理**」而不是「pair programmer」时、它不该绑你 laptop。Type 4 把 agent 变成 24×7 service。
+**为什么这型存在**:当 agent 是“**个人助理**”而不是“pair programmer”时、它不该绑你 laptop。Type 4 把 agent 变成 24×7 service。
 
 **特色**:deployment cost ~$5/月 VPS + API;中国圈 LLM 支持（GLM / Kimi）—— 对外服务不稳时是 fallback gateway。
 
@@ -198,8 +198,8 @@
 
 - **每天主开发**:Type 2（Claude Code、订阅制）
 - **paper monitoring**:暂时手动（每周手动扫 arXiv）—— 之后想试 Type 4 Hermes 自动化
-- **research vault**:Claude Code 在 laptop 内呼叫 [research-hub](https://github.com/WenyuChiou/research-hub) pipeline（Type 2 模式）
-- **没接触 Type 5**:目前资料没到「不能上 cloud」的敏感程度
+- **research vault**:Claude Code 在 laptop 内调用 [research-hub](https://github.com/WenyuChiou/research-hub) pipeline（Type 2 模式）
+- **没接触 Type 5**:目前资料没到“不能上 cloud”的敏感程度
 
 Type 4 / Type 5 你之后玩了、可以再回来补这份 reference 自己的 use case。
 

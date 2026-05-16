@@ -49,7 +49,7 @@ PR 之前请先读完本文。项目维护者也会用这份指南做 review。
 ```
 
 ### 必填字段（GitHub repo entry）
-对「真实 GitHub repo」的 entry：
+对“真实 GitHub repo”的 entry：
 - `Stars`（★ Xk+ 格式，无千位逗号）
 - `License`（SPDX ID 或标注例外，见 5）
 - `推荐度`（⭐ × N，见 2）
@@ -88,7 +88,7 @@ PR 之前请先读完本文。项目维护者也会用这份指南做 review。
 
 **准则**：
 - 同一个 repo 出现在不同 stage / branch 时，**星等应一致**（除非有明确 audience-specific 理由，且注明在备注）
-- 不要因为「想要看起来推荐」就给高星等。诚实 > 客气
+- 不要因为“想要看起来推荐”就给高星等。诚实 > 客气
 - 商业产品（Cursor、LangSmith 等）也照同一套标准
 
 ---
@@ -116,7 +116,7 @@ PR 之前请先读完本文。项目维护者也会用这份指南做 review。
 | 飛書 | 飞书 |
 | 個 | 个 |
 | 兩 | 两 |
-| 「」 | "" |
+| “” | "" |
 | 整合 | 集成 |
 | 系統 | 系统 |
 | 點 | 点 |
@@ -158,11 +158,11 @@ PR 之前请先读完本文。项目维护者也会用这份指南做 review。
 - `RAG`、`embedding`、`vector DB`、`retrieval`、`chunk`、`token`
 - `streaming`、`async`、`batch`、`webhook`
 - `marketplace`、`plugin`、`skill`、`hook`
-- `project`、`repo` （可保留也可改用「项目」）
-- `production`（指「正式环境」时）— 但本 catalog 多数场合刻意避免（见 3）
+- `project`、`repo` （可保留也可改用“项目”）
+- `production`（指“正式环境”时）— 但本 catalog 多数场合刻意避免（见 3）
 - `动手练习`、`hello-world` — 保留
 
-**判准**：技术文件圈读者习惯的英文术语就保留，避免「太政治正确的中文化」。
+**判准**：技术文件圈读者习惯的英文术语就保留，避免“太政治正确的中文化”。
 
 ---
 
@@ -185,7 +185,7 @@ PR 之前请先读完本文。项目维护者也会用这份指南做 review。
 | 多元 license（每个 plugin 自己有） | `NOASSERTION（每个 plugin 独立 license，请看各自目录）` |
 | Creative Commons | 直写 `CC-BY-4.0`、`CC-BY-NC-SA-4.0` 等 |
 
-**规则**：**永远不要**把 license 解读成法律建议。「研究 / 个人使用没问题」这种句子禁用。改成「使用前先读原始条款」。
+**规则**：**永远不要**把 license 解读成法律建议。“研究 / 个人使用没问题”这种句子禁用。改成“使用前先读原始条款”。
 
 ---
 
@@ -290,22 +290,22 @@ Branch 的 entry 格式可以比 stage 简洁（不一定要完整 schema 表格
 - 英文 rhythm 强迫塞进中文 = 翻译腔，要避免
 
 ### 标点
-- **中文用全角**：，。：；「」（）
+- **中文用全角**：，。：；“”（）
 - **句中夹英文**时，英文前后可以留空格也可以不留，但全文要一致
 - **避免 ASCII 逗号 `,`** 在中文句中（会中夹英）
 
 ### 主动 vs 被动
-- 偏主动句：「Claude 调用工具」 ✓
-- 避免被动句：「工具被 Claude 调用」 ✗
+- 偏主动句：“Claude 调用工具” ✓
+- 避免被动句：“工具被 Claude 调用” ✗
 
-### 「你」 vs 「我们」
-- **「你」优先**——这是给读者的学习材料
-- 「我」用于作者发表意见时：「我建议...」
-- 避免「我们」（除了合著者实际存在的场合）
+### “你” vs “我们”
+- **“你”优先**——这是给读者的学习材料
+- “我”用于作者发表意见时：“我建议...”
+- 避免“我们”（除了合著者实际存在的场合）
 
 ### 连接词
-- 偏好简单：「但、所以、因为、不过」
-- 避免：「然而、因此、由于、之所以」
+- 偏好简单：“但、所以、因为、不过”
+- 避免：“然而、因此、由于、之所以”
 
 ---
 
@@ -314,7 +314,7 @@ Branch 的 entry 格式可以比 stage 简洁（不一定要完整 schema 表格
 ### 内部链接
 - Stage 之间：相对路径 `[Stage 4](./04-agent-frameworks.zh-Hans.md)`
 - Branch ↔ README：`[← 回主路线](../README.md)`
-- 跨 stage 引用同一 repo：用全名 + 链接，不要只写「之前提过」
+- 跨 stage 引用同一 repo：用全名 + 链接，不要只写“之前提过”
 
 ### 外部链接
 - GitHub repo：`https://github.com/owner/repo` ✓ 不加 trailing slash
@@ -324,13 +324,13 @@ Branch 的 entry 格式可以比 stage 简洁（不一定要完整 schema 表格
 ### 链接文字惯例
 - Repo entry 标题：`[owner/repo](url)` 或 `[Project Name](url)`
 - 句中引用：`[Repo Name](url)` 或 ``owner/repo``（短引用用 inline code）
-- 链接文字**避免**「点这里」、「按这个」
+- 链接文字**避免**“点这里”、“按这个”
 
 ---
 
 ## 相关内部设计文件
 
-这份 style-guide 讲「entry 怎么写」。为什么分这 5 个 branch、为什么是 7 个 stage 这类**设计理由**，见：
+这份 style-guide 讲“entry 怎么写”。为什么分这 5 个 branch、为什么是 7 个 stage 这类**设计理由**，见：
 
 - [`branches/DESIGN.md`](../branches/DESIGN.md)—branch 设计笔记（为什么这样切、entry 该放哪）
 - [`stages/DESIGN.md`](../stages/DESIGN.md)—stage 设计笔记（为什么这结构、动手练习 怎么挑）

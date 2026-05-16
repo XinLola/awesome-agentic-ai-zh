@@ -10,7 +10,7 @@
 ## 何时可以跳过这个阶段
 
 如果你能：
-- 写一个会呼叫公开 API 并解析 JSON 回应的 Python 函数
+- 写一个会调用公开 API 并解析 JSON 响应的 Python 函数
 - 用 git 做 clone、commit、push，并处理基本的 merge 冲突
 - 在自己的操作系统上使用命令行（cd、ls、mkdir、执行 script）
 - 看懂 YAML / JSON 文件
@@ -28,17 +28,17 @@
 
 ## 🛠 动手练习
 
-- **练习：Python** — 写一个 Python script 呼叫 https://api.github.com/users/torvalds 并印出 follower 数量
+- **练习：Python** — 写一个 Python script 调用 https://api.github.com/users/torvalds 并打印 follower 数量
 - **练习：git** — clone 任何一个公开 repo，做一次 commit，push 到自己的 fork
 - **练习：CLI** — 用命令行建几个文件夹跟文件（macOS / Linux：`mkdir project && cd project && mkdir src tests docs`；Windows PowerShell：`New-Item -ItemType Directory -Path project,project\src,project	ests,project\docs`）、执行 Python script、把输出存到文件
 - **练习：YAML** — 用 Python 读一个 `.yaml` 配置文件，改一个值，再写回去
-- **练习：API auth** — 去 [github.com/settings/tokens](https://github.com/settings/tokens) 产生一个 personal access token（给最少权限：`read:user`），呼叫 `https://api.github.com/user` 需 auth 的 endpoint，看 401（无 token）vs 200（带 token）的差别。注意：production agent 一定会用到 API auth，所以这一题要做
+- **练习：API auth** — 去 [github.com/settings/tokens](https://github.com/settings/tokens) 产生一个 personal access token（给最少权限：`read:user`），调用 `https://api.github.com/user` 需 auth 的 endpoint，看 401（无 token）vs 200（带 token）的差别。注意：production agent 一定会用到 API auth，所以这一题要做
 
 ## 🎯 精选资源（不是完整 Project，只是学习素材）
 
 ### Python
 - [**Python Crash Course**](https://github.com/ehmatthes/pcc_3e) — 书 + 练习（书要付费，练习免费）
-- [**Real Python tutorials**](https://realpython.com/) — 高品质免费文章
+- [**Real Python tutorials**](https://realpython.com/) — 高质量免费文章
 - [**Corey Schafer YouTube**](https://www.youtube.com/c/Coreyms) — 视频教学，从基础到进阶，讲解清楚
 - [**Boot.dev**](https://www.boot.dev/) — 互动式 Python 课程（部分免费）
 - [**runoob.com Python 教程**](https://www.runoob.com/python3/python3-tutorial.html) — 中文 Python 入门参考
@@ -46,7 +46,7 @@
 ### Git
 - [**Pro Git book**](https://git-scm.com/book/en/v2) — 免费完整参考书
 - [**Atlassian Git Tutorials**](https://www.atlassian.com/git/tutorials) — 以 workflow 为主
-- [**Oh Shit, Git!?!**](https://ohshitgit.com/) — 出包时的救命手册
+- [**Oh Shit, Git!?!**](https://ohshitgit.com/) — 搞砸时的救命手册
 - [**git-flight-rules**](https://github.com/k88hudson/git-flight-rules) — “我搞砸了 X，怎么救？”高人气 cheat sheet
 
 ### CLI / Shell

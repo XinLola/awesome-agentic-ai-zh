@@ -24,11 +24,11 @@ When the user mentions tool calling problems, ask **which of these 4 symptoms** 
 
 最常见 3 个原因（按优先顺序问）：
 
-1. **`description` 太笼统**：写的是「处理数据 / Convert a value / Search things」这种给人读的 docstring，LLM 看不到「这个 tool 解什么具体问题」。看 [`references/debug-flowchart.zh-Hans.md`](../references/debug-flowchart.zh-Hans.md) Section A。
+1. **`description` 太笼统**：写的是“处理数据 / Convert a value / Search things”这种给人读的 docstring，LLM 看不到“这个 tool 解什么具体问题”。看 [`references/debug-flowchart.zh-Hans.md`](../references/debug-flowchart.zh-Hans.md) Section A。
 2. **多 tool 边界互相重叠**：两个 tool 的 description 都能套到 user query、LLM 选不出来、干脆都不选。
-3. **问题本身用不到 tool**：user query 是「介绍一下 Python」这种纯知识题、tool list 里也没适合的、LLM 直接纯文字回答是正确的。
+3. **问题本身用不到 tool**：user query 是“介绍一下 Python”这种纯知识题、tool list 里也没适合的、LLM 直接纯文字回答是正确的。
 
-**怎么修**：把 `description` 从「**做什么**」改写成「**何时用**」。对照 [`references/schema-evolution.zh-Hans.md`](../references/schema-evolution.zh-Hans.md) 的 bad → good A/B。
+**怎么修**：把 `description` 从“**做什么**”改写成“**何时用**”。对照 [`references/schema-evolution.zh-Hans.md`](../references/schema-evolution.zh-Hans.md) 的 bad → good A/B。
 
 ### (b) Tool 被调用、但参数错 → 看 parameters schema
 
@@ -50,8 +50,8 @@ When the user mentions tool calling problems, ask **which of these 4 symptoms** 
 
 漏步（多步任务中间少一步）的原因：
 
-1. **Model 不够强**：qwen2.5:3b 在 4-step task 上会漏「转百分比」这种子步骤。试 `MODEL=qwen2.5:7b` 或 `MODEL=claude-haiku-4-5`。
-2. **Tool description 没讲「必要前置」**：譬如 `to_percentage` 应该写「Convert a ratio (e.g., 0.31) into percentage. Call this LAST after dividing.」明示顺序。
+1. **Model 不够强**：qwen2.5:3b 在 4-step task 上会漏“转百分比”这种子步骤。试 `MODEL=qwen2.5:7b` 或 `MODEL=claude-haiku-4-5`。
+2. **Tool description 没讲“必要前置”**：譬如 `to_percentage` 应该写“Convert a ratio (e.g., 0.31) into percentage. Call this LAST after dividing.”明示顺序。
 
 **对照可跑范例** → [`../../stage-3/03-react-from-scratch/`](../../../stage-3/03-react-from-scratch/) 跟 [`../../stage-3/04-multi-step-reasoning/`](../../../stage-3/04-multi-step-reasoning/) 的完整 starter。
 
@@ -60,7 +60,7 @@ When the user mentions tool calling problems, ask **which of these 4 symptoms** 
 对任何新 tool，按这 5 步：
 
 1. **Define**：一句话讲这个 tool 做什么（不超过 15 字）。写不出来 = tool scope 太大、要拆。
-2. **Describe（LLM 视角）**：把 description 写成「**Use this when the user asks to / mentions / wants** ...」格式，不是「This function ...」。
+2. **Describe（LLM 视角）**：把 description 写成“**Use this when the user asks to / mentions / wants** ...”格式，不是“This function ...”。
 3. **Type**：每个 param 用正确 type — `number` / `boolean` / `array` / `object`，不要全 `string`。
 4. **Constrain**：`required` 列必填字段；模糊边界用 `enum` 收敛；`description` 补字段用途。
 5. **Error pattern**：tool 失败回传 `{"error": "...", "retry_hint": "..."}` 结构化 dict，**不要 `raise`**——production 的 retry 由 LLM 决定。
@@ -69,11 +69,11 @@ When the user mentions tool calling problems, ask **which of these 4 symptoms** 
 
 ## Step 3 — SDK 差异提醒
 
-使用者可能在 Anthropic / OpenAI / Ollama 之间切换、SDK shape 不同。看 [`references/sdk-diff.zh-Hans.md`](../references/sdk-diff.zh-Hans.md) 的 3 行对照表。**不要假设使用者知道——主动问一次「你用哪个 SDK」**。
+使用者可能在 Anthropic / OpenAI / Ollama 之间切换、SDK shape 不同。看 [`references/sdk-diff.zh-Hans.md`](../references/sdk-diff.zh-Hans.md) 的 3 行对照表。**不要假设使用者知道——主动问一次“你用哪个 SDK”**。
 
 ## Step 4 — Mock test first（强烈建议）
 
-每个 tool-calling 程式都应该有 mock-based test、不打真 API：
+每个 tool-calling 程序都应该有 mock-based test、不打真 API：
 
 - Path A (Ollama) 用 OpenAI-compat response shape mock
 - Path B (Anthropic) 用 content block mock
@@ -89,7 +89,7 @@ When the user mentions tool calling problems, ask **which of these 4 symptoms** 
 - **Production 监控 / observability / cost tracking** → 路 Stage 7
 - **Prompt engineering 一般技巧** → 路 Stage 2
 
-碰到这些情境、直接告诉使用者「这个 skill 处理 tool-use mechanics、你这个问题需要 Stage X、建议去看 ...」、不要硬吃下去。
+碰到这些情境、直接告诉使用者“这个 skill 处理 tool-use mechanics、你这个问题需要 Stage X、建议去看 ...”、不要硬吃下去。
 
 ## Don't
 

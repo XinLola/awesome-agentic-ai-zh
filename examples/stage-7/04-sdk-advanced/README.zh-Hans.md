@@ -32,7 +32,7 @@ python starter_anthropic.py
 
 预算：streaming demo + caching demo ≈ **$0.005**（2 call + cached ~2000 token）。
 
-## 不花钱验证程式逻辑
+## 不花钱验证程序逻辑
 
 ```bash
 python test.py             # 3 个 test、mock OpenAI streaming
@@ -123,7 +123,7 @@ resp = client.messages.create(
 - **Token counting**：streaming response 不一定有 `usage`、要自己 tokenize 或 sum chunks
 
 ### Prompt caching
-- **`cache_control` 放错位置**：要在「想 cache 的那段」、不是整个 system。可同时 cache system + tools + 前面几条 messages
+- **`cache_control` 放错位置**：要在“想 cache 的那段”、不是整个 system。可同时 cache system + tools + 前面几条 messages
 - **Cache key 含 model name**：换 model（haiku → sonnet）cache 失效
 - **5 分钟 TTL**：低 QPS 场景 cache 经常过期、白付 25% premium 没省到
 - **Minimum 1024 tokens**：太短的 content cache 不会生效

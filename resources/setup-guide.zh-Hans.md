@@ -9,7 +9,7 @@
 
 ## 先选你的入门方式
 
-按「想花多少时间 setup」由浅到深排序。**完全没接触过 LLM 直接从 1️⃣ 开始就好**。
+按“想花多少时间 setup”由浅到深排序。**完全没接触过 LLM 直接从 1️⃣ 开始就好**。
 
 ### 1️⃣ 网页版（最简单，免费可试，零 setup）
 
@@ -51,7 +51,7 @@
 
 ### 4️⃣ CLI Agent（terminal，能读写文件、跑指令、操作 git）
 
-装在 terminal 的 agent——你下一个 prompt（譬如「重构这个 module」），agent 自己读文件、改文件、跑指令、commit。**比 IDE 模式更自主、可以处理多步骤任务**，但 setup 稍复杂（需要先有 Node.js 或 Python，看下面 B / D）。
+装在 terminal 的 agent——你下一个 prompt（譬如“重构这个 module”），agent 自己读文件、改文件、跑指令、commit。**比 IDE 模式更自主、可以处理多步骤任务**，但 setup 稍复杂（需要先有 Node.js 或 Python，看下面 B / D）。
 
 | CLI Agent | 安装 / 文档 | 主要 LLM |
 |---|---|---|
@@ -72,7 +72,7 @@
 
 想自己写 Python script、跑 batch job、把 LLM 接到自己的 app／automation？接下来的 A-C 就是给你的。
 
-> 💡 **API key 是什么**：简单讲就是「让程序调用模型的密码」。请把它当成信用卡资料一样保管。
+> 💡 **API key 是什么**：简单讲就是“让程序调用模型的密码”。请把它当成信用卡资料一样保管。
 
 ---
 
@@ -100,7 +100,7 @@
 - **Google AI Studio**：https://aistudio.google.com/
   适合先试 Gemini API，免费额度会依地区和账号状态不同。
 - **NVIDIA NIM**：https://build.nvidia.com/
-  **托管多个开源 model（Llama / Mistral / DeepSeek-R1 / Qwen / Gemma 等）、OpenAI-compatible API、新账号送 1000 credits**。适合「想试多个 open-source model 但没 GPU」的情境。`base_url=https://integrate.api.nvidia.com/v1`。
+  **托管多个开源 model（Llama / Mistral / DeepSeek-R1 / Qwen / Gemma 等）、OpenAI-compatible API、新账号送 1000 credits**。适合“想试多个 open-source model 但没 GPU”的情境。`base_url=https://integrate.api.nvidia.com/v1`。
 
 #### 中国 / 中文场景（地区友善、价格极便宜）
 
@@ -110,7 +110,7 @@
   web 版 https://chat.deepseek.com 完全免费（含 R1 推理模型）。API 价格极便宜（**$0.27 input / $1.10 output per 1M token**、比 haiku 便宜 4 倍）。Code / 推理都很强。
   `base_url=https://api.deepseek.com/v1`、`model=deepseek-chat` 或 `deepseek-reasoner`。
 - **Moonshot Kimi**：https://platform.moonshot.cn/ (中国)、https://platform.moonshot.ai/ (海外)
-  web 版 https://kimi.com 免费、**1M token context** 是卖点（很大档案 / 长对话）。API 约 $5-15/1M input、按 context size 阶梯计费。
+  web 版 https://kimi.com 免费、**1M token context** 是卖点（很大文件 / 长对话）。API 约 $5-15/1M input、按 context size 阶梯计费。
   `base_url=https://api.moonshot.cn/v1` (中国) / `https://api.moonshot.ai/v1` (海外)、`model=kimi-k2-turbo-preview` 等。
 - **通义千问 Qwen（Alibaba）**：https://dashscope.console.aliyun.com/
   web 版 https://chat.qwen.ai 免费。API 走 Alibaba Cloud DashScope、有 **OpenAI-compatible endpoint**（[文档](https://help.aliyun.com/zh/dashscope/developer-reference/compatibility-of-openai-with-dashscope/)）。**同样的 Qwen 模型也能用 Ollama 在本机跑**（`ollama pull qwen2.5:3b`）——cloud 跟 local 两条路径都通。
@@ -120,7 +120,7 @@
 #### 本机（不付 API 费、完全 offline）
 
 - **Ollama 本地模型**：不用 API key。走本地路线请看 [Cookbook Recipe 6](cookbook.zh-Hans.md#6-本地-llm--cli-agent-快速-walkthrough)。
-  本 repo 的「Path A」默认就是 Ollama；所有 Stage 1-7 练习都能用 `gemma4:e4b`（Stage 1-2）或 `qwen2.5:3b`（Stage 3+）跑通、$0/run。
+  本 repo 的“Path A”默认就是 Ollama；所有 Stage 1-7 练习都能用 `gemma4:e4b`（Stage 1-2）或 `qwen2.5:3b`（Stage 3+）跑通、$0/run。
 
 > 💡 **怎么挑第一个**：
 > - 想学 agent / production、**美区帐号OK** → **Anthropic Claude**（curriculum canonical）

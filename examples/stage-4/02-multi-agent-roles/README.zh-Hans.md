@@ -15,7 +15,7 @@ Researcher → Writer → Critic
   (找资料)    (写稿)    (审稿、PASS/ISSUES)
 ```
 
-这种「role-based pipeline」**CrewAI 最拿手**——你描述角色 / 目标 / 任务，框架自己 orchestrate。
+这种“role-based pipeline”**CrewAI 最拿手**——你描述角色 / 目标 / 任务，框架自己 orchestrate。
 
 ## 怎么跑 — 两条路径
 
@@ -30,7 +30,7 @@ python starter.py
 
 预算：**$0**。3 agent sequential ≈ 30-90 秒（CPU、qwen2.5:3b）。
 
-### Path B（Anthropic、想看 cloud 高品质）
+### Path B（Anthropic、想看 cloud 高质量）
 
 ```bash
 pip install -r requirements.txt
@@ -40,7 +40,7 @@ python starter_anthropic.py
 
 预算：每次 ≈ **$0.005-0.01**（3 agent × 短输出、claude-haiku-4-5）。
 
-## 不花钱验证程式逻辑
+## 不花钱验证程序逻辑
 
 ```bash
 python test.py             # tool 逻辑 + crew structure
@@ -63,7 +63,7 @@ researcher = Agent(
 )
 ```
 
-**重点**：`role` 跟 `goal` 影响 prompt 质量很大。不要写「Agent」、要写「Researcher who finds factual data」。
+**重点**：`role` 跟 `goal` 影响 prompt 质量很大。不要写“Agent”、要写“Researcher who finds factual data”。
 
 ### Task
 
@@ -75,7 +75,7 @@ research_task = Task(
 )
 ```
 
-**重点**：`expected_output` 是给 LLM 看的「合格范本」、写越具体越好（譬如「A 2-sentence intro paragraph」比「Some text」好 10 倍）。
+**重点**：`expected_output` 是给 LLM 看的“合格范本”、写越具体越好（譬如“A 2-sentence intro paragraph”比“Some text”好 10 倍）。
 
 ### Context dependency
 
@@ -109,7 +109,7 @@ Crew(..., process=Process.hierarchical)  # 多个 manager+worker、需设 manage
 
 ## 常见坑
 
-- **`expected_output` 太笼统**：写「Some output」LLM 完全没指引、随便给。写「A 2-sentence blog intro paragraph in active voice」效果差 10 倍
+- **`expected_output` 太笼统**：写“Some output”LLM 完全没指引、随便给。写“A 2-sentence blog intro paragraph in active voice”效果差 10 倍
 - **`context` 漏设**：Writer 没设 `context=[research_task]`、就拿不到 researcher 结果、会凭空写
 - **小 model + 3 agent**：qwen2.5:3b 跑 3-agent crew 可能 1 分钟+。换 `qwen2.5:7b` 或 Claude
 - **`allow_delegation=True` 慎用**：开启后 agent 可以叫其他 agent 帮忙、容易 loop。雏形阶段建议 `False`

@@ -151,7 +151,7 @@ from mypackage import foo",
 ### 为什么
 
 - Skill 是给 Claude 的“角色 + 规则”；MCP 是给 Claude 的“**外部 function**”
-- Skill 不能读档、不能呼叫 API；MCP 可以（任何 tool 你写得出来）
+- Skill 不能读档、不能调用 API；MCP 可以（任何 tool 你写得出来）
 - Skill 只在 Claude Code 跑；MCP 任何 LLM host（包括 Cursor、自写 agent）都能接
 
 ### 步骤
@@ -357,7 +357,7 @@ NotebookLM 强的地方：
 | 场景 | 选哪个 | 为什么 |
 |---|---|---|
 | 偶尔从 Claude Code 查一下 NotebookLM | `PleasePrompto/notebooklm-skill` | Claude Code 内 prompt 一句话就跑、setup 简单 |
-| 批次操作（建 100 个 notebook、批次导入文件） | `teng-lin/notebooklm-py` | Python API，可程式化跑 |
+| 批次操作（建 100 个 notebook、批次导入文件） | `teng-lin/notebooklm-py` | Python API，可程序化跑 |
 | 不想 Google 政策变动就坏 | （等 Google 出官方 API） | 两个都是 unofficial、会有风险 |
 
 ### 方案 A：PleasePrompto/notebooklm-skill
@@ -593,7 +593,7 @@ hermes
 
 Claude Code 目前需要 Anthropic OAuth / API key，没有官方设置可以把模型切成 Ollama 或本地 endpoint。网上可能有 proxy 或 API shim 做实验，但这不是官方支持路径，稳定性与兼容性要自己承担。
 
-要用本地 LLM，建议把“Claude Code”和“支持 BYO LLM 的 CLI agent”分开看：Claude Code 用在需要 Claude 品质的工作；OpenCode / goose / Aider / Hermes 用在本地、离线、隐私或低成本实验。
+要用本地 LLM，建议把“Claude Code”和“支持 BYO LLM 的 CLI agent”分开看：Claude Code 用在需要 Claude 质量的工作；OpenCode / goose / Aider / Hermes 用在本地、离线、隐私或低成本实验。
 
 ### 常见 pitfall
 

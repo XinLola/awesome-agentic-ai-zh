@@ -6,10 +6,10 @@
 
 > 📌 **这份是 reference doc**（深度比较、选择逻辑、坑、推荐搭配）。
 > 第一次接触 CLI agent、想要 step-by-step 上手 → 看 [`tracks/cli/A1-cli-intro.zh-Hans.md`](../tracks/cli/A1-cli-intro.zh-Hans.md)（Track A 第一站）。
-> 想先理解「为什么有的 agent 在 terminal、有的在 Telegram、有的在 Jetson」这层 mental model → 看 [`resources/agent-paradigms.zh-Hans.md`](agent-paradigms.zh-Hans.md)（5 种 agent 型态）。
+> 想先理解“为什么有的 agent 在 terminal、有的在 Telegram、有的在 Jetson”这层 mental model → 看 [`resources/agent-paradigms.zh-Hans.md`](agent-paradigms.zh-Hans.md)（5 种 agent 型态）。
 > 已经在用、想决定 / 比较 / 升级 → 留在这份。
 
-跨 5 个 branch + Track A 共用的参考——**Claude Code / Codex / OpenCode / Gemini CLI / goose / Aider / Hermes Agent 之间怎么挑？** Track A（A1-A3）的 CLI workflow 设计、5 条 branch 内的 CLI 引用都连到这份；每个 branch 都会用到 CLI agent，但没有一个 branch 真的「拥有」这份比较，所以放在 `resources/`。
+跨 5 个 branch + Track A 共用的参考——**Claude Code / Codex / OpenCode / Gemini CLI / goose / Aider / Hermes Agent 之间怎么挑？** Track A（A1-A3）的 CLI workflow 设计、5 条 branch 内的 CLI 引用都连到这份；每个 branch 都会用到 CLI agent，但没有一个 branch 真的“拥有”这份比较，所以放在 `resources/`。
 
 ## 📋 7 个主流 CLI agent
 
@@ -63,11 +63,11 @@
 
 如果想让 prompt 在不同 CLI 之间 portable（或想随时换工具不重写），照这几条原则：
 
-1. **明确指定文件路径**——「修改 `src/auth.py`」比「修改那个 auth 档」好
+1. **明确指定文件路径**——“修改 `src/auth.py`”比“修改那个 auth 档”好
 2. **要求多步骤拆解**——`先列 plan、确认后再动手`，所有 CLI 都吃这个结构
 3. **避免依赖特定 CLI 的 magic 指令**——`/init` `/compact` 是 Claude Code 专属，OpenCode 没有
 4. **用 `.cursorrules` / `CLAUDE.md` / `AGENTS.md` 记持续性偏好**——Claude Code 用 `CLAUDE.md`，Codex 用 `AGENTS.md`，OpenCode 用 `OPENCODE.md`，**内容可以一样**
-5. **明确要 review 的 scope**——「只 review 我这次的 diff」vs 「review 整个 repo」
+5. **明确要 review 的 scope**——“只 review 我这次的 diff”vs “review 整个 repo”
 
 跨 CLI 写的 prompt 通常会比 CLI-specific prompt 麻烦 5-10%，但好处是切换工具时不用重写。
 
@@ -143,4 +143,4 @@
 
 - 7 个 CLI 的 stars / license / pushed_at 每季用 `bash scripts/refresh-stars.py` 更新一次
 - CLI 工具市场变化快——新工具出现要评估是否加入这份比较（门槛：> 30k stars + 维护中 + 真的 CLI 不是 IDE）
-- 比较表格的「强项 / 弱项」栏位刻意没填——避免产生主观 bias，让 use case section 跟读者自己的判断做这件事
+- 比较表格的“强项 / 弱项”栏位刻意没填——避免产生主观 bias，让 use case section 跟读者自己的判断做这件事

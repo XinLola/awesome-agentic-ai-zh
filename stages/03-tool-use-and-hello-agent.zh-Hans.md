@@ -12,19 +12,19 @@
 
 ## 🤖 开始前：AI / LLM / Agent — 三者怎么分？
 
-> **本节是「开场框景」（由大到小 pedagogy）**：先把学习者脑中的 mental hierarchy 建好，再进 学习目标、练习。这节只做**简短说明 + 对照**，深度入门读物已经是中英文圈各自的 canonical reference（即「最公认的标准参考」、见下方资源）。**不是重写 hello-agents Ch1。**
+> **本节是“开场框景”（由大到小 pedagogy）**：先把学习者脑中的 mental hierarchy 建好，再进 学习目标、练习。这节只做**简短说明 + 对照**，深度入门读物已经是中英文圈各自的 canonical reference（即“最公认的标准参考”、见下方资源）。**不是重写 hello-agents Ch1。**
 
 ### 一张阶层图先建立认知
 
 ![AI / ML / DL / LLM 与 Agent 的关系](../resources/diagrams/ai-ml-llm-agent-hierarchy.zh-Hans.png)
 
-→ **「Agent」不是「比 LLM 更厉害的模型」，也不是 LLM 树状分类底下的一个分支**。Agent 是个**跨层抽象的系统**，把 LLM 当作其中一个组件来用。Cursor / Claude Code / Hermes Agent 内部都还是同一批 LLM（Claude / GPT / Gemini）—— 差别是怎么把 LLM 包进工具调用循环里。
+→ **“Agent”不是“比 LLM 更厉害的模型”，也不是 LLM 树状分类底下的一个分支**。Agent 是个**跨层抽象的系统**，把 LLM 当作其中一个组件来用。Cursor / Claude Code / Hermes Agent 内部都还是同一批 LLM（Claude / GPT / Gemini）—— 差别是怎么把 LLM 包进工具调用循环里。
 
 ### 三行对照（最快版）
 
 | 词 | 是什么 | 你给它什么、它回什么 | 例子 |
 |---|---|---|---|
-| **AI** | 整个学科 | 太抽象、不能直接「用」 | ML、DL、LLM、RL 都是 AI 子领域 |
+| **AI** | 整个学科 | 太抽象、不能直接“用” | ML、DL、LLM、RL 都是 AI 子领域 |
 | **LLM** | 把文字映射到文字的单一模型 | 给 prompt → 回字 | GPT-5、Claude、Llama 3、Qwen |
 | **Agent** | LLM + 工具 + loop 的**系统** | 给任务 → 自己跑多步骤达成 | Cursor、Claude Code、Hermes Agent |
 
@@ -38,11 +38,11 @@
 | 🔧 **Tools**（hands） | 对世界做事（call API、跑 code、查数据） | **本 stage** |
 | 🔁 **Loop**（heartbeat） | 想 → 做 → 看结果 → 再想（ReAct） | **本 stage 练习 3** |
 
-→ **这 3 个合在一起就是 agent 的最低定义**。没有 tools / loop，那只是「LLM + 你写 retry」，不算 agent。
+→ **这 3 个合在一起就是 agent 的最低定义**。没有 tools / loop，那只是“LLM + 你写 retry”，不算 agent。
 
 ### Agent 的经典范式（thinking patterns）
 
-学完最小 3 部件后、下一层是「**LLM 怎么想**」。hello-agents Ch4「智能体经典范式构建」整章在讲这个。简短对照：
+学完最小 3 部件后、下一层是“**LLM 怎么想**”。hello-agents Ch4“智能体经典范式构建”整章在讲这个。简短对照：
 
 | 范式 | 是什么 | 在哪学 |
 |---|---|---|
@@ -51,9 +51,9 @@
 | **Reflection** | 跑完一轮后让 LLM 批改自己、根据 feedback 重答 | **本 stage 反思**（concept + 路由） |
 | **Planning**（任务分解） | 把大任务拆成子任务、可分给多个 agent 各做 | **Stage 4** 什么是 multi-agent framework |
 
-→ 这些范式都是「**LLM 自我引导**」的不同变化、堆叠在 3 部件（LLM + Tools + Loop）之上。**「Agent 是什么」用 3 部件就讲完了；「Agent 怎么想」需要这 4 个范式才讲得完整**。
+→ 这些范式都是“**LLM 自我引导**”的不同变化、堆叠在 3 部件（LLM + Tools + Loop）之上。**“Agent 是什么”用 3 部件就讲完了；“Agent 怎么想”需要这 4 个范式才讲得完整**。
 
-> 💡 **延伸组件**（agent 变强的 infrastructure、但**不是「是不是 agent」的判准**）：
+> 💡 **延伸组件**（agent 变强的 infrastructure、但**不是“是不是 agent”的判准**）：
 > - **记忆 / RAG**（agent 能跨对话记住东西）→ **Stage 6** 完整教
 > - **反思 / self-critique**（agent 看自己答案、发现问题、回头改）→ 基本版见 **本 stage 反思**（concept + paper routing）；带持久 memory 的进阶版见 **Stage 6 Reflexion with Memory**
 > - **Production harness**（telemetry / safety / retry / orchestration）→ **Stage 5 5.6**
@@ -64,8 +64,8 @@
 
 **🀄 中文**：
 1. [**李宏毅 — 生成式 AI 导论（2024 春台大课程）**](https://speech.ee.ntu.edu.tw/~hylee/genai/2024-spring.php) ⭐⭐⭐ — 中文圈最高质量的 AI / LLM / agent 学术级导论。每集 30-60 分钟、台大授课、官方页含投影片 + YouTube 链接。LLM / agent 概念都涵盖。最新整合版见 [**GenAI-ML 2025 秋**](https://speech.ee.ntu.edu.tw/~hylee/GenAI-ML/2025-fall.php)、YouTube 主频道 [**@HungyiLeeNTU**](https://www.youtube.com/@HungyiLeeNTU)
-2. [**datawhalechina/hello-agents** Ch1「初识智能体」](https://github.com/datawhalechina/hello-agents) ⭐ — 文字版最完整中文 agent 导论
-3. [**datawhalechina/hello-agents** Ch2「智能体发展史」](https://github.com/datawhalechina/hello-agents) — BabyAGI → AutoGPT → Claude Code 演化脉络
+2. [**datawhalechina/hello-agents** Ch1“初识智能体”](https://github.com/datawhalechina/hello-agents) ⭐ — 文字版最完整中文 agent 导论
+3. [**datawhalechina/hello-agents** Ch2“智能体发展史”](https://github.com/datawhalechina/hello-agents) — BabyAGI → AutoGPT → Claude Code 演化脉络
 4. [**3Blue1Brown 中文配音版**](https://www.youtube.com/@3Blue1BrownCN) — LLM / Transformer 视觉化解说（中文配音）
 
 **🇺🇸 English**：
@@ -77,8 +77,8 @@
 6. [**Chip Huyen — "Agents"**](https://huyenchip.com/2025/01/07/agents.html) — practitioner 视角，full chapter 级深度
 
 **选读 / 进阶补充**：
-- [**Simon Willison — "I think 'agent' may finally have a widely enough agreed upon definition"**](https://simonwillison.net/2025/Sep/18/agents/) — working definition：「agent runs tools in a loop to achieve a goal」、含对照 OpenAI 等不同定义的争议（**给已有基础的人**）
-- [**DeepLearning.AI Short Courses**](https://www.deeplearning.ai/short-courses/)：「AI Agents in LangGraph」/「Multi AI Agent Systems with crewAI」/「Functions, Tools and Agents with LangChain」（**API 多数是 2023-2024 旧版**、看概念为主、写 code 对照官方最新 docs）
+- [**Simon Willison — "I think 'agent' may finally have a widely enough agreed upon definition"**](https://simonwillison.net/2025/Sep/18/agents/) — working definition：“agent runs tools in a loop to achieve a goal”、含对照 OpenAI 等不同定义的争议（**给已有基础的人**）
+- [**DeepLearning.AI Short Courses**](https://www.deeplearning.ai/short-courses/)：“AI Agents in LangGraph”/“Multi AI Agent Systems with crewAI”/“Functions, Tools and Agents with LangChain”（**API 多数是 2023-2024 旧版**、看概念为主、写 code 对照官方最新 docs）
 - [**liyupi/ai-guide**](https://github.com/liyupi/ai-guide) — 中文圈最大 AI 资源**聚合**型 repo（不是原创教材、适合广度延伸）
 
 > 📌 **资源清单上限规则**：本 section 是 router 不是 tutorial。主清单合计上限 **10 条**（中 4 + 英 6），要加新资源前**必须先移除一条**。选读区不计入主清单上限。
@@ -108,7 +108,7 @@
 ## 📚 必修阅读
 
 1. [**Anthropic — Tool Use**](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/overview) — 官方指南
-2. [**anthropics/courses — Tool Use**](https://github.com/anthropics/courses) ⭐⭐⭐⭐⭐ ★ 21k+ — Anthropic 官方 5 course umbrella、**module 5「Tool Use」对应本 stage**。Jupyter notebook 互动式练习、含 multimodal prompts / streaming / tool 实作 walk-through。
+2. [**anthropics/courses — Tool Use**](https://github.com/anthropics/courses) ⭐⭐⭐⭐⭐ ★ 21k+ — Anthropic 官方 5 course umbrella、**module 5“Tool Use”对应本 stage**。Jupyter notebook 互动式练习、含 multimodal prompts / streaming / tool 实作 walk-through。
 3. [**ReAct: Synergizing Reasoning and Acting in Language Models**](https://arxiv.org/abs/2210.03629) — Yao et al. 2022，奠基论文。至少读 abstract 跟 Section 3。
 4. [**OpenAI — Function Calling**](https://platform.openai.com/docs/guides/function-calling) — function calling 格式参考
 5. [**Build an agent from scratch**](https://shafiqulai.github.io/blogs/blog_3.html) — 从零打造 agent 的故事式导览
@@ -121,12 +121,12 @@
 >
 > 完整 3 路 trade-off 见 [`examples/README.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
 >
-> 🆘 **卡住了？** Tool calling 是整个 curriculum 最陡的学习曲线。装 [`examples/stage-5/tool-calling-tutor/`](../examples/stage-5/tool-calling-tutor/) skill——当你 prompt Claude Code「为什么 LLM 不调用我的 tool」、「我这 schema 哪里写坏」会自动加载、走 4-symptom 诊断流程。
+> 🆘 **卡住了？** Tool calling 是整个 curriculum 最陡的学习曲线。装 [`examples/stage-5/tool-calling-tutor/`](../examples/stage-5/tool-calling-tutor/) skill——当你 prompt Claude Code“为什么 LLM 不调用我的 tool”、“我这 schema 哪里写坏”会自动加载、走 4-symptom 诊断流程。
 >
 > 🪜 **本 stage 是 single-agent 起点**：一个 LLM + ReAct loop。**Multi-agent 概念**（多个 agent 协作）入门看 [Stage 4 什么是 multi-agent framework](04-agent-frameworks.zh-Hans.md#-什么是-multi-agent-framework)、**Claude 原生 subagent 机制**（`.claude/agents/` + Task tool、不需 framework）看 [Stage 5.5](05-claude-code-ecosystem.zh-Hans.md#55--subagentsclaude-code-原生-multi-agent-机制-2025-新功能)。
 
 ### 练习 1：Function Calling（一个工具、一次调用）
-给 Claude 一个工具（假的天气 API）跟一个问题（「台北现在有下雨吗？」）。看 Claude 怎么调用工具、拿到结果、再回答你。
+给 Claude 一个工具（假的天气 API）跟一个问题（“台北现在有下雨吗？”）。看 Claude 怎么调用工具、拿到结果、再回答你。
 
 <details open>
 <summary>📋 <b>起手码 — Path A（本机 Ollama qwen2.5:3b、默认）</b>（复制到 <code>practice_1.py</code>）</summary>
@@ -244,7 +244,7 @@ print(f"✅ 练习 1 通过（Anthropic）— Claude 选了 get_weather、city='
 <details>
 <summary>📋 <b>简化版核心观念 — Path A (Ollama)</b></summary>
 
-**NEW vs 练习 1**：tools 从 1 个变 3 个。LLM 看 `description` 边界决定挑哪个——`description` 写得越像「给人读的 docstring」、越容易挑错。
+**NEW vs 练习 1**：tools 从 1 个变 3 个。LLM 看 `description` 边界决定挑哪个——`description` 写得越像“给人读的 docstring”、越容易挑错。
 
 ```python
 from openai import OpenAI
@@ -272,7 +272,7 @@ print(f"LLM 挑了: {tc.function.name}, args: {json.loads(tc.function.arguments)
 # 预期：calculator, {"expression": "(19 * 42) - 8"}
 ```
 
-**punchline**：3 个 tool 的 `description` 边界要互斥——`calendar` 写「日历」太笼统、会跟 `web_search` 撞；写「特定日期事件」就清楚。小 model 对 description 质量比 Claude 更敏感。
+**punchline**：3 个 tool 的 `description` 边界要互斥——`calendar` 写“日历”太笼统、会跟 `web_search` 撞；写“特定日期事件”就清楚。小 model 对 description 质量比 Claude 更敏感。
 
 **Path B (Anthropic) 改 3 行**：schema 拿掉 `{"type": "function", "function": {...}}` 外包、`tool_calls` 变 `[b for b in resp.content if b.type == "tool_use"]`、`tc.input` 已经是 dict 不用 `json.loads`。完整版见 folder。
 
@@ -318,7 +318,7 @@ for step in range(5): # max_iter safety net
 → **基础 starter 范本** → [`examples/stage-3/03-react-from-scratch/`](../examples/stage-3/03-react-from-scratch/)（含 mock-based test.py、不花 API 钱也能验；illustrative，**不是 chapter-length 完整教程**——深度章节见 stage 开头 📚 hello-agents callout）
 
 ### 练习 4：多步骤推理任务
-一个需要连续调用 3-5 次 tool 的任务。例如：「找出台北人口，除以纽约人口，再把比例换成百分比。」每一步用不同的工具。
+一个需要连续调用 3-5 次 tool 的任务。例如：“找出台北人口，除以纽约人口，再把比例换成百分比。”每一步用不同的工具。
 
 <details>
 <summary>📋 <b>简化版核心观念 — 跟练习 3 同一个 loop、跑久一点而已</b></summary>
@@ -336,7 +336,7 @@ TOOL_IMPL = {
 # loop 完全照 练习 3，只是 max_iter 拉大到 8
 ```
 
-**punchline**：多步推理不是新 pattern、是**让 ReAct loop 跑久一点**。**真正的挑战是「LLM 会不会中间漏一步」**——qwen2.5:3b 可能漏「转百分比」、Claude haiku 较稳。**这恰好是观察「model 规模 vs 多步稳定度」的好实验**。试试 `MODEL=qwen2.5:7b python starter.py` 对照。
+**punchline**：多步推理不是新 pattern、是**让 ReAct loop 跑久一点**。**真正的挑战是“LLM 会不会中间漏一步”**——qwen2.5:3b 可能漏“转百分比”、Claude haiku 较稳。**这恰好是观察“model 规模 vs 多步稳定度”的好实验**。试试 `MODEL=qwen2.5:7b python starter.py` 对照。
 
 </details>
 
@@ -380,7 +380,7 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
 → **基础 starter 范本** → [`examples/stage-3/05-error-handling/`](../examples/stage-3/05-error-handling/)（starter.py 含 stub + 简单 test，illustrative，**不是 chapter-length 完整教程**；深度章节见 stage 开头 📚 hello-agents callout）
 
 ### 练习 6：Function schema 设计（坏 schema 修到好）
-**先给 LLM 一份故意写烂的 schema**——`description` 模糊（「处理数据」）、参数全用 `type: string`、没分 required / optional、enum 该用没用。观察 LLM 怎么选错 tool、传错参数。然后逐项修：
+**先给 LLM 一份故意写烂的 schema**——`description` 模糊（“处理数据”）、参数全用 `type: string`、没分 required / optional、enum 该用没用。观察 LLM 怎么选错 tool、传错参数。然后逐项修：
 - description 写到 LLM 一眼就懂这个 tool 适用情境（不是写给人读的 docstring）
 - parameters 用对 type（number / boolean / enum / array），required 列清楚
 - 模糊边界用 enum 强制收敛（例如 `unit: "celsius" | "fahrenheit"` 而不是 `unit: string`）
@@ -408,11 +408,11 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
      "required": ["value", "unit"]}}
 ```
 
-**4 个改进**：(1) `name` 改具体、(2) `description` 写「**何时**用」而非「**做什么**」、(3) `type` 改 `number`、(4) 加 `required` + `enum`。
+**4 个改进**：(1) `name` 改具体、(2) `description` 写“**何时**用”而非“**做什么**”、(3) `type` 改 `number`、(4) 加 `required` + `enum`。
 
 **punchline**：**写 schema 的功夫能省下换大 model 的成本**——小 model 对 schema 质量比大 model 敏感，相同 bad schema 在 Claude 上可能还能猜对、在 qwen 上几乎必错。Production 想用便宜 model？schema 必须写到 production-grade。
 
-**搞不定 schema 怎么办**：装 [`examples/stage-5/tool-calling-tutor/`](../examples/stage-5/tool-calling-tutor/) skill，遇到「LLM 不调用我的 tool」、「我这 schema 哪里写坏」会自动跳出来帮你 debug。
+**搞不定 schema 怎么办**：装 [`examples/stage-5/tool-calling-tutor/`](../examples/stage-5/tool-calling-tutor/) skill，遇到“LLM 不调用我的 tool”、“我这 schema 哪里写坏”会自动跳出来帮你 debug。
 
 </details>
 
@@ -420,11 +420,11 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
 
 ## 🪞 反思（Reflexion / Self-Refine）— 概念 + 路由
 
-> **本节是 concept + routing、不是练习**。没有 verified working solution、不挂「练习 N」label、不给 success criteria——遵守本 repo「没验证答案不写练习、顶多 routing」原则。想动手做？直接读下方 paper / project。
+> **本节是 concept + routing、不是练习**。没有 verified working solution、不挂“练习 N”label、不给 success criteria——遵守本 repo“没验证答案不写练习、顶多 routing”原则。想动手做？直接读下方 paper / project。
 
-**反思是什么**：练习 5 的 error handling 是「LLM 出错 → 你（外部）catch + retry」；**反思**是「LLM 观察自己出错 → 自己改」。差别是 agency 在哪一边——这是 production agent（Cursor / Cline / Claude Code）每天都在跑的循环。
+**反思是什么**：练习 5 的 error handling 是“LLM 出错 → 你（外部）catch + retry”；**反思**是“LLM 观察自己出错 → 自己改”。差别是 agency 在哪一边——这是 production agent（Cursor / Cline / Claude Code）每天都在跑的循环。
 
-**为什么这节在 Stage 3 而不是 Stage 6**：反思在学术（Reflexion paper Shinn 2023、Self-Refine Madaan 2023）跟 production（Cursor / Claude Code）上都被归类在 **planning / reasoning loop** 机制——是 ReAct（练习 3）的 sibling pattern，**不是 memory pattern**。同样是 LLM 自我引导的多轮循环，只是「下一轮要做什么」从「调用 tool」换成「批改自己」。
+**为什么这节在 Stage 3 而不是 Stage 6**：反思在学术（Reflexion paper Shinn 2023、Self-Refine Madaan 2023）跟 production（Cursor / Claude Code）上都被归类在 **planning / reasoning loop** 机制——是 ReAct（练习 3）的 sibling pattern，**不是 memory pattern**。同样是 LLM 自我引导的多轮循环，只是“下一轮要做什么”从“调用 tool”换成“批改自己”。
 
 **进阶版（带 persistent memory 的 Reflexion 完整版）→ [Stage 6 进阶：带持久记忆的 Reflexion 完整版](06-memory-rag.zh-Hans.md#-进阶带持久记忆的-reflexion-完整版--track-b-选读)**——当反思要跨 session、把过去失败存起来当下一轮 context，这个版本才真的需要 memory 层。
 
@@ -440,8 +440,8 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
 ### 📚 想动手 / 想深入？直接读这些
 
 **Paper**：
-- [**Reflexion (Shinn et al. 2023)**](https://arxiv.org/abs/2303.11366) ⭐ — 原 paper，定义「verbal reinforcement learning」
-- [**Self-Refine (Madaan et al. 2023)**](https://arxiv.org/abs/2303.17651) — single-agent self-critique，是「基本反思」的学术定义
+- [**Reflexion (Shinn et al. 2023)**](https://arxiv.org/abs/2303.11366) ⭐ — 原 paper，定义“verbal reinforcement learning”
+- [**Self-Refine (Madaan et al. 2023)**](https://arxiv.org/abs/2303.17651) — single-agent self-critique，是“基本反思”的学术定义
 
 **Reference 实现**：
 - [**arunpshankar/react-from-scratch**](https://github.com/arunpshankar/react-from-scratch) — 已在本 stage 精选 Projects 列出，含 Reflection 实现可直接读
@@ -452,17 +452,17 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
 
 ## 🎯 精选 Projects
 
-按用途分 4 类、12 个项目一张表搞定。**挑入口看「适合谁」、想深入点链接看 repo README**。
+按用途分 4 类、12 个项目一张表搞定。**挑入口看“适合谁”、想深入点链接看 repo README**。
 
 | 分类 | Project | ⭐ | 适合谁 | 为什么推荐 / 备注 |
 |---|---|---|---|---|
 | **官方 cookbook**<br>（先看这个） | [Anthropic — Tool Use Cookbook](https://github.com/anthropics/claude-cookbooks/tree/main/tool_use) | ⭐⭐⭐⭐⭐ | 练习 1 / 练习 2 入手 | 单工具 → 多工具 → parallel → structured output 全部 notebook（重点看 `tool_use/customer_service_agent.ipynb`） |
-| | [Anthropic — Quickstarts](https://github.com/anthropics/claude-quickstarts) | ⭐⭐⭐⭐⭐ | 练习 1/2 跑完想看「真的应用长什么样」 | 3 个 deploy-ready 范本（financial / customer-support / computer-use）、★ 16k+。比社群实现更 canonical |
+| | [Anthropic — Quickstarts](https://github.com/anthropics/claude-quickstarts) | ⭐⭐⭐⭐⭐ | 练习 1/2 跑完想看“真的应用长什么样” | 3 个 deploy-ready 范本（financial / customer-support / computer-use）、★ 16k+。比社群实现更 canonical |
 | | [Anthropic — Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) | ⭐⭐⭐⭐⭐ | 练习 3 写完、进 Stage 4 之前**必读** | 部落格文章：何时用 agent vs workflow / 常见 pattern / 容易踩的坑——Anthropic 官方观念框架 |
-| **从零实现 ReAct**<br>（理解原理） | [pguso/ai-agents-from-scratch](https://github.com/pguso/ai-agents-from-scratch) | ⭐⭐⭐⭐⭐ | 练习 3（从零写 ReAct） | 用本机 Ollama 从零打造、zero framework、章节结构好。**最干净的「不靠 framework」参考实现** |
+| **从零实现 ReAct**<br>（理解原理） | [pguso/ai-agents-from-scratch](https://github.com/pguso/ai-agents-from-scratch) | ⭐⭐⭐⭐⭐ | 练习 3（从零写 ReAct） | 用本机 Ollama 从零打造、zero framework、章节结构好。**最干净的“不靠 framework”参考实现** |
 | | [arunpshankar/react-from-scratch](https://github.com/arunpshankar/react-from-scratch) | ⭐⭐⭐⭐ | 练习 3 替代（偏好 Gemini）+ 想看反思变体 | ReAct + Reflection + Self-consistency、Gemini 最佳化（⚠️ 2025-05 后更新放缓、Apache-2.0） |
 | | [mattambrogi/agent-implementation](https://github.com/mattambrogi/agent-implementation) | ⭐⭐⭐ | 练习 3 卡住时逐行对照 | ~150 行最精简 ReAct（⚠️ 已停滞 2024-01、留作教学玩具参考） |
-| | [lsdefine/GenericAgent](https://github.com/lsdefine/GenericAgent) | ⭐⭐⭐⭐ | 练习 3/4，想看「精简但完整」framework | 自我演化 framework、~3K 行、★ 11k+、支持 Claude / Gemini / Kimi / MiniMax。介于玩具版与 LangGraph 之间 |
+| | [lsdefine/GenericAgent](https://github.com/lsdefine/GenericAgent) | ⭐⭐⭐⭐ | 练习 3/4，想看“精简但完整”framework | 自我演化 framework、~3K 行、★ 11k+、支持 Claude / Gemini / Kimi / MiniMax。介于玩具版与 LangGraph 之间 |
 | **CodeAct 路线**<br>（agent 写代码当 action） | [HuggingFace Smolagents](https://github.com/huggingface/smolagents) | ⭐⭐⭐⭐ | 练习 5 替代方案、本地 LLM 实验 | ≤1000 LOC、CodeAct pattern 代表、★ 27k+。HF 立场：agent 应该要小 |
 | | [QuantaLogic/quantalogic](https://github.com/quantalogic/quantalogic) | ⭐⭐⭐ | 练习 3 后想比较 CodeAct vs JSON-tool | 另一条 CodeAct 路线、agent 直接写 Python 代码当 action、Apache-2.0 |
 | **中文章节式深度教材**<br>（chapter-length） | [datawhalechina/hello-agents](https://github.com/datawhalechina/hello-agents) ⭐ **本 stage 推荐** | ⭐⭐⭐⭐⭐ | 中文读者想要结构化教学 + 完整覆盖 | **16 种能力**含 tool use / ReAct / context engineering / sub-agents / circuit breaker / observability。中文圈最完整章节式（CC BY-NC-SA、非商用） |
@@ -477,7 +477,7 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
 你能不能：
 - [ ] 定义一个 tool schema（name + description + JSON schema 输入/输出）
 - [ ] 用不到 100 行 Python、不靠任何 framework，把 ReAct 循环写出来
-- [ ] 解释为什么 agent 需要一个「我做完了」的退出条件
+- [ ] 解释为什么 agent 需要一个“我做完了”的退出条件
 - [ ] 比较 CodeAct（代码即 action）跟 JSON-tool 两种路线
 - [ ] 看出哪些问题其实不需要 agent
 

@@ -31,7 +31,7 @@
 
 **Claude Code 默认内置 7 个** subagent：`general-purpose` / `code-reviewer` / `Explore` / `Plan` / `frontend-developer` / `claude-code-guide` / `statusline-setup`（截至 2025-11，可能会变动）。
 
-> 📌 **每个内置 subagent 的功能说明 + 「遇到 X 任务用 Y」decision table 的 canonical 在 [Stage 5.5 §可派遣的 subagent 有哪些](../stages/05-claude-code-ecosystem.zh-Hans.md#可派遣的-subagent-有哪些)**——本 cookbook 聚焦「怎么派遣」的 15 个 recipe，内置清单与选用逻辑以 Stage 5.5 为准。
+> 📌 **每个内置 subagent 的功能说明 + “遇到 X 任务用 Y”decision table 的 canonical 在 [Stage 5.5 §可派遣的 subagent 有哪些](../stages/05-claude-code-ecosystem.zh-Hans.md#可派遣的-subagent-有哪些)**——本 cookbook 聚焦“怎么派遣”的 15 个 recipe，内置清单与选用逻辑以 Stage 5.5 为准。
 
 > 💡 **如果 `/agents` 列表跟这份 cookbook 不一致**：表示你装了 plugin，或 Claude Code 版本不同。**recipe 名字对不上时，找最接近的 subagent 用就好**（例如没有 `Explore`，用 `general-purpose` 也能跑搜索）。
 

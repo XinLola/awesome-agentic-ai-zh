@@ -18,7 +18,7 @@
 | **Tool result 接回** | `messages.append({"role": "user", "content": [{"type": "tool_result", "tool_use_id": call.id, "content": obs}]})` | `messages.append({"role": "tool", "tool_call_id": tc.id, "content": obs})` |
 | **Exception class** | `anthropic.RateLimitError` / `anthropic.APIConnectionError` | `openai.RateLimitError` / `openai.APIConnectionError` |
 
-## 并排程式码对照（单轮 tool call）
+## 并排程序码对照（单轮 tool call）
 
 ### Anthropic
 

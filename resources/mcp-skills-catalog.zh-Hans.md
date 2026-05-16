@@ -550,7 +550,7 @@
 
 **教什么**："**让你 AI harness 在 design 上更强的 design language**"——一套设计 vocabulary / pattern，帮 AI 在生成 UI / 视觉成品时跳出常见的"AI 感"生硬风格。
 **适合谁**：用 AI 生 UI / mockup / visual design 但结果都很 generic 的开发者；前端 + AI workflow。
-**备注**：不是 MCP server 也不是 Skill 包——是一份"**design language**"reference。让 AI 看到比较高品质的设计词汇才生得出比较好的东西。
+**备注**：不是 MCP server 也不是 Skill 包——是一份"**design language**"reference。让 AI 看到比较高质量的设计词汇才生得出比较好的东西。
 
 ---
 

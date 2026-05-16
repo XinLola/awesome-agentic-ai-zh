@@ -10,7 +10,7 @@
 
 最简单的 search + summarize agent：
 
-- 给一个 query（譬如「summarize Taipei」）
+- 给一个 query（譬如“summarize Taipei”）
 - Agent 用 `search` tool 拿 knowledge base 数据
 - LLM 把 search result 摘成 1-2 句
 
@@ -31,7 +31,7 @@ python starter_crewai.py  # CrewAI + Ollama（对照）
 
 预算：**$0**。
 
-### Path B（Anthropic、想看 cloud 高品质）
+### Path B（Anthropic、想看 cloud 高质量）
 
 ```bash
 pip install -r requirements.txt
@@ -41,7 +41,7 @@ python starter_anthropic.py   # LangGraph + Claude
 
 预算：每次 ≈ **$0.001**（claude-haiku-4-5）。
 
-## 不花钱验证程式逻辑（mock-based）
+## 不花钱验证程序逻辑（mock-based）
 
 ```bash
 python test.py             # LangGraph + mock LLM
@@ -54,9 +54,9 @@ python test_crewai.py      # CrewAI tool 逻辑 + 模块可载入
 | 维度 | LangGraph | CrewAI |
 |---|---|---|
 | 核心抽象 | `StateGraph` + node + edge | `Agent` + `Task` + `Crew` |
-| 思考方式 | 「状态怎么流动」 | 「角色怎么分工」 |
+| 思考方式 | “状态怎么流动” | “角色怎么分工” |
 | Loop 控制 | 显式 conditional edge | 隐藏在 `Crew.kickoff()` 里 |
-| 程式码行数（这题） | ~50 行 | ~25 行 |
+| 程序码行数（这题） | ~50 行 | ~25 行 |
 | Debug 路径 | 看 graph state、可 time-travel | 看 verbose log、不容易 step |
 | 适合场景 | 复杂分支、production、需要 audit | 多 agent 雏形、role-based 任务 |
 | 学习曲线 | 中-高 | 低 |
@@ -71,7 +71,7 @@ g.add_conditional_edges("agent", should_continue, {"tools": "tools", END: END})
 g.add_edge("tools", "agent")
 ```
 
-「我要显式地告诉系统：状态长这样、节点互相连这样、条件分支看 `should_continue`。」
+“我要显式地告诉系统：状态长这样、节点互相连这样、条件分支看 `should_continue`。”
 
 ### CrewAI 风格（精简）
 
@@ -82,13 +82,13 @@ crew = Crew(agents=[researcher], tasks=[task])
 crew.kickoff()
 ```
 
-「我要描述：这个角色是谁、要完成什么任务、有什么工具。框架自己决定怎么跑。」
+“我要描述：这个角色是谁、要完成什么任务、有什么工具。框架自己决定怎么跑。”
 
 ## 观察重点
 
 1. **抽象代价**：CrewAI 隐藏的多、写得少；要 debug 时 stack 比较深
 2. **小 model 友善度**：LangGraph 对 qwen2.5:3b 较稳；CrewAI 可能让小 model 多绕几步（因为 prompt 比较复杂）
-3. **可控性**：LangGraph 你能看到每个 state 变化；CrewAI 偏向「结果导向」
+3. **可控性**：LangGraph 你能看到每个 state 变化；CrewAI 偏向“结果导向”
 4. **何时选哪个**：production 级 / 需要 audit → LangGraph。多 agent 雏形 / role-based → CrewAI
 
 ## 常见坑

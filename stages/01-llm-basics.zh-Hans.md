@@ -28,7 +28,7 @@
 
 ## 🌐 主流 LLM 家族对比（2026-05 snapshot）
 
-「Claude 跟 GPT 有什么不同？」「中国模型能用吗？」「我该装 Ollama 跑哪个 OSS model？」——这节给你**客观对照**。不下「最好」结论——用 **强项 / 适合任务 / 弱项** 3 维比较、附**官方 docs URL**让你自己 verify。
+“Claude 跟 GPT 有什么不同？”“中国模型能用吗？”“我该装 Ollama 跑哪个 OSS model？”——这节给你**客观对照**。不下“最好”结论——用 **强项 / 适合任务 / 弱项** 3 维比较、附**官方 docs URL**让你自己 verify。
 
 > 💡 **先解释几个名词**：
 > - **Context window** = LLM 一次能记住的对话量、有上限（例如 200k token ≈ 15 万中文字）
@@ -102,7 +102,7 @@
 
 - ⚠️ **Benchmark ≠ production performance**——LLM 在你 specific 任务的表现要自己跑 small eval（例如贴 10 个你真实 prompt 看哪家答得最像你要的）、**不能只看排名选**
 - ⚠️ **Frontier 6 个月洗牌一次**——上面所有数字是 **2026-05 snapshot**、之后请以**官方 docs** / [Artificial Analysis](https://artificialanalysis.ai/) 为准
-- ⚠️ **「强项」是 relative、不是 absolute**——所有 frontier model 都能完成基本任务、差别在边际情境
+- ⚠️ **“强项”是 relative、不是 absolute**——所有 frontier model 都能完成基本任务、差别在边际情境
 - ⚠️ **中文场景看 [SuperCLUE](https://www.superclueai.com/)**——一般国际 benchmark（如 MMLU）以英文为主、中文表现可能跟英文不一致
 
 ## 前置要求
@@ -117,21 +117,21 @@
 ## 推荐阅读
 
 1. [**Anthropic - Claude 模型概览**](https://docs.claude.com/en/about-claude/models/overview) - 官方模型总览，包含 2026 最新 Opus 4.7 / Sonnet 4.6 / Haiku 4.5。
-2. [**anthropics/courses — Anthropic API Fundamentals**](https://github.com/anthropics/courses) ⭐⭐⭐⭐⭐ ★ 21k+ — Anthropic 官方 5 course umbrella、**module 1「Anthropic API Fundamentals」对应本 stage**。Jupyter notebook、用 Claude 3 Haiku（最便宜）跑、跟着做就能拿到 API 基本功。
+2. [**anthropics/courses — Anthropic API Fundamentals**](https://github.com/anthropics/courses) ⭐⭐⭐⭐⭐ ★ 21k+ — Anthropic 官方 5 course umbrella、**module 1“Anthropic API Fundamentals”对应本 stage**。Jupyter notebook、用 Claude 3 Haiku（最便宜）跑、跟着做就能拿到 API 基本功。
 3. [**OpenAI Quickstart**](https://platform.openai.com/docs/quickstart) - 学习发送你的第一个 API call。
 4. [**A Visual Guide to LLM Tokenizers**](https://huggingface.co/learn/llm-course/chapter6/1) - Hugging Face 的图文并茂指南。
 5. [**Anthropic API Pricing**](https://www.anthropic.com/pricing#anthropic-api) - 了解并比较模型成本（例如，1k input + 1k output 的价格）。
 
 ## “动手”小练习（在本地运行这些代码）
 
-> 🦙 **本 stage 默认用 Ollama**（成本考量、本机 `gemma4:e4b` 跑得动、$0/run）。每个练习都有 Path A（Ollama、默认）+ Path B（Anthropic、选择性、想看 cloud 高品质时用）。完整 3 路 trade-off 见 [`examples/README.zh-Hans.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
+> 🦙 **本 stage 默认用 Ollama**（成本考量、本机 `gemma4:e4b` 跑得动、$0/run）。每个练习都有 Path A（Ollama、默认）+ Path B（Anthropic、选择性、想看 cloud 高质量时用）。完整 3 路 trade-off 见 [`examples/README.zh-Hans.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
 >
 > 💰 **Stage 1 预算估算**（全 6 练习各跑 3-5 次）：**全本机 = $0**、**全 haiku ≈ $0.30**、**全 sonnet ≈ $0.90**。完整 model 清单 + Stage 1-7 全程预算估算见 [`examples/README.zh-Hans.md#推荐-llm-清单`](../examples/README.zh-Hans.md#推荐-llm-清单)。
 >
 > 💡 **不装 Ollama 也能读** — 每个练习的 Path B 区块就是 Anthropic 版、选一个跑就行。先 [`pip install openai && ollama pull gemma4:e4b`](https://ollama.com) 就装好 Path A 环境。
 
 ### 练习 1：LLM API（hello world）
-五行 Python 调用 LLM 并印出回应。**默认用 Ollama 本机跑（免费、offline）**；想看 cloud 答案品质改 Path B Anthropic。详见 [`examples/README.zh-Hans.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
+五行 Python 调用 LLM 并打印响应。**默认用 Ollama 本机跑（免费、offline）**；想看 cloud 答案质量改 Path B Anthropic。详见 [`examples/README.zh-Hans.md`](../examples/README.zh-Hans.md#三条路径--默认用-ollama成本考量)。
 
 <details open>
 <summary>📋 <b>起手码 — Path A（本机 Ollama gemma4:e4b、默认）</b>（复制到 <code>practice_1.py</code>、<code>python practice_1.py</code> 就跑）</summary>
@@ -172,7 +172,7 @@ print("✅ 练习 1 通过 — Ollama gemma4:e4b 已能本机回应、$0/次")
 </details>
 
 <details>
-<summary>📋 <b>起手码 — Path B（Anthropic API、选择性、想看 cloud 高品质时）</b>（复制到 <code>practice_1_anthropic.py</code>）</summary>
+<summary>📋 <b>起手码 — Path B（Anthropic API、选择性、想看 cloud 高质量时）</b>（复制到 <code>practice_1_anthropic.py</code>）</summary>
 
 ```python
 # 需要：pip install anthropic
@@ -375,9 +375,9 @@ single: input=14 output=48 → $0.000254
 </details>
 
 ### 练习 4：Cross-Provider 比较
-同一个 prompt 同时送给 Claude、GPT、Gemini，比较三家的回应差异。观察「同一句话为什么产生不同答案」——回答风格、长度、判断取舍都不一样。建议用 OpenAI、Anthropic、Google 三家 SDK 各一段程式呼叫。
+同一个 prompt 同时送给 Claude、GPT、Gemini，比较三家的响应差异。观察“同一句话为什么产生不同答案”——回答风格、长度、判断取舍都不一样。建议用 OpenAI、Anthropic、Google 三家 SDK 各一段程序调用。
 
-→ **基础 starter 范本** → [`examples/stage-1/04-cross-provider/`](../examples/stage-1/04-cross-provider/)（含三家 SDK 并行呼叫 + table 对照、缺哪家 key 就 skip 哪家；illustrative，**不是 chapter-length 完整教程**）
+→ **基础 starter 范本** → [`examples/stage-1/04-cross-provider/`](../examples/stage-1/04-cross-provider/)（含三家 SDK 并行调用 + table 对照、缺哪家 key 就 skip 哪家；illustrative，**不是 chapter-length 完整教程**）
 
 ### 练习 5：Error Handling
 故意触发错误情境并写 retry：
@@ -390,7 +390,7 @@ single: input=14 output=48 → $0.000254
 → **基础 starter 范本** → [`examples/stage-1/05-error-handling/`](../examples/stage-1/05-error-handling/)（含 mock-based test、不用真的断网就能验证 retry 逻辑；illustrative，**不是 chapter-length 完整教程**）
 
 ### 练习 6：Local LLM
-**不付 API 费用、跑在自己电脑上**：用 Ollama 下载一个小模型（建议 `llama3.2:3b` 或 `qwen2.5:3b`），用 OpenAI 兼容 API 呼叫它。
+**不付 API 费用、跑在自己电脑上**：用 Ollama 下载一个小模型（建议 `llama3.2:3b` 或 `qwen2.5:3b`），用 OpenAI 兼容 API 调用它。
 
 ```bash
 # 1. 装 Ollama: https://ollama.com

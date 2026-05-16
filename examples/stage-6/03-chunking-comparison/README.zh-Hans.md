@@ -61,11 +61,11 @@ def chunk_headings(text):
 
 ## 观察重点
 
-对 query「How much does the MRT cost?」：
+对 query“How much does the MRT cost?”：
 
-- **fixed-length**：可能切到「...EasyCard is the universal payment. A single ride...」（MRT cost 跟前后 chunk 切开了）
+- **fixed-length**：可能切到“...EasyCard is the universal payment. A single ride...”（MRT cost 跟前后 chunk 切开了）
 - **paragraph**：抓到完整 Transit 段、含 NT$20-65
-- **heading-aware**：抓到完整 ## Transit section、含 heading「Transit」
+- **heading-aware**：抓到完整 ## Transit section、含 heading“Transit”
 
 **punchline**：**chunking 策略决定 RAG 上限**——retrieval 抓不到的内容、再强的 LLM 也答不出。
 
@@ -94,5 +94,5 @@ def chunk_headings(text):
 ## 延伸
 
 - **改变 chunk_size 跑 grid search**：对 5 个 query、看哪个 size 平均 sim 最高
-- **加 metadata filter**：每个 chunk 标 section、query 时可指定「只在 Food section 搜」
+- **加 metadata filter**：每个 chunk 标 section、query 时可指定“只在 Food section 搜”
 - **接练习 4 完整 RAG**：选好 chunking 策略后、丢给 LLM 生答案

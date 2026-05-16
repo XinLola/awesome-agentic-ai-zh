@@ -14,7 +14,7 @@
 
 ## 🎯 Agent Interfaces 是什么（定位）
 
-**Agent Interfaces 指的是 agent 如何操作 API 以外的真实世界，例如电脑屏幕、网页，或隔离的代码执行沙箱**——agent 与「非 API 世界」的对外互动层（IO boundary）。Stage 0-7 教你“**如何构建智能体本身**”（LLM → prompt → tool → context → memory → multi-agent → harness）；本章教“**智能体构建好后，如何操作真实环境**”。
+**Agent Interfaces 指的是 agent 如何操作 API 以外的真实世界，例如电脑屏幕、网页，或隔离的代码执行沙箱**——agent 与“非 API 世界”的对外互动层（IO boundary）。Stage 0-7 教你“**如何构建智能体本身**”（LLM → prompt → tool → context → memory → multi-agent → harness）；本章教“**智能体构建好后，如何操作真实环境**”。
 
 **3 层 interface**：
 

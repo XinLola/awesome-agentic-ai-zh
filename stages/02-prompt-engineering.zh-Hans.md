@@ -26,7 +26,7 @@
 ## 📚 必修阅读
 
 1. [**anthropics/prompt-eng-interactive-tutorial**](https://github.com/anthropics/prompt-eng-interactive-tutorial) ⭐⭐⭐⭐⭐ ★ 35k+ — **Anthropic 官方互动教程**、9 章 Jupyter notebook（basic / intermediate / advanced + appendix），含 playground 跟 answer key。用 Claude 3 Haiku（最便宜）跑得起来、**Stage 2 的 canonical 动手教材**。也是 [**anthropics/courses**](https://github.com/anthropics/courses) 5 course umbrella 的 module 2，想看更广（含 API Fundamentals / Real World Prompting / Eval / Tool Use）直接看 umbrella
-2. [**anthropics/courses — Real World Prompting**](https://github.com/anthropics/courses) ⭐⭐⭐⭐ ★ 21k+ — 同 umbrella 的 module 3，**「真实情境下怎么用 prompting」**：chatbot / legal / financial / coding 案例 walk-through。看完 #1 再来看 #2
+2. [**anthropics/courses — Real World Prompting**](https://github.com/anthropics/courses) ⭐⭐⭐⭐ ★ 21k+ — 同 umbrella 的 module 3，**“真实情境下怎么用 prompting”**：chatbot / legal / financial / coding 案例 walk-through。看完 #1 再来看 #2
 3. [**Anthropic Prompt Engineering Guide**](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview) — 官方 docs、配合上面 #1 一起读
 3. [**OpenAI Prompt Engineering**](https://platform.openai.com/docs/guides/prompt-engineering) — OpenAI 观点
 4. [**dair-ai Prompt Engineering Guide**](https://www.promptingguide.ai/) — 学术风，深入
@@ -144,7 +144,7 @@ print(f"\n✅ 练习 1 通过（Anthropic）")
 - Anthropic: `system=...` 参数
 - Ollama / OpenAI-compatible: `messages=[{"role": "system", ...}, ...]`
 
-**Anthropic 对 system prompt 遵循度通常比 4B 小 model 更严谨**——「严肃律师」会真的引用法条编号。
+**Anthropic 对 system prompt 遵循度通常比 4B 小 model 更严谨**——“严肃律师”会真的引用法条编号。
 
 </details>
 
@@ -253,7 +253,7 @@ def classify(text: str, *, use_few_shot: bool) -> str:
 ### 练习 3：CoT
 挑一个数学文字题，比较：
 - 纯 prompt
-- 纯 prompt + 「Let's think step by step」
+- 纯 prompt + “Let's think step by step”
 - 纯 prompt + 一个展示 CoT 的范例
 
 <details open>
@@ -337,10 +337,10 @@ def ask(prompt: str) -> str:
 </details>
 
 ### 练习 4：Iterative Refinement
-拿一个模糊的 prompt，refine 5 次。把每一轮记下来。观察哪些改动会提升品质。
+拿一个模糊的 prompt，refine 5 次。把每一轮记下来。观察哪些改动会提升质量。
 
 <details open>
-<summary>📋 <b>起手码 — Path A（本机 Ollama gemma4:e4b、默认）</b>（复制到 <code>practice_4.py</code>）— 这题没有「对错」、重点是观察过程</summary>
+<summary>📋 <b>起手码 — Path A（本机 Ollama gemma4:e4b、默认）</b>（复制到 <code>practice_4.py</code>）— 这题没有“对错”、重点是观察过程</summary>
 
 ```python
 # 需要：pip install openai
@@ -408,7 +408,7 @@ text = msg.content[0].text
 
 </details>
 
-**进阶做法**：把这 5 轮输出全存进 csv、Stage 7 练习 2 会教怎么把这变成 eval harness 量化「prompt 改善了多少」。
+**进阶做法**：把这 5 轮输出全存进 csv、Stage 7 练习 2 会教怎么把这变成 eval harness 量化“prompt 改善了多少”。
 
 ## 🎯 精选项目
 

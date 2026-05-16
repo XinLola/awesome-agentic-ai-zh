@@ -32,7 +32,7 @@ python starter.py
 
 预算：**$0**。但 qwen2.5:3b 可能 retry 多次才产对 schema、总 token 较高。
 
-### Path B（Anthropic、想看 cloud 高品质）
+### Path B（Anthropic、想看 cloud 高质量）
 
 ```bash
 pip install -r requirements.txt
@@ -42,7 +42,7 @@ python starter_anthropic.py
 
 预算：每次 ≈ **$0.001**（claude-haiku-4-5、通常一次过、无 retry）。
 
-## 不花钱验证程式逻辑
+## 不花钱验证程序逻辑
 
 ```bash
 python test.py             # Pydantic schema 验证 + agent 结构
@@ -133,7 +133,7 @@ MODEL=qwen2.5:7b python starter.py                      # 较大本机 model
 
 ## 延伸
 
-- **加 tools**：Pydantic AI agent 可以同时有 tools + structured output、`@agent.tool` 装饰函式
+- **加 tools**：Pydantic AI agent 可以同时有 tools + structured output、`@agent.tool` 装饰函数
 - **stream typed output**：`agent.run_stream(...)` 边跑边验
 - **跨 model 比较**：同一个 schema 跑 Claude / GPT / Gemini / 本机 model、看谁最稳
 - **接 production**：Pydantic AI 跟 FastAPI 整合很好、output 直接当 API response model

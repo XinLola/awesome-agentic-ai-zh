@@ -1,4 +1,4 @@
-# Debug Flowchart：「为什么 LLM 不调用我的 tool」
+# Debug Flowchart：“为什么 LLM 不调用我的 tool”
 
 > [繁體中文](./debug-flowchart.md) | **简体中文** | [English](./debug-flowchart.en.md)
 
@@ -49,7 +49,7 @@ tool_a = {"name": "web_search", "description": "Use for current/external info no
 tool_b = {"name": "fact_lookup", "description": "Use for static facts: populations, physical constants, capital cities."}
 ```
 
-**修法**：每个 tool 加「Do NOT use for ...」明写负面边界。
+**修法**：每个 tool 加“Do NOT use for ...”明写负面边界。
 
 #### 3. user query 根本不需要 tool（10%）
 
@@ -134,7 +134,7 @@ messages.append({"role": "tool", "content": obs})
 messages.append({"role": "tool", "tool_call_id": tc.id, "content": obs})
 ```
 
-#### 3. tool 结果是 garbage、LLM 不知道什么是「完成」
+#### 3. tool 结果是 garbage、LLM 不知道什么是“完成”
 
 ```python
 # user: "查台北天气"
@@ -159,6 +159,6 @@ return {"city": "Taipei", "forecast": "rain", "temperature_c": 24}
 
 1. **换大 model**：`qwen2.5:7b` 或 `claude-haiku-4-5`、多步稳定度显著提升
 2. **Description 明示顺序**：`{"name": "to_percentage", "description": "Convert a ratio to percentage. **Call this LAST after dividing.**"}`
-3. **加 chain-of-thought prompt**：user message 开头加「Plan the steps first, then execute one by one.」
+3. **加 chain-of-thought prompt**：user message 开头加“Plan the steps first, then execute one by one.”
 
 完整对照可跑范例 → [`../../stage-3/04-multi-step-reasoning/`](../../../stage-3/04-multi-step-reasoning/)

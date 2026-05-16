@@ -25,7 +25,7 @@ python starter.py
 
 预算：**$0**。3 轮 loop ≈ 10-60 秒。
 
-### Path B（Anthropic、想看 cloud 高品质）
+### Path B（Anthropic、想看 cloud 高质量）
 
 ```bash
 pip install -r requirements.txt
@@ -47,7 +47,7 @@ python starter_anthropic.py
 ✅ 练习 5 通过 — tool error 是 data 不是 exception、$0/run
 ```
 
-## 不花钱验证程式逻辑（mock-based）
+## 不花钱验证程序逻辑（mock-based）
 
 ```bash
 python test.py            # 验 Path A (Ollama) starter.py 逻辑
@@ -70,7 +70,7 @@ python test_anthropic.py  # 验 Path B (Anthropic) starter_anthropic.py 逻辑
 
 ## 两个 path 观察重点
 
-**附加观察**：小 model（qwen2.5:3b）对 `retry_hint` 的 follow-up 可能不如 Claude 精细——可能会直接放弃、或无视 hint 重复同一个错。**这恰好是教学点**：production 写好 retry pattern 后，不同 model 对结构化 error 的「阅读力」差距，是选 model 的考量之一（Stage 7 production tier 会再回来讨论）。
+**附加观察**：小 model（qwen2.5:3b）对 `retry_hint` 的 follow-up 可能不如 Claude 精细——可能会直接放弃、或无视 hint 重复同一个错。**这恰好是教学点**：production 写好 retry pattern 后，不同 model 对结构化 error 的“阅读力”差距，是选 model 的考量之一（Stage 7 production tier 会再回来讨论）。
 
 | 观察项 | Anthropic Claude haiku | Ollama qwen2.5:3b |
 |---|---|---|

@@ -23,7 +23,7 @@ python starter.py
 
 预算：**$0**。qwen2.5:3b 单轮 tool call ≈ 1-5 秒（CPU 慢、GPU 快）。
 
-### Path B（Anthropic、想看 cloud 高品质）
+### Path B（Anthropic、想看 cloud 高质量）
 
 ```bash
 pip install -r requirements.txt
@@ -43,7 +43,7 @@ python starter_anthropic.py
 ✅ 练习 2 通过 — 你已用本机 qwen2.5:3b 跑通 multi-tool selection、$0/run
 ```
 
-## 不花钱验证程式逻辑（mock-based）
+## 不花钱验证程序逻辑（mock-based）
 
 ```bash
 python test.py            # 验 Path A (Ollama) starter.py 逻辑
@@ -62,14 +62,14 @@ python test_anthropic.py  # 验 Path B (Anthropic) starter_anthropic.py 逻辑
 | 抓 tool call | `resp.content[i].type == "tool_use"` | `resp.choices[0].message.tool_calls[i]` |
 | input 格式 | `call.input` 是 dict（自动 parse） | `call.function.arguments` 是 JSON string、要 `json.loads(...)` |
 
-Tool selection **逻辑本身**跨 backend——schema 写好、qwen2.5:3b 也会挑对 tool。这题很适合拿来对照 Claude vs qwen2.5「在哪几题会挑错」，是观察小 model 边界的好实验。
+Tool selection **逻辑本身**跨 backend——schema 写好、qwen2.5:3b 也会挑对 tool。这题很适合拿来对照 Claude vs qwen2.5“在哪几题会挑错”，是观察小 model 边界的好实验。
 
 ## 容易踩坑
 
-多工具选择最常见的错误是 description 写得太像「一般说明文档」，而不是「给模型做决策的判断规则」：
+多工具选择最常见的错误是 description 写得太像“一般说明文档”，而不是“给模型做决策的判断规则”：
 
-- `calendar_lookup` 描述只说「行事历」就会跟 `web_search` 边界模糊；明写「查特定日期事件」才好
-- `web_search` 适合「外部 / 近期 / 不确定信息」、`calculator` 只处理算式；边界写越清楚、模型越少误判
+- `calendar_lookup` 描述只说“行事历”就会跟 `web_search` 边界模糊；明写“查特定日期事件”才好
+- `web_search` 适合“外部 / 近期 / 不确定信息”、`calculator` 只处理算式；边界写越清楚、模型越少误判
 - 小 model（qwen2.5:3b）对 description 质量比 Claude **更敏感**——同一份 schema、Claude 可能还能猜对、qwen 直接挑错
 
 ## 想看更聪明的答案？

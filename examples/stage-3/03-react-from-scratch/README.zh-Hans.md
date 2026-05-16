@@ -51,7 +51,7 @@ python starter.py
 ✅ 练习 3 通过 — ReAct loop 自己连用了 lookup_fact 跟 calculator
 ```
 
-## 不花钱验证程式逻辑
+## 不花钱验证程序逻辑
 
 ```bash
 python test.py
@@ -70,7 +70,7 @@ python test.py
 🎉 全部通过 — 你的 ReAct loop 逻辑正确
 ```
 
-## 程式结构走查
+## 程序结构走查
 
 | 段 | 行 | 在做什么 |
 |---|---|---|

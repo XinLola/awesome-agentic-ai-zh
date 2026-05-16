@@ -49,7 +49,7 @@
 - LLM 正确 trigger tool 机率：60%（从 ~70% 提升、但 args 仍错）
 - 仍然挑错 unit 格式
 
-**这一步搞定「LLM 愿不愿意调用」、但 args 还没固定。**
+**这一步搞定“LLM 愿不愿意调用”、但 args 还没固定。**
 
 ## Iteration 2：修 parameter type
 
@@ -126,14 +126,14 @@
 
 ## 4 个改进的 cost vs benefit
 
-| Iteration | 改了什么 | 程式码变动量 | 正确率提升（qwen） |
+| Iteration | 改了什么 | 程序码变动量 | 正确率提升（qwen） |
 |---|---|---|---|
 | 1 | description | 1 line | 0% → 60% |
 | 2 | type: number | 1 line | 60% → 75% |
 | 3 | required | 1 line | 75% → 85% |
 | 4 | enum | 1 line | 85% → 95%+ |
 
-**4 行程式码、把正确率从 ~0% 推到 95%+**。这就是 schema 设计的 ROI。
+**4 行程序码、把正确率从 ~0% 推到 95%+**。这就是 schema 设计的 ROI。
 
 ## 为什么这在小 model 上**更重要**
 

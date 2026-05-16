@@ -36,7 +36,7 @@
 编辑器集成的 AI 结对编程工具。在 AI 编辑器类工具中采用度高，可作为比较其他 IDE agent 的基准。
 
 #### [Aider-AI/aider](https://github.com/Aider-AI/aider) ⭐⭐⭐⭐⭐
-★ 44k+ · Apache-2.0 — git-aware 的 CLI pair-programmer。直接编辑你 repo 中的文件，commit 都自动写好。**「git-native AI 编辑流程」的开源模板**。模型不限。
+★ 44k+ · Apache-2.0 — git-aware 的 CLI pair-programmer。直接编辑你 repo 中的文件，commit 都自动写好。**“git-native AI 编辑流程”的开源模板**。模型不限。
 
 #### [anthropics/claude-code](https://github.com/anthropics/claude-code) ⭐⭐⭐⭐⭐
 ★ 120k+ — Anthropic 官方的 agentic coding 助理。有 Skills + plugin 生态系。
@@ -45,16 +45,16 @@
 ★ 61k+ · Apache-2.0 — VS Code extension，autonomous in-IDE agent：tool use、browser、step-by-step approval。**VS Code 用户想 IDE-native agentic dev 的好选项**。
 
 #### [continuedev/continue](https://github.com/continuedev/continue) ⭐⭐⭐⭐
-★ 33k+ · Apache-2.0 — source-controlled AI checks，可以在 CI 强制执行。代表「**团队 / governance**」这条角度的 coding agent。
+★ 33k+ · Apache-2.0 — source-controlled AI checks，可以在 CI 强制执行。代表“**团队 / governance**”这条角度的 coding agent。
 
 #### [OpenHands (前身为 OpenDevin)](https://github.com/All-Hands-AI/OpenHands) ⭐⭐⭐⭐
-★ 72k+ · MIT — open source 的自主软件开发 agent。设计上比 Aider / Claude Code 更激进——agent 自己跑 sandbox、自己 commit，适合「整个 issue 丢给它解」场景。
+★ 72k+ · MIT — open source 的自主软件开发 agent。设计上比 Aider / Claude Code 更激进——agent 自己跑 sandbox、自己 commit，适合“整个 issue 丢给它解”场景。
 
 #### [block/goose](https://github.com/block/goose) ⭐⭐⭐⭐
 ★ 43k+ · Apache-2.0 — 开源、可扩展的 AI agent，超出纯 code suggestion——能 install / execute / edit / test，搭配任何 LLM。同时支持多家 LLM provider 跟 MCP，提供 desktop app、CLI、API 三种接口。（repo 现指向 `aaif-goose/goose`。）
 
 #### [RooCodeInc/Roo-Code](https://github.com/RooCodeInc/Roo-Code) ⭐⭐⭐⭐
-★ 23k+ · Apache-2.0 — VS Code 的 coding agent，采用「**多种专业模式**」的设计，跟 Cline 的单一 agent flow 不同。VS Code 用户想 multi-mode 替代方案的选择。
+★ 23k+ · Apache-2.0 — VS Code 的 coding agent，采用“**多种专业模式**”的设计，跟 Cline 的单一 agent flow 不同。VS Code 用户想 multi-mode 替代方案的选择。
 
 ### Code Review
 
@@ -86,7 +86,7 @@
 4. 写完跑 tests + lint → 自己 review diff（**不要 blind accept**）
 5. Commit message 自己写或 prompt 生草稿后改
 
-**2. Aider git-native 流程（最像「跟 AI pair」）**
+**2. Aider git-native 流程（最像“跟 AI pair”）**
 ```bash
 # 进入 repo 后
 aider --model anthropic/claude-sonnet-4-20250514

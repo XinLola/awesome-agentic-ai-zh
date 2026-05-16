@@ -33,7 +33,7 @@ python starter_anthropic.py
 
 > 💡 **Anthropic 没提供 embedding API**——官方推荐 [Voyage AI](https://www.voyageai.com/)。这份用 OpenAI 示范（最常见），改 Voyage 只需换 client。
 
-## 不花钱验证程式逻辑
+## 不花钱验证程序逻辑
 
 ```bash
 python test.py             # mock SentenceTransformer、不下载 model
@@ -61,7 +61,7 @@ top_idx = np.argsort(-sims)[:top_k]
 | 维度 | sentence-transformers (本机) | OpenAI text-embedding-3-small (cloud) |
 |---|---|---|
 | 维度 | 384 | 1536 |
-| 速度（100 句、CPU） | < 1 秒 | 1-2 秒（含网路） |
+| 速度（100 句、CPU） | < 1 秒 | 1-2 秒（含网络） |
 | 成本 | $0 | $0.00002 / 100 sentences |
 | Multilingual | OK（多语版见 `paraphrase-multilingual-MiniLM-L12-v2`） | 强 |
 | Long context（>512 token） | 截断 | 强 |

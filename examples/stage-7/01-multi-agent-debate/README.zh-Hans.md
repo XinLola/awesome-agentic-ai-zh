@@ -44,7 +44,7 @@ python starter_anthropic.py
 
 预算：每次 ≈ **$0.003**（3 LLM call × short prompt × claude-haiku-4-5）。
 
-## 不花钱验证程式逻辑
+## 不花钱验证程序逻辑
 
 ```bash
 python test.py             # 3 个 test、mock 3 LLM call、验 judge 看到 pro+con
@@ -78,7 +78,7 @@ judge = llm_call(
 
 | 观察项 | Anthropic Claude | Ollama qwen2.5:3b |
 |---|---|---|
-| pro / con 持立场 | 稳 | 偶尔两边都讲「平衡 view」、立场不坚定 |
+| pro / con 持立场 | 稳 | 偶尔两边都讲“平衡 view”、立场不坚定 |
 | judge 给明确 WINNER | 稳 | 偶尔不给 WINNER= 格式 |
 | reasoning 质量 | 高 | 中 |
 | 成本 | $0.003 | $0 |

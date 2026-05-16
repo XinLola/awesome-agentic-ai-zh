@@ -10,7 +10,7 @@
 
 ## 为什么这个 skill 存在
 
-Tool calling 是整个 curriculum 最陡的学习曲线——schema 设计、SDK response shape、ReAct loop 三个 mental model 叠在一起。Stage 3 doc 已经把概念讲清楚，但**遇到「我这份就是不会跑」的时候、需要互动式 debug**。
+Tool calling 是整个 curriculum 最陡的学习曲线——schema 设计、SDK response shape、ReAct loop 三个 mental model 叠在一起。Stage 3 doc 已经把概念讲清楚，但**遇到“我这份就是不会跑”的时候、需要互动式 debug**。
 
 这个 skill 补的就是这块缺：
 
@@ -23,7 +23,7 @@ Tool calling 是整个 curriculum 最陡的学习曲线——schema 设计、SDK
 
 ## 双重用途
 
-1. **学习者用**：安装后当 personal debug 助手。当你 prompt Claude Code「为什么 LLM 不调用我的 tool」、skill 自动载入、走 4-symptom 诊断。
+1. **学习者用**：安装后当 personal debug 助手。当你 prompt Claude Code“为什么 LLM 不调用我的 tool”、skill 自动载入、走 4-symptom 诊断。
 2. **Stage 5 5.3 meta-example**：学 SKILL.md 怎么写的时候，直接看这份。包含完整 frontmatter（含 trigger phrases + Do NOT use for）、`references/` 设计、`evals/evals.json` 范例。
 
 ## 怎么安装（30 秒）
@@ -55,7 +55,7 @@ cp SKILL.md references/ evals/ .claude/skills/tool-calling-tutor/
 为什么 LLM 不调用我的 tool？
 ```
 
-预期：Claude 自动载入 skill、先问你「是 (a)/(b)/(c)/(d) 哪个 symptom」、然后 branch 到对应 reference。
+预期：Claude 自动载入 skill、先问你“是 (a)/(b)/(c)/(d) 哪个 symptom”、然后 branch 到对应 reference。
 
 ## 包含什么
 

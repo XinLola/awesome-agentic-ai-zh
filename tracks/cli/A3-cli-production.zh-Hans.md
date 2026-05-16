@@ -9,7 +9,7 @@
 > 📋 **本章组成**：学习目标 → 进入条件 → 必修阅读 → 动手练习 → 精选 Projects → 自我检查
 > 🔑 **关键名词**（本章用到）：
 > - **本章一定会用**：MCP（让 CLI 接外部数据 / 工具）、CI（每次 push 自动跑检查）
-> - **延伸阅读名词**：observability（追踪 CLI 行为）、eval（量化 CLI 品质）、prompt caching（重复 context 省钱）、cost tracking（token 花费记录）
+> - **延伸阅读名词**：observability（追踪 CLI 行为）、eval（量化 CLI 质量）、prompt caching（重复 context 省钱）、cost tracking（token 花费记录）
 >
 > 完整定义见 [`resources/glossary.zh-Hans.md` 5 + 6](../../resources/glossary.zh-Hans.md#5-claude-code-生态)。
 

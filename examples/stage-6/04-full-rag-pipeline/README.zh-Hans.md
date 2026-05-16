@@ -39,7 +39,7 @@ python starter_anthropic.py
 
 预算：每次 ≈ **$0.001**。
 
-## 不花钱验证程式逻辑
+## 不花钱验证程序逻辑
 
 ```bash
 python test.py             # 5 个 test、mock LLM 验整条 pipeline
@@ -99,17 +99,17 @@ Answer:"""
 
 ## 常见坑
 
-- **prompt 没讲「only based on context」**：LLM 会自由发挥、用训练数据补答、不可控
+- **prompt 没讲“only based on context”**：LLM 会自由发挥、用训练数据补答、不可控
 - **`top_k` 设太大**：context 太长、LLM 注意力分散、可能答错
 - **`top_k` 设太小**：context 漏关键段、LLM 无法答
 - **prompt 把 context 放后面**：LLM 较重视 prompt 开头、context 应该在 question 之前
-- **没验证「答错就 say I don't know」**：production 加 5-10 个「答不出来该说 unknown」的 eval case
+- **没验证“答错就 say I don't know”**：production 加 5-10 个“答不出来该说 unknown”的 eval case
 
 ## 想看 production-grade RAG？
 
 - **Persistent ChromaDB**：`chromadb.PersistentClient(path=...)` 不重新 index
 - **Reranker**：retrieve top-20、cross-encoder rerank、留 top-3
-- **Citation**：prompt 改成「cite which context section you used」、LLM 标 [chunk_0]
+- **Citation**：prompt 改成“cite which context section you used”、LLM 标 [chunk_0]
 - **Streaming**：`client.chat.completions.create(stream=True)` 边跑边印
 - **接 LangGraph**：把 retrieve → generate 变 graph node、加 fallback path
 

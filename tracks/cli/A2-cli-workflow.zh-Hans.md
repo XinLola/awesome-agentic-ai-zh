@@ -9,7 +9,7 @@
 > 📋 **本章组成**：学习目标 → 进入条件 → 必修阅读 → 动手练习 → 精选 Projects → 自我检查
 > 🔑 **关键名词**：见 [`resources/glossary.zh-Hans.md` 5](../../resources/glossary.zh-Hans.md#5-claude-code-生态)（CLAUDE.md / slash command / SKILL.md / plugin / portable prompt）
 
-装好 CLI、跑过第一个任务之后，下一个问题：**怎么让 CLI 一致地、可重复地、可分享地做事**？这节讲 workflow pattern——把「我每次都要重打一遍 prompt」变成「设好一次后 CLI 自己会用对方法」。
+装好 CLI、跑过第一个任务之后，下一个问题：**怎么让 CLI 一致地、可重复地、可分享地做事**？这节讲 workflow pattern——把“我每次都要重打一遍 prompt”变成“设好一次后 CLI 自己会用对方法”。
 
 ## 📌 学习目标
 
@@ -65,7 +65,7 @@ description: Review staged changes for security + style
 写一个 prompt 给 Claude Code 跑成功了。**换到 Codex / OpenCode / Gemini CLI 跑同一个 prompt**——什么地方需要改？通常会发现：
 - file path convention 不同（cwd vs absolute）
 - 对“执行 shell”的权限默认不同
-- 「先 plan 再做」的 prompt 在某些 CLI 要明确说，在某些是默认行为
+- “先 plan 再做”的 prompt 在某些 CLI 要明确说，在某些是默认行为
 
 把这些差异整理成你自己的 cheat sheet。
 
@@ -119,7 +119,7 @@ official — Claude Code memory / CLAUDE.md 编写的官方说明，含 best pra
 - [ ] 写过至少 1 份你 production / 工作 repo 的 CLAUDE.md（不是 demo repo）
 - [ ] 写过至少 2 个 slash command 并实际在用
 - [ ] 把同一个 prompt 在 2 个不同 CLI 上跑过、知道差异
-- [ ] 讲得出「什么任务该拆、什么任务不该拆」的判准
+- [ ] 讲得出“什么任务该拆、什么任务不该拆”的判准
 
 如果可以 → 进 [A3 — Integration & Production](A3-cli-production.zh-Hans.md)。
 
@@ -128,6 +128,6 @@ official — Claude Code memory / CLAUDE.md 编写的官方说明，含 best pra
 ## 💡 常见坑
 
 - **CLAUDE.md 写太长**：超过 100 行 CLI 会自己 truncate / 忽略后段。Sweet spot 30-60 行。
-- **Slash command 写成「请做 X、Y、Z、A、B」一句**：CLI 容易跳步骤。改写成编号 list + 每步成功标准。
+- **Slash command 写成“请做 X、Y、Z、A、B”一句**：CLI 容易跳步骤。改写成编号 list + 每步成功标准。
 - **Portable 过头**：每个 CLI 还是有自己的特长；不要为了能跨 CLI 把 prompt 变得太抽象、失去具体性。
-- **觉得自己「都会」就不写了**：CLAUDE.md 是给未来的你（跟新成员）看的，不是给现在的你看的。
+- **觉得自己“都会”就不写了**：CLAUDE.md 是给未来的你（跟新成员）看的，不是给现在的你看的。
