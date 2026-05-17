@@ -49,6 +49,7 @@ ROOT_STEMS = [
     "CONTRIBUTORS",
     "CHANGELOG",
     "RESOURCES",
+    "CAPSTONE",
 ]
 
 
