@@ -332,6 +332,14 @@ LLM 邊生邊回（一個 token 一個 token），不是等全部生完才丟整
 
 防 LLM 做壞事的規則層——擋掉 prompt injection、PII 外流、有害輸出等。NeMo Guardrails、Guardrails AI 等。
 
+### Prompt Injection（提示注入）
+
+把惡意指令藏在 LLM 會讀到的內容裡（網頁、文件、工具回傳），誘導它無視原任務、改做攻擊者要的事。根因：LLM 分不清「指令」與「資料裡夾帶的指令」。防法：最小權限、隔離不可信內容、高風險動作人審。相關：lethal trifecta、Guardrails。
+
+### Lethal Trifecta（致命三角）
+
+Simon Willison 提出：agent 同時有（1）存取私密資料、（2）接觸不可信內容、（3）對外通訊三種能力時，就可能被 prompt injection 操控去偷資料外傳。防法是打斷至少一環（常見：切斷對外通訊或隔離不可信輸入）。
+
 ---
 
 ## 7. 用詞 / Buzzword

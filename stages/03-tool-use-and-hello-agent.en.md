@@ -126,6 +126,18 @@ You should already have:
 >
 > 🪜 **This stage is the starting point for single-agent**: one LLM + ReAct loop. For **multi-agent concepts** (multiple agents collaborating), see [Stage 4 What is a multi-agent framework](04-agent-frameworks.en.md#-what-is-a-multi-agent-framework); for **Claude's native subagent mechanism** (`.claude/agents/` + Task tool, no framework needed), see [Stage 5.5](05-claude-code-ecosystem.en.md#55--subagents-claude-codes-native-multi-agent-mechanism--2025-new-feature).
 
+### ⚠️ Know the risk first: giving an agent tools = giving it an attack surface
+
+The moment you hand an LLM tools, you also hand it an attack surface. The clearest framing is Simon Willison's **lethal trifecta**: an agent is exploitable when it simultaneously has all three of —
+
+1. **access to private data** (your files / DB / API keys)
+2. **exposure to untrusted content** (web pages, emails, documents others send — any of which can hide instructions)
+3. **the ability to communicate externally** (make requests, send mail, write files)
+
+The root cause is that an LLM "follows instructions found in content" and can't reliably tell yours apart from ones smuggled inside untrusted data — that's **prompt injection**. This stage just builds the awareness; concrete defenses (isolate untrusted input, permission gates, least-tool sets, human review of high-risk actions) come in [Stage 8](08-agent-interfaces.en.md) and [Stage 5](05-claude-code-ecosystem.en.md). Glossary: [prompt injection / lethal trifecta](../resources/glossary.en.md).
+
+---
+
 ### Exercise 1: Function Calling (One Tool, One Call)
 Give Claude a tool (a fake weather API) and a question ("Is it raining in Taipei right now?"). See how Claude calls the tool, gets the result, and then answers you.
 
@@ -418,6 +430,8 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
 </details>
 
 → **Basic starter template** → [`examples/stage-3/06-schema-design/`](../examples/stage-3/06-schema-design/) (includes a comparison of bad vs good schema versions; illustrative, **not a chapter-length full tutorial**—for in-depth chapters, see the 📚 hello-agents callout at the start of the stage)
+
+> 💡 **After hand-writing schemas, meet MCP**: the tool schemas you hand-wrote above already have a real-world standard — **MCP (Model Context Protocol)** standardizes "what a tool looks like and how to call it" into a cross-agent reusable protocol: write it once, and any MCP-capable agent (Claude Code / Cursor / …) can use it. Just remember the name here; [Stage 5.2](05-claude-code-ecosystem.en.md#52--mcp-model-context-protocol--foundation) covers it in depth.
 
 ## 🪞 Reflection (Reflexion / Self-Refine) — Concept + Routing
 

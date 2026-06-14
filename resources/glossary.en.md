@@ -332,6 +332,14 @@ Per LLM call: input tokens × input price + output tokens × output price. Costs
 
 Rule layer that prevents the LLM from doing bad things — block prompt injection, PII leakage, harmful output, etc. NeMo Guardrails, Guardrails AI, etc.
 
+### Prompt Injection
+
+Hiding malicious instructions inside content the LLM will read (web pages, documents, tool results) so it ignores its real task and does what the attacker wants. Root cause: the LLM can't tell "instructions" apart from "instructions smuggled inside data". Defenses: least privilege, isolating untrusted content, human review of high-risk actions. Related: lethal trifecta, Guardrails.
+
+### Lethal Trifecta
+
+Simon Willison's framing: an agent becomes exploitable when it has all three of (1) access to private data, (2) exposure to untrusted content, (3) the ability to communicate externally — at which point prompt injection can make it steal and exfiltrate data. The defense is to break at least one leg (commonly: cut external comms, or isolate untrusted input).
+
 ---
 
 ## 7. Buzzwords / Loose Terms

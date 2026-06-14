@@ -126,6 +126,18 @@
 >
 > 🪜 **本 stage 是 single-agent 起点**：一个 LLM + ReAct loop。**Multi-agent 概念**（多个 agent 协作）入门看 [Stage 4 什么是 multi-agent framework](04-agent-frameworks.zh-Hans.md#-什么是-multi-agent-framework)、**Claude 原生 subagent 机制**（`.claude/agents/` + Task tool、不需 framework）看 [Stage 5.5](05-claude-code-ecosystem.zh-Hans.md#55--subagentsclaude-code-原生-multi-agent-机制-2025-新功能)。
 
+### ⚠️ 先懂风险：给 agent 工具 = 给它一个攻击面
+
+把工具交给 LLM 的那一刻，你也给了它一个攻击面。最清楚的框架是 Simon Willison 的 **lethal trifecta（致命三角）**：当一个 agent 同时具备这三件事，就可能被攻击者操控去偷数据再外传——
+
+1. **能访问私密数据**（你的文件 / DB / API key）
+2. **会接触不可信内容**（网页、Email、别人传的文档，里面可能藏指令）
+3. **能对外发送东西**（发 request、寄信、写文件）
+
+根因是 LLM 会“照内容里的指令做”，分不清哪些是你下的、哪些是不可信数据里夹带的——这就是 **prompt injection**。本阶段先建立这个意识就好，具体防法（隔离不可信输入、权限 gate、最小工具集、高风险动作要人审）在 [Stage 8](08-agent-interfaces.zh-Hans.md) 与 [Stage 5](05-claude-code-ecosystem.zh-Hans.md) 细谈。词表：[prompt injection / lethal trifecta](../resources/glossary.zh-Hans.md)。
+
+---
+
 ### 练习 1：Function Calling（一个工具、一次调用）
 给 Claude 一个工具（假的天气 API）跟一个问题（“台北现在有下雨吗？”）。看 Claude 怎么调用工具、拿到结果、再回答你。
 
@@ -418,6 +430,8 @@ messages.append({"role": "tool", "tool_call_id": tc.id,
 </details>
 
 → **基础 starter 范本** → [`examples/stage-3/06-schema-design/`](../examples/stage-3/06-schema-design/)（含 bad schema vs good schema 两个版本对照；illustrative，**不是 chapter-length 完整教程**——深度章节见 stage 开头 📚 hello-agents callout）
+
+> 💡 **手写 schema 之后，认识 MCP**：你上面手写的 tool schema，真实世界已经有标准——**MCP（Model Context Protocol）** 把“工具长什么样、怎么调用”标准化成跨 agent 可复用的协定：写一次，任何支持 MCP 的 agent（Claude Code / Cursor / …）都能用。这里先记得这个名字，[Stage 5.2](05-claude-code-ecosystem.zh-Hans.md#52--mcpmodel-context-protocol-基础) 细讲。
 
 ## 🪞 反思（Reflexion / Self-Refine）— 概念 + 路由
 
