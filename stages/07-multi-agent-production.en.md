@@ -34,6 +34,8 @@ Engineering work can be split into three layers, corresponding to different posi
 | 2 | **Context Engineering** | What information should the model receive this time? | **context across multiple interactions** | [Stage 6](06-memory-rag.md) |
 | **3** | **Harness Engineering**<br>(**This stage**) | How does the whole workflow run? | **executable LLM workflow / system** | **This stage** |
 
+> 🔁 **The next layer: Loop Engineering**. After prompt → context → harness, the fourth discipline emerging in 2026 is **engineering the agent's iteration loop itself**: the goal, available tools, context management, **termination logic**, and error handling that keep an agent reliable across hundreds of steps and multiple sessions. Claude Code's `/goal` (give a verifiable completion condition and the agent loops until it is met) is exactly this; [Stage 5.6 Dynamic Workflows](05-claude-code-ecosystem.en.md) is the agent writing its own loop script. Lineage: ReAct (2022) → AutoGPT (2023) → /goal (2026).
+
 **Plain-language difference**:
 - **Prompt** = design a good way of asking so the model answers correctly this time
 - **Context** = dynamically decide which background, memory, documents, and tool results to include so the model understands the current situation
