@@ -37,12 +37,19 @@
 }
 .aaz-cta .md-button { border-radius: 24px; }
 .aaz-langs { display: flex; gap: .4rem; justify-content: center; flex-wrap: wrap; }
-.aaz-langs span {
+.aaz-langs a {
   font-size: .72rem;
   color: var(--md-default-fg-color--light);
   border: 1px solid var(--md-default-fg-color--lighter);
   border-radius: 20px;
   padding: .15rem .7rem;
+  text-decoration: none;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+.aaz-langs a:hover {
+  color: var(--md-accent-fg-color);
+  border-color: var(--md-accent-fg-color);
+  background: var(--md-default-fg-color--lightest);
 }
 
 /* ---- Stat strip ---- */

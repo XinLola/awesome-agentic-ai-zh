@@ -16,7 +16,7 @@ hide:
 [:material-map-outline: 完整路線圖](ROADMAP.md){ .md-button }
 </div>
 
-<div class="aaz-langs"><span>繁體中文</span><span>简体中文</span><span>English</span></div>
+<div class="aaz-langs"><a href="/awesome-agentic-ai-zh/">繁體中文</a><a href="/awesome-agentic-ai-zh/zh-Hans/">简体中文</a><a href="/awesome-agentic-ai-zh/en/">English</a></div>
 </div>
 
 <div class="aaz-stats" markdown>
